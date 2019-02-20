@@ -65,6 +65,7 @@ enum NewsAPICountry: String {
     case Venezuela                           = "VE"
     
     func countryCode() -> String {
-        return self.rawValue.lowercased
+        return self.rawValue.lowercased()
     }
+    
 }
