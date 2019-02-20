@@ -12,6 +12,11 @@
 		36FEDDBA221DAD7400FEABBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36FEDDB8221DAD7400FEABBE /* Main.storyboard */; };
 		36FEDDBC221DAD7500FEABBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36FEDDBB221DAD7500FEABBE /* Assets.xcassets */; };
 		36FEDDBF221DAD7500FEABBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36FEDDBD221DAD7500FEABBE /* LaunchScreen.storyboard */; };
+		36FEDDCE221DAEBB00FEABBE /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDCD221DAEBB00FEABBE /* NetworkClient.swift */; };
+		36FEDDD1221DAFEA00FEABBE /* NewsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDD0221DAFEA00FEABBE /* NewsAPI.swift */; };
+		36FEDDD5221DB23800FEABBE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDD4221DB23800FEABBE /* Result.swift */; };
+		36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDD7221DB38700FEABBE /* NewsArticle.swift */; };
+		36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */; };
 		5999F5662013780711C585F5 /* Pods_Minius.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DCF087C6A87C6A659FBABCC /* Pods_Minius.framework */; };
 /* End PBXBuildFile section */
 
@@ -24,6 +29,11 @@
 		36FEDDBB221DAD7500FEABBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		36FEDDBE221DAD7500FEABBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		36FEDDC0221DAD7500FEABBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		36FEDDCD221DAEBB00FEABBE /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		36FEDDD0221DAFEA00FEABBE /* NewsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPI.swift; sourceTree = "<group>"; };
+		36FEDDD4221DB23800FEABBE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		36FEDDD7221DB38700FEABBE /* NewsArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticle.swift; sourceTree = "<group>"; };
+		36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIResponse.swift; sourceTree = "<group>"; };
 		3DCF087C6A87C6A659FBABCC /* Pods_Minius.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minius.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75DA7E48D6ECA85BC02BA245 /* Pods-Minius.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,6 +71,8 @@
 		36FEDDB3221DAD7400FEABBE /* Minius */ = {
 			isa = PBXGroup;
 			children = (
+				36FEDDD6221DB37800FEABBE /* Models */,
+				36FEDDCB221DAEA500FEABBE /* Clients */,
 				36FEDDCA221DADCB00FEABBE /* Supporting Files */,
 				36FEDDC9221DADC500FEABBE /* Resources */,
 				36FEDDC8221DADB600FEABBE /* Storyboards */,
@@ -109,6 +121,73 @@
 				36FEDDC0221DAD7500FEABBE /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		36FEDDCB221DAEA500FEABBE /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDCF221DAFD900FEABBE /* API */,
+				36FEDDCC221DAEAB00FEABBE /* Network */,
+			);
+			path = Clients;
+			sourceTree = "<group>";
+		};
+		36FEDDCC221DAEAB00FEABBE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDCD221DAEBB00FEABBE /* NetworkClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		36FEDDCF221DAFD900FEABBE /* API */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDD2221DB15800FEABBE /* News */,
+				36FEDDD4221DB23800FEABBE /* Result.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		36FEDDD2221DB15800FEABBE /* News */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDDA221DB3C900FEABBE /* Entities */,
+				36FEDDD3221DB16200FEABBE /* Requests */,
+				36FEDDD0221DAFEA00FEABBE /* NewsAPI.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		36FEDDD3221DB16200FEABBE /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		36FEDDD6221DB37800FEABBE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDD9221DB3A600FEABBE /* News */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		36FEDDD9221DB3A600FEABBE /* News */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDD7221DB38700FEABBE /* NewsArticle.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		36FEDDDA221DB3C900FEABBE /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		9ADDE73296CBFF04ECA2FA1C /* Pods */ = {
@@ -222,7 +301,9 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Minius/Pods-Minius-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -230,7 +311,9 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -249,7 +332,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				36FEDDB7221DAD7400FEABBE /* ViewController.swift in Sources */,
+				36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */,
+				36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */,
+				36FEDDD5221DB23800FEABBE /* Result.swift in Sources */,
 				36FEDDB5221DAD7400FEABBE /* AppDelegate.swift in Sources */,
+				36FEDDCE221DAEBB00FEABBE /* NetworkClient.swift in Sources */,
+				36FEDDD1221DAFEA00FEABBE /* NewsAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
