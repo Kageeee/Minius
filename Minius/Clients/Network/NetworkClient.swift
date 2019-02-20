@@ -7,12 +7,42 @@
 //
 
 import Foundation
+import RxSwift
+import Alamofire
+import RxAlamofire
+
+struct APIRequest {
+    let method: HTTPMethod
+    let request: URL
+}
 
 class NetworkClient {
     
     static let shared = NetworkClient()
     
+    private let sessionManager = SessionManager.default
+    private var disposeBag = DisposeBag()
+    
     init() {
+        
+    }
+    
+    func execute<T>(request: URLRequest) -> Observable<(Result<T>)> where T: Codable {
+        return sessionManager.rx
+            .request(urlRequest: request)
+            .validate(statusCode: 200...299)
+            .data()
+            .flatMap { data -> Observable<(Result<T>)> in
+                do {
+                    let obj = try JSONDecoder().decode(T.self, from: data)
+                    print(obj)
+                    return Observable.just(.success(obj))
+                } catch let error {
+                    print("PARSE ERROR = \(error)")
+                    return Observable.just(.failure(error))
+                }
+                
+            }
         
     }
     

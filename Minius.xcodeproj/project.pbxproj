@@ -17,6 +17,10 @@
 		36FEDDD5221DB23800FEABBE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDD4221DB23800FEABBE /* Result.swift */; };
 		36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDD7221DB38700FEABBE /* NewsArticle.swift */; };
 		36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */; };
+		36FEDDDE221DBA4700FEABBE /* GetTopHeadlinesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDDD221DBA4700FEABBE /* GetTopHeadlinesRequest.swift */; };
+		36FEDDE1221DBAA200FEABBE /* APIRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDE0221DBAA200FEABBE /* APIRequestProtocol.swift */; };
+		36FEDDE3221DBD4600FEABBE /* NewsAPIRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDE2221DBD4600FEABBE /* NewsAPIRequestProtocol.swift */; };
+		36FEDDE6221DBE0700FEABBE /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDE5221DBE0700FEABBE /* HTTPHeaders.swift */; };
 		5999F5662013780711C585F5 /* Pods_Minius.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DCF087C6A87C6A659FBABCC /* Pods_Minius.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +38,10 @@
 		36FEDDD4221DB23800FEABBE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		36FEDDD7221DB38700FEABBE /* NewsArticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticle.swift; sourceTree = "<group>"; };
 		36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIResponse.swift; sourceTree = "<group>"; };
+		36FEDDDD221DBA4700FEABBE /* GetTopHeadlinesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopHeadlinesRequest.swift; sourceTree = "<group>"; };
+		36FEDDE0221DBAA200FEABBE /* APIRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestProtocol.swift; sourceTree = "<group>"; };
+		36FEDDE2221DBD4600FEABBE /* NewsAPIRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIRequestProtocol.swift; sourceTree = "<group>"; };
+		36FEDDE5221DBE0700FEABBE /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
 		3DCF087C6A87C6A659FBABCC /* Pods_Minius.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Minius.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75DA7E48D6ECA85BC02BA245 /* Pods-Minius.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.release.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +151,8 @@
 		36FEDDCF221DAFD900FEABBE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				36FEDDE4221DBDF900FEABBE /* Enums */,
+				36FEDDDF221DBA8700FEABBE /* Protocols */,
 				36FEDDD2221DB15800FEABBE /* News */,
 				36FEDDD4221DB23800FEABBE /* Result.swift */,
 			);
@@ -162,6 +172,8 @@
 		36FEDDD3221DB16200FEABBE /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				36FEDDDD221DBA4700FEABBE /* GetTopHeadlinesRequest.swift */,
+				36FEDDE2221DBD4600FEABBE /* NewsAPIRequestProtocol.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -188,6 +200,22 @@
 				36FEDDDB221DB3D700FEABBE /* NewsAPIResponse.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		36FEDDDF221DBA8700FEABBE /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDE0221DBAA200FEABBE /* APIRequestProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		36FEDDE4221DBDF900FEABBE /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDE5221DBE0700FEABBE /* HTTPHeaders.swift */,
+			);
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		9ADDE73296CBFF04ECA2FA1C /* Pods */ = {
@@ -331,13 +359,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36FEDDDE221DBA4700FEABBE /* GetTopHeadlinesRequest.swift in Sources */,
 				36FEDDB7221DAD7400FEABBE /* ViewController.swift in Sources */,
 				36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */,
 				36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */,
+				36FEDDE1221DBAA200FEABBE /* APIRequestProtocol.swift in Sources */,
 				36FEDDD5221DB23800FEABBE /* Result.swift in Sources */,
 				36FEDDB5221DAD7400FEABBE /* AppDelegate.swift in Sources */,
 				36FEDDCE221DAEBB00FEABBE /* NetworkClient.swift in Sources */,
 				36FEDDD1221DAFEA00FEABBE /* NewsAPI.swift in Sources */,
+				36FEDDE3221DBD4600FEABBE /* NewsAPIRequestProtocol.swift in Sources */,
+				36FEDDE6221DBE0700FEABBE /* HTTPHeaders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,7 +518,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3D83YHARN;
-				INFOPLIST_FILE = Minius/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Minius/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,7 +537,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3D83YHARN;
-				INFOPLIST_FILE = Minius/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Minius/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
