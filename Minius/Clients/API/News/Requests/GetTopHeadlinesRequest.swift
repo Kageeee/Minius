@@ -15,11 +15,11 @@ class GetTopHeadlinesRequest : NewsAPIRequestProtocol {
     var body: HTTPBodyType?
     var method: HTTPMethod
     
-    init(country: String = "pt") {
+    init(country: NewsAPICountry = .Portugal) {
         body = nil
         method = .get
         
-        let urlString = NewsAPI.sharedInstance.getURLString(for: .topHeadlines) + "?country=\(country)"
+        let urlString = NewsAPI.sharedInstance.getURLString(for: .topHeadlines) + "?country=\(country.countryCode())"
         url = URL(string: urlString)!
     }
     
