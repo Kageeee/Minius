@@ -11,9 +11,9 @@ import Foundation
 struct NewsAPIResponse: Codable {
     let status: String
     let totalResults: Int
-    let articles: [Article]
+    let articles: [NewsArticle]
     
-    init(status: String, totalResults: Int, articles: [Article]) {
+    init(status: String, totalResults: Int, articles: [NewsArticle]) {
         self.status = status
         self.totalResults = totalResults
         self.articles = articles

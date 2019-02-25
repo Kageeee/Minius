@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5D76222417BA00C76300 /* DependencyInjector.swift */; };
+		366EF9792224346200CE345E /* GetTopHeadlinesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */; };
+		366EF97D2224354700CE345E /* APINewsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF97C2224354700CE345E /* APINewsGateway.swift */; };
 		36F558FC221EAA5900CA9B69 /* NewsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F558FB221EAA5900CA9B69 /* NewsGateway.swift */; };
 		36F558FE221EAAF500CA9B69 /* NewsAPICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F558FD221EAAF500CA9B69 /* NewsAPICategory.swift */; };
 		36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F55900221EADCA00CA9B69 /* RequestError.swift */; };
@@ -33,6 +35,8 @@
 /* Begin PBXFileReference section */
 		2E3BA71690189701FE9942CE /* Pods-Minius.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.debug.xcconfig"; sourceTree = "<group>"; };
 		360B5D76222417BA00C76300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopHeadlinesUseCase.swift; sourceTree = "<group>"; };
+		366EF97C2224354700CE345E /* APINewsGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINewsGateway.swift; sourceTree = "<group>"; };
 		36F558FB221EAA5900CA9B69 /* NewsGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsGateway.swift; sourceTree = "<group>"; };
 		36F558FD221EAAF500CA9B69 /* NewsAPICategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPICategory.swift; sourceTree = "<group>"; };
 		36F55900221EADCA00CA9B69 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
@@ -73,6 +77,7 @@
 		360B5D73222416E600C76300 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -115,6 +120,7 @@
 				36F55902221EAEAC00CA9B69 /* Configurations */,
 				36FEDDDA221DB3C900FEABBE /* Entities */,
 				36FEDDD3221DB16200FEABBE /* Requests */,
+				366EF97C2224354700CE345E /* APINewsGateway.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -464,10 +470,12 @@
 			files = (
 				36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */,
 				36FEDDDE221DBA4700FEABBE /* GetTopHeadlinesRequest.swift in Sources */,
+				366EF9792224346200CE345E /* GetTopHeadlinesUseCase.swift in Sources */,
 				36F558FC221EAA5900CA9B69 /* NewsGateway.swift in Sources */,
 				36FEDDB7221DAD7400FEABBE /* ViewController.swift in Sources */,
 				36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */,
 				36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */,
+				366EF97D2224354700CE345E /* APINewsGateway.swift in Sources */,
 				36FEDDEB221DC94700FEABBE /* NewsAPIError.swift in Sources */,
 				36F558FE221EAAF500CA9B69 /* NewsAPICategory.swift in Sources */,
 				36FEDDE1221DBAA200FEABBE /* APIRequestProtocol.swift in Sources */,

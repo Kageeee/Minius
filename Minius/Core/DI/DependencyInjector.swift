@@ -17,6 +17,12 @@ class DependencyInjector {
 
 extension SwinjectStoryboard {
     @objc class func setup() {
+        defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init)
+        defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init)
+        print("SUCCESS")
         
+        defaultContainer.storyboardInitCompleted(ViewController.self) { (resolver, controller) in
+            controller.getTopHeadlinesUseCase = resolver.resolve(GetTopHeadlinesUseCase.self)
+        }
     }
 }

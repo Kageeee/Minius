@@ -10,21 +10,16 @@ import UIKit
 import RxSwift
 
 class ViewController: UIViewController {
+    
+    var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        guard let request = try! GetTopHeadlinesRequest().toURLRequest() else { return }
-        let test: Observable<Result<NewsAPIResponse>> = NetworkClient.shared.execute(request: request)
         
-        test.subscribe(onNext: { (result) in
-            switch result {
-            case .success(let response):
-                print(response)
-            case .failure(let error):
-                print(error)
-            }
-        })
+        getTopHeadlinesUseCase.getTopHeadlines(for: .Portugal) { (articles) in
+            print(articles?.count)
+        }
         
     }
 
