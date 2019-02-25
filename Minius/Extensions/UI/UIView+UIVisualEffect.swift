@@ -15,7 +15,7 @@ extension UIView {
         let blurEffect = UIBlurEffect(style: style)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = customBounds != nil ? customBounds! : self.bounds
-        blurView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin];
+//        blurView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin];
         blurView.tag = 111
         blurView.alpha = alpha
         return blurView
@@ -43,6 +43,7 @@ extension UIView {
     }
     
     func addDefaultConstraints(referencing view: UIView) {
+        translatesAutoresizingMaskIntoConstraints = false
         addLeadingAnchor(to: view.leadingAnchor)
         addTrailingAnchor(to: view.trailingAnchor)
         addBottomAnchor(to: view.bottomAnchor)

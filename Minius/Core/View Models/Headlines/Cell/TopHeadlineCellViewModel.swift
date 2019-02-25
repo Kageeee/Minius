@@ -9,6 +9,6 @@
 import Foundation
 
 struct TopHeadlineCellViewModel {
-    let imageURL: String
+    let imageURL: String?
     let title: String
 }

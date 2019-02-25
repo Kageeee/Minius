@@ -45,11 +45,12 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     func configure(cellViewModel: TopHeadlineCellViewModel) {
         let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: 1)
         blurEffectView.layer.mask = createGradientLayer()
-        blurEffectView.addDefaultConstraints(referencing: _overlayView)
         _overlayView.addSubview(blurEffectView)
+        blurEffectView.addDefaultConstraints(referencing: _overlayView)
         _titleLabel.text = cellViewModel.title
         
-        fetchImageUseCase?.fetchImage(for: cellViewModel.imageURL, completionHandler: { [weak self] (image) in
+        guard let imageURL = cellViewModel.imageURL else { return }
+        fetchImageUseCase?.fetchImage(for: imageURL, completionHandler: { [weak self] (image) in
             guard let self = self else { return }
             guard let image = image else { return }
             self._ivBackground.image = image
