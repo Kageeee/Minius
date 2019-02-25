@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5D76222417BA00C76300 /* DependencyInjector.swift */; };
+		36F558FC221EAA5900CA9B69 /* NewsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F558FB221EAA5900CA9B69 /* NewsGateway.swift */; };
+		36F558FE221EAAF500CA9B69 /* NewsAPICategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F558FD221EAAF500CA9B69 /* NewsAPICategory.swift */; };
+		36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F55900221EADCA00CA9B69 /* RequestError.swift */; };
 		36FEDDB5221DAD7400FEABBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDB4221DAD7400FEABBE /* AppDelegate.swift */; };
 		36FEDDB7221DAD7400FEABBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FEDDB6221DAD7400FEABBE /* ViewController.swift */; };
 		36FEDDBA221DAD7400FEABBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36FEDDB8221DAD7400FEABBE /* Main.storyboard */; };
@@ -28,6 +32,10 @@
 
 /* Begin PBXFileReference section */
 		2E3BA71690189701FE9942CE /* Pods-Minius.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.debug.xcconfig"; sourceTree = "<group>"; };
+		360B5D76222417BA00C76300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		36F558FB221EAA5900CA9B69 /* NewsGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsGateway.swift; sourceTree = "<group>"; };
+		36F558FD221EAAF500CA9B69 /* NewsAPICategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPICategory.swift; sourceTree = "<group>"; };
+		36F55900221EADCA00CA9B69 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		36FEDDB1221DAD7400FEABBE /* Minius.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Minius.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36FEDDB4221DAD7400FEABBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36FEDDB6221DAD7400FEABBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +70,78 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		360B5D73222416E600C76300 /* News */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		360B5D74222417A600C76300 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				360B5D75222417AE00C76300 /* DI */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		360B5D75222417AE00C76300 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				360B5D76222417BA00C76300 /* DependencyInjector.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		36F558F6221EA79A00CA9B69 /* Use Cases */ = {
+			isa = PBXGroup;
+			children = (
+				360B5D73222416E600C76300 /* News */,
+			);
+			path = "Use Cases";
+			sourceTree = "<group>";
+		};
+		36F558F7221EA94100CA9B69 /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDD2221DB15800FEABBE /* News */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		36F558F8221EA96000CA9B69 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				36F55902221EAEAC00CA9B69 /* Configurations */,
+				36FEDDDA221DB3C900FEABBE /* Entities */,
+				36FEDDD3221DB16200FEABBE /* Requests */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		36F558FA221EA96B00CA9B69 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		36F558FF221EADC100CA9B69 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				36F55900221EADCA00CA9B69 /* RequestError.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		36F55902221EAEAC00CA9B69 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				36FEDDD0221DAFEA00FEABBE /* NewsAPI.swift */,
+			);
+			path = Configurations;
+			sourceTree = "<group>";
+		};
 		36FEDDA8221DAD7400FEABBE = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +163,9 @@
 		36FEDDB3221DAD7400FEABBE /* Minius */ = {
 			isa = PBXGroup;
 			children = (
+				360B5D74222417A600C76300 /* Core */,
+				36F558F7221EA94100CA9B69 /* Gateways */,
+				36F558F6221EA79A00CA9B69 /* Use Cases */,
 				36FEDDD6221DB37800FEABBE /* Models */,
 				36FEDDCB221DAEA500FEABBE /* Clients */,
 				36FEDDCA221DADCB00FEABBE /* Supporting Files */,
@@ -138,7 +221,6 @@
 		36FEDDCB221DAEA500FEABBE /* Clients */ = {
 			isa = PBXGroup;
 			children = (
-				36FEDDCF221DAFD900FEABBE /* API */,
 				36FEDDCC221DAEAB00FEABBE /* Network */,
 			);
 			path = Clients;
@@ -147,6 +229,7 @@
 		36FEDDCC221DAEAB00FEABBE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				36FEDDCF221DAFD900FEABBE /* API */,
 				36FEDDCD221DAEBB00FEABBE /* NetworkClient.swift */,
 			);
 			path = Network;
@@ -155,9 +238,9 @@
 		36FEDDCF221DAFD900FEABBE /* API */ = {
 			isa = PBXGroup;
 			children = (
+				36F558FF221EADC100CA9B69 /* Entities */,
 				36FEDDE4221DBDF900FEABBE /* Enums */,
 				36FEDDDF221DBA8700FEABBE /* Protocols */,
-				36FEDDD2221DB15800FEABBE /* News */,
 				36FEDDD4221DB23800FEABBE /* Result.swift */,
 			);
 			path = API;
@@ -167,11 +250,12 @@
 			isa = PBXGroup;
 			children = (
 				36FEDDE7221DC7BF00FEABBE /* Enums */,
-				36FEDDDA221DB3C900FEABBE /* Entities */,
-				36FEDDD3221DB16200FEABBE /* Requests */,
-				36FEDDD0221DAFEA00FEABBE /* NewsAPI.swift */,
+				36F558F8221EA96000CA9B69 /* API */,
+				36F558FA221EA96B00CA9B69 /* Local */,
+				36F558FB221EAA5900CA9B69 /* NewsGateway.swift */,
 			);
-			path = News;
+			name = News;
+			path = ../Clients/News;
 			sourceTree = "<group>";
 		};
 		36FEDDD3221DB16200FEABBE /* Requests */ = {
@@ -228,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				36FEDDE8221DC7CD00FEABBE /* NewsAPICountry.swift */,
+				36F558FD221EAAF500CA9B69 /* NewsAPICategory.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -350,6 +435,8 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
+				"${BUILT_PRODUCTS_DIR}/SwinjectAutoregistration/SwinjectAutoregistration.framework",
+				"${BUILT_PRODUCTS_DIR}/SwinjectStoryboard/SwinjectStoryboard.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -360,6 +447,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectAutoregistration.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectStoryboard.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -373,11 +462,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */,
 				36FEDDDE221DBA4700FEABBE /* GetTopHeadlinesRequest.swift in Sources */,
+				36F558FC221EAA5900CA9B69 /* NewsGateway.swift in Sources */,
 				36FEDDB7221DAD7400FEABBE /* ViewController.swift in Sources */,
 				36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */,
 				36FEDDDC221DB3D700FEABBE /* NewsAPIResponse.swift in Sources */,
 				36FEDDEB221DC94700FEABBE /* NewsAPIError.swift in Sources */,
+				36F558FE221EAAF500CA9B69 /* NewsAPICategory.swift in Sources */,
 				36FEDDE1221DBAA200FEABBE /* APIRequestProtocol.swift in Sources */,
 				36FEDDD5221DB23800FEABBE /* Result.swift in Sources */,
 				36FEDDE9221DC7CD00FEABBE /* NewsAPICountry.swift in Sources */,
@@ -385,6 +477,7 @@
 				36FEDDCE221DAEBB00FEABBE /* NetworkClient.swift in Sources */,
 				36FEDDD1221DAFEA00FEABBE /* NewsAPI.swift in Sources */,
 				36FEDDE3221DBD4600FEABBE /* NewsAPIRequestProtocol.swift in Sources */,
+				360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */,
 				36FEDDE6221DBE0700FEABBE /* HTTPHeaders.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

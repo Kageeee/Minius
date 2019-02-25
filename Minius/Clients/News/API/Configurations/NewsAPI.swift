@@ -12,15 +12,16 @@ enum NewsAPIEndpoint {
     case topHeadlines
 }
 
-enum NewsAPIQueryParameters: String {
-    case Country
+protocol NewsAPIConfiguration {
+    func getKey() -> String
+    func getHost() -> String
+    func getURLString(for endpoint: NewsAPIEndpoint) -> String
 }
 
-class NewsAPI {
+class NewsAPI: NewsAPIConfiguration {
     
     private let _apiKey = "c5eb4a36ccf84cb9b15aa9b24b62dfe8"
     private let _host = "https://newsapi.org/v2"
-    
     private let _topHeadlinesEndpoint = "/top-headlines"
     
     static let sharedInstance = NewsAPI()
