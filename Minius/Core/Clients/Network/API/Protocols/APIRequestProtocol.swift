@@ -19,3 +19,23 @@ protocol APIRequestProtocol {
     
     func toURLRequest() -> URLRequest?
 }
+
+extension APIRequestProtocol {
+    
+    var headers     : [String: String]? {
+        return nil
+    }
+    
+    var body        : HTTPBodyType? {
+        return nil
+    }
+    
+    var method      : HTTPMethod {
+        return .get
+    }
+    
+    func toURLRequest() -> URLRequest? {
+        return try? URLRequest(url: url, method: method, headers: headers)
+    }
+    
+}

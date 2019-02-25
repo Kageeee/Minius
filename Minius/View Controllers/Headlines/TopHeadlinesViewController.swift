@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-class ViewController: UIViewController {
+class TopHeadlinesViewController: UIViewController {
     
     var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
 

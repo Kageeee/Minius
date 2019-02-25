@@ -14,4 +14,8 @@ struct RequestError {
         case unwrapURL
     }
     
+    enum ParsingRequest: Error {
+        case imageDataCorrupt
+    }
+    
 }

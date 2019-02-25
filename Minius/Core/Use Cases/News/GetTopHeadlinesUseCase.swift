@@ -26,8 +26,9 @@ class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
     }
     
     func getTopHeadlines(for country: NewsAPICountry, completionHandler: @escaping ([NewsArticle]?) -> ()) {
-        newsGateway?.getTopHeadlines(for: country, completionHandler: { (observableResult) in
-            _ = observableResult.subscribe(onSuccess: { result in
+        newsGateway?.getTopHeadlines(for: country, completionHandler: { [weak self] (observableResult) in
+            guard let self = self else { return }
+            observableResult.subscribe(onSuccess: { result in
                 switch result {
                 case .success(let response):
                     completionHandler(response.articles)
@@ -37,6 +38,7 @@ class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
             }, onError: { error in
                 completionHandler(nil)
             })
+            .disposed(by: self.disposeBag)
         })
     }
     

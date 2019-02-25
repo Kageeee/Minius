@@ -33,8 +33,4 @@ class GetTopHeadlinesRequest : NewsAPIRequestProtocol {
         url = finalURL!
     }
     
-    func toURLRequest() -> URLRequest? {
-        return try? URLRequest(url: url, method: method, headers: headers)
-    }
-    
 }

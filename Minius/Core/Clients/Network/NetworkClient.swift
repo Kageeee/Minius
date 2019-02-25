@@ -46,4 +46,16 @@ class NetworkClient {
         
     }
     
+    func downloadImage(request: URLRequest) -> Observable<(Result<UIImage>)> {
+        return sessionManager.rx
+            .request(urlRequest: request)
+            .validate(statusCode: 200...299)
+            .data()
+            .flatMap { downloadedData -> Observable<(Result<UIImage>)> in
+                guard let image = UIImage(data: downloadedData) else { return Observable.just(.failure(RequestError.ParsingRequest.imageDataCorrupt)) }
+                return Observable.just(.success(image))
+            }
+        
+    }
+    
 }

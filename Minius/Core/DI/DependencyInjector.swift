@@ -13,16 +13,26 @@ import SwinjectAutoregistration
 
 class DependencyInjector {
     
+    static func getFetchImageUseCase() -> FetchImageUseCase? {
+        return SwinjectStoryboard.defaultContainer.resolve(FetchImageUseCase.self)
+    }
+    
 }
 
 extension SwinjectStoryboard {
     @objc class func setup() {
+        
+        //News
         defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init)
         defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init)
-        print("SUCCESS")
         
-        defaultContainer.storyboardInitCompleted(ViewController.self) { (resolver, controller) in
+        //Images
+        defaultContainer.autoregister(ImagesGateway.self, initializer: APIImagesGatewayImplementation.init)
+        defaultContainer.autoregister(FetchImageUseCase.self, initializer: FetchImageUseCaseImplementation.init)
+        
+        defaultContainer.storyboardInitCompleted(TopHeadlinesViewController.self) { (resolver, controller) in
             controller.getTopHeadlinesUseCase = resolver.resolve(GetTopHeadlinesUseCase.self)
         }
+        
     }
 }
