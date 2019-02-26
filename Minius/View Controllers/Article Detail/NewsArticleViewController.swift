@@ -22,6 +22,7 @@ class NewsArticleViewController: UIViewController {
     @IBOutlet private weak var _lblArticleTitle: UILabel! {
         didSet {
             _lblArticleTitle.hero.id = "lblTitle"
+            _lblArticleTitle.hero.modifiers = [.fade]
         }
     }
     @IBOutlet private weak var _lblDetailText: UILabel!

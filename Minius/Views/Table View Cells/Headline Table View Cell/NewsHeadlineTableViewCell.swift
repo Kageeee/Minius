@@ -42,15 +42,16 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        _overlayViewBottomConstraint.constant = selected ? _overlayView.bounds.height : 0
-        UIView.animate(withDuration: 1) { [weak self] in
-            self?.layoutIfNeeded()
-        }
+//        super.setSelected(selected, animated: animated)
+//        _overlayViewBottomConstraint.constant = selected ? _overlayView.bounds.height : 0
+//        UIView.animate(withDuration: 1) { [weak self] in
+//            self?.layoutIfNeeded()
+//        }
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
         _ivBackground.image = nil
     }
     
@@ -59,9 +60,10 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         
         _overlayView.removeBlurEffect()
         _overlayView.insertSubview(blurEffectView, at: 0)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.addDefaultConstraints(referencing: _overlayView)
         blurEffectView.layer.mask = createGradientLayer(with: _overlayView.bounds)
-        
+        blurEffectView.layoutIfNeeded()
         _titleLabel.text = cellViewModel.title
         
         guard let imageURL = cellViewModel.imageURL else { return }
@@ -69,6 +71,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
             guard let self = self else { return }
             guard let image = image else { return }
             self.layoutIfNeeded()
+            
             UIView.transition(with: self._ivBackground, duration: 1, options: [.transitionCrossDissolve], animations: {
                 self._ivBackground.image = image
             }, completion: { isCompleted in

@@ -18,26 +18,59 @@ protocol FetchImageUseCase {
 class FetchImageUseCaseImplementation: FetchImageUseCase {
     
     let disposeBag = DisposeBag()
-    let imagesGateway: ImagesGateway?
+    let apiImagesGateway: APIImagesGateway?
+    let localImagesGateway: LocalImagesGateway?
     
-    init(imagesGateway: ImagesGateway) {
-        self.imagesGateway = imagesGateway
+    init(apiImagesGateway: APIImagesGateway, localImagesGateway: LocalImagesGateway) {
+        self.apiImagesGateway   = apiImagesGateway
+        self.localImagesGateway = localImagesGateway
     }
     
     func fetchImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler) {
-        imagesGateway?.fetchImage(for: urlString, completionHandler: { [weak self] (observableResult) in
+        
+        fetchCachedImage(for: urlString) { [weak self] (image) in
             guard let self = self else { return }
-            observableResult.subscribe(onSuccess: { result in
+            if let image = image {
+                completionHandler(image)
+                return
+            }
+            self.fetchNetworkImage(for: urlString, completionHandler: { (image) in
+                self.localImagesGateway?.addImageToCache(image: image, key: urlString)
+                completionHandler(image)
+            })
+        }
+        
+    }
+    
+    private func fetchCachedImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler) {
+        localImagesGateway?.fetchImage(for: urlString, completionHandler: { [weak self] (observableResult) in
+            guard let self = self else { return }
+            observableResult.subscribe(onSuccess: { (result) in
                 switch result {
                 case .success(let image):
                     completionHandler(image)
-                case .failure(let error):
+                case .failure(_):
                     completionHandler(nil)
                 }
-            }, onError: { error in
+            }, onError: { _ in
                 completionHandler(nil)
-            })
-            .disposed(by: self.disposeBag)
+            }).disposed(by: self.disposeBag)
+        })
+    }
+    
+    private func fetchNetworkImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler) {
+        apiImagesGateway?.fetchImage(for: urlString, completionHandler: { [weak self] (observableResult) in
+            guard let self = self else { return }
+            observableResult.subscribe(onSuccess: { (result) in
+                switch result {
+                case .success(let image):
+                    completionHandler(image)
+                case .failure(_):
+                    completionHandler(nil)
+                }
+            }, onError: { _ in
+                completionHandler(nil)
+            }).disposed(by: self.disposeBag)
         })
     }
     

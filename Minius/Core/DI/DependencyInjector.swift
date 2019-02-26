@@ -23,12 +23,14 @@ extension SwinjectStoryboard {
     @objc class func setup() {
         
         //News
-        defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init)
-        defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init)
+        defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init).inObjectScope(.container)
         
         //Images
-        defaultContainer.autoregister(ImagesGateway.self, initializer: APIImagesGatewayImplementation.init)
-        defaultContainer.autoregister(FetchImageUseCase.self, initializer: FetchImageUseCaseImplementation.init)
+        defaultContainer.autoregister(CacheClient.self, initializer: CacheClientImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(APIImagesGateway.self, initializer: APIImagesGatewayImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(LocalImagesGateway.self, initializer: LocalImagesGatewayImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(FetchImageUseCase.self, initializer: FetchImageUseCaseImplementation.init).inObjectScope(.container)
         
         defaultContainer.storyboardInitCompleted(TopHeadlinesViewController.self) { (resolver, controller) in
             controller.getTopHeadlinesUseCase = resolver.resolve(GetTopHeadlinesUseCase.self)

@@ -9,7 +9,9 @@
 import Foundation
 import RxSwift
 
-class APIImagesGatewayImplementation: ImagesGateway {
+protocol APIImagesGateway: ImagesGateway { }
+
+class APIImagesGatewayImplementation: APIImagesGateway {
     
     func fetchImage(for urlString: String, completionHandler: FetchImageGatewayCompletionHandler) {
         guard let request = try! FetchImageRequest(urlString: urlString).toURLRequest() else { return }
