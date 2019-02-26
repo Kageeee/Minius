@@ -13,10 +13,12 @@ import UIKit
 
 extension UITableViewCell {
     
-    func createGradientLayer() -> CAGradientLayer {
+    func createGradientLayer(with bounds: CGRect? = nil) -> CAGradientLayer {
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.clear, UIColor.black]
-        gradient.locations = [0, 1]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.red.cgColor]
+        if bounds != nil { gradient.frame = bounds! }
+        gradient.startPoint = .zero
+        gradient.endPoint = CGPoint(x: 0, y: 0.5)
         return gradient
     }
    

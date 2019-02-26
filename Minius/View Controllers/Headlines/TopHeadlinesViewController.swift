@@ -15,11 +15,20 @@ class TopHeadlinesViewController: UIViewController {
     
     var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
     
+    var feedData: [NewsArticle]? {
+        didSet {
+            guard let feedData = feedData else { return }
+            feed = feedData.map { TopHeadlineCellViewModel(imageURL: $0.urlToImage, title: $0.title) }
+        }
+    }
     var feed: [TopHeadlineCellViewModel]? {
         didSet {
             headlinesTableView.reloadData()
         }
     }
+    
+    var selectedArticle: NewsArticle?
+    var selectedImage: UIImage?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +37,8 @@ class TopHeadlinesViewController: UIViewController {
         getTopHeadlinesUseCase.getTopHeadlines(for: .Portugal) { (articles) in
             print(articles?.count)
             guard let articles = articles else { return }
-            self.feed = articles.map { TopHeadlineCellViewModel(imageURL: $0.urlToImage, title: $0.title) }
+            self.feedData = articles
+            
         }
         
     }
@@ -37,6 +47,13 @@ class TopHeadlinesViewController: UIViewController {
         headlinesTableView.delegate = self
         headlinesTableView.dataSource = self
         headlinesTableView.register(UINib(nibName: "NewsHeadlineTableViewCell", bundle: nil), forCellReuseIdentifier: "testIdentifier")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? NewsArticleViewController, let article = selectedArticle {
+            destination.article = article
+            destination.image = selectedImage
+        }
     }
 
 }
@@ -52,6 +69,16 @@ extension TopHeadlinesViewController: UITableViewDelegate, UITableViewDataSource
             let cellViewModel = feed?[indexPath.row] else { fatalError() }
         cell.configure(cellViewModel: cellViewModel)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return headlinesTableView.bounds.height / 2
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedArticle = feedData?[indexPath.row]
+        selectedImage = (tableView.cellForRow(at: indexPath) as! NewsHeadlineTableViewCell).getImage()
+        performSegue(withIdentifier: "showDetail", sender: self)
     }
     
 }

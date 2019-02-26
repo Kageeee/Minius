@@ -15,7 +15,6 @@ extension UIView {
         let blurEffect = UIBlurEffect(style: style)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = customBounds != nil ? customBounds! : self.bounds
-//        blurView.autoresizingMask = [.flexibleHeight, .flexibleWidth, .flexibleLeftMargin, .flexibleRightMargin];
         blurView.tag = 111
         blurView.alpha = alpha
         return blurView
@@ -24,6 +23,13 @@ extension UIView {
     final func addBlurEffect(style: UIBlurEffect.Style, alpha: CGFloat, customBounds: CGRect? = nil, inFront: Bool? = true) {
         let blurView = createBlurEffect(style: style, alpha: alpha, customBounds: customBounds, inFront: inFront)
         _ = inFront! ? self.insertSubview(blurView, at: 0) : self.addSubview(blurView)
+    }
+    
+    final func removeBlurEffect() {
+        subviews
+            .filter({ $0.tag == 111 })
+            .first?
+            .removeFromSuperview()
     }
     
     func addLeadingAnchor(to anchor: NSLayoutXAxisAnchor, constant: CGFloat = 0, active: Bool = true) {
