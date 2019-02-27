@@ -14,8 +14,12 @@ protocol APIImagesGateway: ImagesGateway { }
 class APIImagesGatewayImplementation: APIImagesGateway {
     
     func fetchImage(for urlString: String, completionHandler: FetchImageGatewayCompletionHandler) {
-        guard let request = try! FetchImageRequest(urlString: urlString).toURLRequest() else { return }
-        completionHandler(NetworkClient.shared.downloadImage(request: request).asSingle())
+        guard let request = try? FetchImageRequest(urlString: urlString).toURLRequest(), let urlRequest = request else {
+            completionHandler(Observable.just(.success(UIImage(named: "DefaultImage")!)).asSingle())
+            return
+        }
+        
+        completionHandler(NetworkClient.shared.downloadImage(request: urlRequest).asSingle())
     }
     
 }

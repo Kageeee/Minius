@@ -17,11 +17,13 @@ protocol ViewModelType { }
 
 protocol TopHeadlinesViewModelInput: ViewModelInput {
     func tappedURL(with urlString: String)
+    func reloadNews()
 }
 
 protocol TopHeadlinesViewModelOutput: ViewModelOutput {
-    var articleList: Driver<[TopHeadlineCellViewModel]>! { get }
-    var showDetail: Signal<NewsArticle?>! { get }
+    var showTableView: Driver<Bool> { get }
+    var articleList: Driver<[TopHeadlineCellViewModel]> { get }
+    var showDetail: Signal<NewsArticle?> { get }
 }
 
 protocol TopHeadlinesViewModelType: ViewModelType {
@@ -39,6 +41,10 @@ class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewMode
     
     var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
     
+    var articleList: Driver<[TopHeadlineCellViewModel]>
+    var showDetail: Signal<NewsArticle?>
+    var showTableView: Driver<Bool>
+    
     //Input Relays
     private var _tappedURLRelay = PublishRelay<String>()
     
@@ -46,6 +52,7 @@ class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewMode
     private var _articleListRelay = BehaviorRelay<[NewsArticle]>(value: [])
     private var _topHeadlinesRelay = BehaviorRelay<[TopHeadlineCellViewModel]>(value: [])
     private var _showDetailRelay = PublishRelay<NewsArticle?>()
+    private var _showTableViewRelay = PublishRelay<Bool>()
     
     //Private vars
     private var _selectedArticle: NewsArticle?
@@ -55,6 +62,7 @@ class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewMode
         
         articleList = _topHeadlinesRelay.asDriver()
         showDetail = _showDetailRelay.asSignal()
+        showTableView = _showTableViewRelay.asDriver(onErrorJustReturn: false)
         setupRelays()
         fetchData()
     }
@@ -76,11 +84,15 @@ class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewMode
             .map { url in self._articleListRelay.value.first(where: { $0.url == url }) }
             .bind(to: _showDetailRelay)
             .disposed(by: disposeBag)
+        
     }
     
     private func fetchData() {
         createArticleListFetchObservable()
-            .subscribe(onNext: { (article) in self._articleListRelay.accept(article) })
+            .subscribe(onNext: { (articleList) in
+                self._articleListRelay.accept(articleList)
+                self._showTableViewRelay.accept(!articleList.isEmpty)
+            })
             .disposed(by: disposeBag)
     }
     
@@ -98,7 +110,9 @@ class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewMode
         _tappedURLRelay.accept(urlString)
     }
     
-    var articleList: Driver<[TopHeadlineCellViewModel]>!
-    var showDetail: Signal<NewsArticle?>!
+    func reloadNews() {
+        fetchData()
+    }
+    
     
 }

@@ -20,7 +20,11 @@ class NewsHeadlineTableViewCell: UITableViewCell {
             _ivBackground.contentMode = .scaleAspectFill
         }
     }
-    @IBOutlet private weak var _overlayView: UIView!
+    @IBOutlet private weak var _overlayView: UIView! {
+        didSet {
+            _overlayView.alpha = 0
+        }
+    }
     @IBOutlet private weak var _titleLabel: UILabel! {
         didSet {
             _titleLabel.hero.id = "lblTitle"
@@ -43,7 +47,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        addBlurEffect()
+//        addBlurEffect()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -56,7 +60,6 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         _ivBackground.image = nil
     }
     
@@ -64,14 +67,15 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         
         _titleLabel.text = cellViewModel.title
         
-        guard let imageURL = cellViewModel.imageURL else { return }
-        fetchImageUseCase?.fetchImage(for: imageURL, completionHandler: { [weak self] (image) in
+//        guard let imageURL = cellViewModel.imageURL else { return }
+        fetchImageUseCase?.fetchImage(for: cellViewModel.imageURL ?? "", completionHandler: { [weak self] (image) in
             guard let self = self else { return }
-            guard let image = image else { return }
+            let image = image ?? UIImage(named: "DefaultImage")
             self.layoutIfNeeded()
-            
+            self.addBlurEffect()
             UIView.transition(with: self._ivBackground, duration: 1, options: [.transitionCrossDissolve], animations: {
                 self._ivBackground.image = image
+                self._overlayView.alpha = 1
             }, completion: { isCompleted in
                 UIView.transition(with: self._titleLabel, duration: 1, options: [.transitionCrossDissolve], animations: {
                     self._titleLabel.textColor = .white
@@ -88,7 +92,9 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.addDefaultConstraints(referencing: _overlayView)
         blurEffectView.layer.mask = createGradientLayer(with: _overlayView.bounds)
-        blurEffectView.layoutIfNeeded()
+        _overlayView.layoutIfNeeded()
+        print(blurEffectView.bounds)
+        print(_overlayView.bounds)
     }
     
     func getImage() -> UIImage? {

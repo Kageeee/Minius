@@ -21,12 +21,14 @@ class NewsArticleViewController: UIViewController {
             _ivArticleImageView.hero.id = "ivArticleTitle"
         }
     }
+    
     @IBOutlet private weak var _lblArticleTitle: UILabel! {
         didSet {
             _lblArticleTitle.hero.id = "lblTitle"
             _lblArticleTitle.hero.modifiers = [.fade]
         }
     }
+    
     @IBOutlet private weak var _lblDetailText: UILabel!
     
     private let disposeBag = DisposeBag()
@@ -42,7 +44,6 @@ class NewsArticleViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
-        title = article.source.name
     }
     
     private func setupViewModel() {
@@ -58,11 +59,11 @@ class NewsArticleViewController: UIViewController {
             .drive(_lblDetailText.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.input.loadArticle(for: article)
+        viewModel.output.viewTitle
+            .drive(navigationItem.rx.title)
+            .disposed(by: disposeBag)
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -70,6 +71,5 @@ class NewsArticleViewController: UIViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
-
+ 
 }
