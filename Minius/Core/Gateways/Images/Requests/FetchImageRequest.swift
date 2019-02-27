@@ -14,7 +14,9 @@ class FetchImageRequest: APIRequestProtocol {
     var url: URL
     
     init(urlString: String) throws {
-        guard let finalURL = URL(string: urlString) else { throw RequestError.BuildRequest.unwrapURL }
+        let finalURLString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        
+        guard let finalURL = URL(string: finalURLString) else { throw RequestError.BuildRequest.unwrapURL }
         url = finalURL
     }
     

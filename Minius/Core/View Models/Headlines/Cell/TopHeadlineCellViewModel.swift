@@ -11,4 +11,5 @@ import Foundation
 struct TopHeadlineCellViewModel {
     let imageURL: String?
     let title: String
+    let url: String
 }

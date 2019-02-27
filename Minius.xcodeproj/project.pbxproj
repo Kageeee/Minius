@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		360532862226883F00825D5B /* Obfuscator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360532852226883F00825D5B /* Obfuscator.swift */; };
 		3608EC032225508200866DED /* NewsArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC022225508200866DED /* NewsArticleViewController.swift */; };
 		3608EC052225587E00866DED /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC042225587E00866DED /* NSObject.swift */; };
 		3608EC08222578E900866DED /* LocalImagesGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC07222578E900866DED /* LocalImagesGateway.swift */; };
 		3608EC0B22257C5800866DED /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC0A22257C5800866DED /* CacheClient.swift */; };
 		3608EC0E22257D3100866DED /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC0D22257D3100866DED /* String.swift */; };
+		3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */; };
 		360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5D76222417BA00C76300 /* DependencyInjector.swift */; };
 		366EF9792224346200CE345E /* GetTopHeadlinesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */; };
 		366EF98322243D5500CE345E /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF98122243D5500CE345E /* NewsHeadlineTableViewCell.swift */; };
@@ -48,11 +50,13 @@
 
 /* Begin PBXFileReference section */
 		2E3BA71690189701FE9942CE /* Pods-Minius.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.debug.xcconfig"; sourceTree = "<group>"; };
+		360532852226883F00825D5B /* Obfuscator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obfuscator.swift; sourceTree = "<group>"; };
 		3608EC022225508200866DED /* NewsArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleViewController.swift; sourceTree = "<group>"; };
 		3608EC042225587E00866DED /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		3608EC07222578E900866DED /* LocalImagesGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImagesGateway.swift; sourceTree = "<group>"; };
 		3608EC0A22257C5800866DED /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
 		3608EC0D22257D3100866DED /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadlinesViewViewModel.swift; sourceTree = "<group>"; };
 		360B5D76222417BA00C76300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopHeadlinesUseCase.swift; sourceTree = "<group>"; };
 		366EF98122243D5500CE345E /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +106,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		360532842226882C00825D5B /* Obfuscator */ = {
+			isa = PBXGroup;
+			children = (
+				360532852226883F00825D5B /* Obfuscator.swift */,
+			);
+			path = Obfuscator;
+			sourceTree = "<group>";
+		};
 		3608EC0122254ECB00866DED /* Article Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,6 +146,14 @@
 			path = System;
 			sourceTree = "<group>";
 		};
+		3608EC0F2225B17200866DED /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		360B5D73222416E600C76300 /* News */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +165,7 @@
 		360B5D74222417A600C76300 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				360532842226882C00825D5B /* Obfuscator */,
 				366EF98A2224400900CE345E /* View Models */,
 				36FEDDCB221DAEA500FEABBE /* Clients */,
 				36F558F6221EA79A00CA9B69 /* Use Cases */,
@@ -166,6 +187,7 @@
 		366EF97E22243B7D00CE345E /* Headlines */ = {
 			isa = PBXGroup;
 			children = (
+				3608EC0F2225B17200866DED /* View Model */,
 				36FEDDB6221DAD7400FEABBE /* TopHeadlinesViewController.swift */,
 			);
 			path = Headlines;
@@ -614,10 +636,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Minius/Pods-Minius-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAlamofire/RxAlamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Swinject/Swinject.framework",
 				"${BUILT_PRODUCTS_DIR}/SwinjectAutoregistration/SwinjectAutoregistration.framework",
@@ -626,10 +650,12 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAlamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Swinject.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwinjectAutoregistration.framework",
@@ -656,6 +682,7 @@
 				3608EC08222578E900866DED /* LocalImagesGateway.swift in Sources */,
 				36FEDDB7221DAD7400FEABBE /* TopHeadlinesViewController.swift in Sources */,
 				366EF9AE2224487700CE345E /* FetchImageRequest.swift in Sources */,
+				3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */,
 				366EF996222444DA00CE345E /* NewsGateway.swift in Sources */,
 				366EF999222444F700CE345E /* NewsAPICategory.swift in Sources */,
 				366EF99C2224450200CE345E /* NewsAPI.swift in Sources */,
@@ -663,6 +690,7 @@
 				366EF99F2224450900CE345E /* NewsAPIResponse.swift in Sources */,
 				366EF9932224448000CE345E /* FetchImageUseCase.swift in Sources */,
 				366EF98E2224403900CE345E /* TopHeadlineCellViewModel.swift in Sources */,
+				360532862226883F00825D5B /* Obfuscator.swift in Sources */,
 				366EF99A222444F700CE345E /* NewsAPICountry.swift in Sources */,
 				36FEDDE1221DBAA200FEABBE /* APIRequestProtocol.swift in Sources */,
 				366EF9A82224460500CE345E /* ImagesGateway.swift in Sources */,

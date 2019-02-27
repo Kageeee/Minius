@@ -40,6 +40,11 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        addBlurEffect()
+    }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
@@ -56,14 +61,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     }
     
     func configure(cellViewModel: TopHeadlineCellViewModel) {
-        let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: 1)
         
-        _overlayView.removeBlurEffect()
-        _overlayView.insertSubview(blurEffectView, at: 0)
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-        blurEffectView.addDefaultConstraints(referencing: _overlayView)
-        blurEffectView.layer.mask = createGradientLayer(with: _overlayView.bounds)
-        blurEffectView.layoutIfNeeded()
         _titleLabel.text = cellViewModel.title
         
         guard let imageURL = cellViewModel.imageURL else { return }
@@ -81,6 +79,16 @@ class NewsHeadlineTableViewCell: UITableViewCell {
             })
         })
         
+    }
+    
+    private func addBlurEffect() {
+        let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: 1)
+        _overlayView.removeBlurEffect()
+        _overlayView.insertSubview(blurEffectView, at: 0)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.addDefaultConstraints(referencing: _overlayView)
+        blurEffectView.layer.mask = createGradientLayer(with: _overlayView.bounds)
+        blurEffectView.layoutIfNeeded()
     }
     
     func getImage() -> UIImage? {
