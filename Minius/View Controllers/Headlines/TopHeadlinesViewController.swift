@@ -21,6 +21,8 @@ class TopHeadlinesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        title = "Minius"
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
         setupViewModel()

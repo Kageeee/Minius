@@ -11,6 +11,16 @@ import UIKit
 
 extension UIView {
     
+    open func createGradientLayer(with bounds: CGRect? = nil, type: CAGradientLayerType = .axial) -> CAGradientLayer {
+        let gradient = CAGradientLayer()
+        gradient.type = type
+        gradient.colors = [UIColor.clear.cgColor, UIColor.red.cgColor]
+        if bounds != nil { gradient.frame = bounds! }
+        gradient.startPoint = .zero
+        gradient.endPoint = CGPoint(x: 0, y: 0.5)
+        return gradient
+    }
+    
     final func createBlurEffect(style: UIBlurEffect.Style, alpha: CGFloat, customBounds: CGRect? = nil, inFront: Bool? = true) -> UIVisualEffectView {
         let blurEffect = UIBlurEffect(style: style)
         let blurView = UIVisualEffectView(effect: blurEffect)

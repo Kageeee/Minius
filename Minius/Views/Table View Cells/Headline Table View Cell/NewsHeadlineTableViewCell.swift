@@ -45,11 +45,6 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        addBlurEffect()
-    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
 //        _overlayViewBottomConstraint.constant = selected ? _overlayView.bounds.height : 0
@@ -64,10 +59,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     }
     
     func configure(cellViewModel: TopHeadlineCellViewModel) {
-        
         _titleLabel.text = cellViewModel.title
-        
-//        guard let imageURL = cellViewModel.imageURL else { return }
         fetchImageUseCase?.fetchImage(for: cellViewModel.imageURL ?? "", completionHandler: { [weak self] (image) in
             guard let self = self else { return }
             let image = image ?? UIImage(named: "DefaultImage")
@@ -93,14 +85,10 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         blurEffectView.addDefaultConstraints(referencing: _overlayView)
         blurEffectView.layer.mask = createGradientLayer(with: _overlayView.bounds)
         _overlayView.layoutIfNeeded()
-        print(blurEffectView.bounds)
-        print(_overlayView.bounds)
     }
     
     func getImage() -> UIImage? {
         return _ivBackground.image
     }
-    
-    
     
 }

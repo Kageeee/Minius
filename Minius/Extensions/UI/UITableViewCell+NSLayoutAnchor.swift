@@ -13,13 +13,8 @@ import UIKit
 
 extension UITableViewCell {
     
-    func createGradientLayer(with bounds: CGRect? = nil) -> CAGradientLayer {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.clear.cgColor, UIColor.red.cgColor]
-        if bounds != nil { gradient.frame = bounds! }
-        gradient.startPoint = .zero
-        gradient.endPoint = CGPoint(x: 0, y: 0.5)
-        return gradient
-    }
+//    func createGradientLayer(with bounds: CGRect? = nil, type: CAGradientLayerType = .axial) -> CAGradientLayer {
+//        super.createGradientLayer(with: bounds, type: type)
+//    }
    
 }
