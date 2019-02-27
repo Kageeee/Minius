@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		360532862226883F00825D5B /* Obfuscator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360532852226883F00825D5B /* Obfuscator.swift */; };
+		360532892226AABE00825D5B /* NewsArticleViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360532882226AABE00825D5B /* NewsArticleViewViewModel.swift */; };
 		3608EC032225508200866DED /* NewsArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC022225508200866DED /* NewsArticleViewController.swift */; };
 		3608EC052225587E00866DED /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC042225587E00866DED /* NSObject.swift */; };
 		3608EC08222578E900866DED /* LocalImagesGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC07222578E900866DED /* LocalImagesGateway.swift */; };
@@ -51,6 +52,7 @@
 /* Begin PBXFileReference section */
 		2E3BA71690189701FE9942CE /* Pods-Minius.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Minius.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Minius/Pods-Minius.debug.xcconfig"; sourceTree = "<group>"; };
 		360532852226883F00825D5B /* Obfuscator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Obfuscator.swift; sourceTree = "<group>"; };
+		360532882226AABE00825D5B /* NewsArticleViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleViewViewModel.swift; sourceTree = "<group>"; };
 		3608EC022225508200866DED /* NewsArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsArticleViewController.swift; sourceTree = "<group>"; };
 		3608EC042225587E00866DED /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		3608EC07222578E900866DED /* LocalImagesGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImagesGateway.swift; sourceTree = "<group>"; };
@@ -114,9 +116,18 @@
 			path = Obfuscator;
 			sourceTree = "<group>";
 		};
+		360532872226AAB000825D5B /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				360532882226AABE00825D5B /* NewsArticleViewViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		3608EC0122254ECB00866DED /* Article Detail */ = {
 			isa = PBXGroup;
 			children = (
+				360532872226AAB000825D5B /* View Model */,
 				3608EC022225508200866DED /* NewsArticleViewController.swift */,
 			);
 			path = "Article Detail";
@@ -674,6 +685,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				366EF9902224426F00CE345E /* UITableViewCell+NSLayoutAnchor.swift in Sources */,
+				360532892226AABE00825D5B /* NewsArticleViewViewModel.swift in Sources */,
 				366EF9AB2224464600CE345E /* APIImagesGateway.swift in Sources */,
 				36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */,
 				3608EC052225587E00866DED /* NSObject.swift in Sources */,

@@ -18,7 +18,7 @@ class Obfuscator {
     // MARK: - Initialization
     
     init() {
-        self.salt = "\(String(describing: AppDelegate.self))\(String(describing: NSObject.self))"
+        self.salt = "\(String(describing: AppDelegate.self))\(String(describing: NSObject.self))\(String(describing: NewsAPI.self))"
     }
     
     init(with salt: String) {

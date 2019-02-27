@@ -20,7 +20,7 @@ protocol NewsAPIConfiguration {
 
 class NewsAPI: NewsAPIConfiguration {
     
-    private let _apiKey = "c5eb4a36ccf84cb9b15aa9b24b62dfe8"
+    private let _apiKey: [UInt8] = [34, 69, 21, 38, 81, 13, 86, 81, 2, 23, 3, 118, 103, 44, 0, 83, 7, 82, 65, 47, 4, 78, 17, 115, 100, 43, 119, 66, 20, 34, 0, 84]
     private let _host = "https://newsapi.org/v2"
     private let _topHeadlinesEndpoint = "/top-headlines"
     
@@ -33,7 +33,7 @@ class NewsAPI: NewsAPIConfiguration {
     }
     
     func getKey() -> String {
-        return _apiKey
+        return Obfuscator.init().reveal(key: _apiKey)
     }
     
     func getURLString(for endpoint: NewsAPIEndpoint) -> String {

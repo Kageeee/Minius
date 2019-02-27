@@ -8,6 +8,8 @@
 
 import UIKit
 import Hero
+import RxSwift
+import RxCocoa
 
 class NewsArticleViewController: UIViewController {
 
@@ -27,17 +29,36 @@ class NewsArticleViewController: UIViewController {
     }
     @IBOutlet private weak var _lblDetailText: UILabel!
     
+    private let disposeBag = DisposeBag()
+    
+    var viewModel: NewsArticleViewViewModel!
     var article: NewsArticle!
-    var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
+        setupViewModel()
+    }
+    
+    private func setupNavigationBar() {
         navigationController?.navigationBar.prefersLargeTitles = true
         title = article.source.name
-        _ivArticleImageView.image = image
-        _lblArticleTitle.text = article.title
-        _lblDetailText.text = article.content
-        // Do any additional setup after loading the view.
+    }
+    
+    private func setupViewModel() {
+        viewModel.output.showImage
+            .drive(_ivArticleImageView.rx.image)
+            .disposed(by: disposeBag)
+        
+        viewModel.output.populateTitle
+            .drive(_lblArticleTitle.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.output.populateDetail
+            .drive(_lblDetailText.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.input.loadArticle(for: article)
     }
     
 

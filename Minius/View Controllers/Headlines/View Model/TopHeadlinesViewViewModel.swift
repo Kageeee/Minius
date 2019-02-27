@@ -10,29 +10,32 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol ViewModelType {
-    associatedtype Input
-    associatedtype Output
-    
-    var input: Input { get }
-    var output: Output { get }
+protocol ViewModelInput {}
+protocol ViewModelOutput {}
+protocol ViewModelType { }
+
+
+protocol TopHeadlinesViewModelInput: ViewModelInput {
+    func tappedURL(with urlString: String)
 }
 
-class TopHeadlinesViewViewModel: ViewModelType {
+protocol TopHeadlinesViewModelOutput: ViewModelOutput {
+    var articleList: Driver<[TopHeadlineCellViewModel]>! { get }
+    var showDetail: Signal<NewsArticle?>! { get }
+}
+
+protocol TopHeadlinesViewModelType: ViewModelType {
+    var input: TopHeadlinesViewModelInput { get }
+    var output: TopHeadlinesViewModelOutput { get }
+}
+
+class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewModelInput, TopHeadlinesViewModelOutput {
+    
+    var input: TopHeadlinesViewModelInput { return self }
+    var output: TopHeadlinesViewModelOutput { return self }
+    
     
     private let disposeBag = DisposeBag()
-    
-    let input: Input
-    let output: Output
-    
-    struct Input {
-        let tappedURL: PublishRelay<String>
-    }
-    
-    struct Output {
-        let articleList: Driver<[TopHeadlineCellViewModel]>
-        let showDetail: Signal<NewsArticle?>
-    }
     
     var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
     
@@ -50,9 +53,8 @@ class TopHeadlinesViewViewModel: ViewModelType {
     init(getTopHeadlinesUseCase: GetTopHeadlinesUseCase) {
         self.getTopHeadlinesUseCase = getTopHeadlinesUseCase
         
-        input = Input(tappedURL: _tappedURLRelay)
-        output = Output(articleList: _topHeadlinesRelay.asDriver(),
-                        showDetail: _showDetailRelay.asSignal())
+        articleList = _topHeadlinesRelay.asDriver()
+        showDetail = _showDetailRelay.asSignal()
         setupRelays()
         fetchData()
     }
@@ -74,7 +76,6 @@ class TopHeadlinesViewViewModel: ViewModelType {
             .map { url in self._articleListRelay.value.first(where: { $0.url == url }) }
             .bind(to: _showDetailRelay)
             .disposed(by: disposeBag)
-        
     }
     
     private func fetchData() {
@@ -92,5 +93,12 @@ class TopHeadlinesViewViewModel: ViewModelType {
             return Disposables.create()
             }
     }
+    
+    func tappedURL(with urlString: String) {
+        _tappedURLRelay.accept(urlString)
+    }
+    
+    var articleList: Driver<[TopHeadlineCellViewModel]>!
+    var showDetail: Signal<NewsArticle?>!
     
 }

@@ -23,6 +23,7 @@ class TopHeadlinesViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
+        
     }
 
     private func setupTableView() {
@@ -36,8 +37,9 @@ class TopHeadlinesViewController: UIViewController {
 
         headlinesTableView.rx
             .modelSelected(TopHeadlineCellViewModel.self)
-            .map({ $0.url })
-            .bind(to: viewModel.input.tappedURL)
+            .subscribe(onNext: { [unowned self] model in
+                self.viewModel.input.tappedURL(with: model.url)
+            })
             .disposed(by: disposeBag)
         
         _ = viewModel.output.showDetail.emit(onNext: { (article) in
