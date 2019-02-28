@@ -63,10 +63,10 @@ class MiniusButton: UIButton {
     }
     
     private func setupActions() {
-        addTarget(self, action: #selector(animateButton), for: .touchUpInside)
+//        addTarget(self, action: #selector(animateButton), for: .touchUpInside)
     }
     
-    @objc private func animateButton() {
+    @objc func animateButton() {
         rotateAngle += 90
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [.curveEaseInOut], animations: {
             self.transform = CGAffineTransform(rotationAngle: self.rotateAngle)

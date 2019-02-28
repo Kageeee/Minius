@@ -9,11 +9,17 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import RxDataSources
+import Hero
 
-class TopHeadlinesViewController: UIViewController {
+class TopHeadlinesViewController: BaseViewController {
     
     @IBOutlet weak var headlinesTableView: UITableView!
+    @IBOutlet weak var settingsButton: MiniusButton! {
+        didSet {
+            settingsButton.hero.id = "settingsButton"
+            settingsButton.hero.modifiers = [.rotate(90)]
+        }
+    }
     
     var viewModel: TopHeadlinesViewViewModel!
     

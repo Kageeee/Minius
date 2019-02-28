@@ -11,7 +11,7 @@ import Hero
 import RxSwift
 import RxCocoa
 
-class NewsArticleViewController: UIViewController {
+class NewsArticleViewController: BaseViewController {
 
     @IBOutlet private weak var _articleScrollView: UIScrollView!
     @IBOutlet private weak var _articleContentView: UIView!

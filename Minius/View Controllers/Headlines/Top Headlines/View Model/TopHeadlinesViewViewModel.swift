@@ -10,6 +10,8 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+protocol BaseViewModel { }
+
 protocol ViewModelInput {}
 protocol ViewModelOutput {}
 protocol ViewModelType { }
@@ -31,7 +33,7 @@ protocol TopHeadlinesViewModelType: ViewModelType {
     var output: TopHeadlinesViewModelOutput { get }
 }
 
-class TopHeadlinesViewViewModel: TopHeadlinesViewModelType, TopHeadlinesViewModelInput, TopHeadlinesViewModelOutput {
+class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHeadlinesViewModelInput, TopHeadlinesViewModelOutput {
     
     var input: TopHeadlinesViewModelInput { return self }
     var output: TopHeadlinesViewModelOutput { return self }

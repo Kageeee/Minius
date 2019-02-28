@@ -29,7 +29,7 @@ protocol NewsArticleViewModelType: ViewModelType {
 }
 
 
-class NewsArticleViewViewModel: NewsArticleViewModelType, NewsArticleViewModelInput, NewsArticleViewModelOutput {
+class NewsArticleViewViewModel: BaseViewModel, NewsArticleViewModelType, NewsArticleViewModelInput, NewsArticleViewModelOutput {
     
     var input: NewsArticleViewModelInput { return self }
     var output: NewsArticleViewModelOutput { return self }
