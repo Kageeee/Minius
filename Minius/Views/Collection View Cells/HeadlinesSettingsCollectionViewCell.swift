@@ -10,12 +10,17 @@ import UIKit
 
 class HeadlinesSettingsCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet private weak var _ivSettingsType: UIImageView! {
+    @IBOutlet private weak var _ivSettingsType: UIImageView!
+    @IBOutlet private weak var _lblSettings: UILabel! {
         didSet {
-            
+            _lblSettings.textColor = .lightText
         }
     }
-    @IBOutlet private weak var _lblSettings: UILabel!
+    @IBOutlet private weak var _lblSettingValue: UILabel! {
+        didSet {
+            _lblSettingValue.textColor = .lightText
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +28,9 @@ class HeadlinesSettingsCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(for cellViewModel: HeadlineFilterCellViewModel) {
-        _ivSettingsType.image = UIImage(named: cellViewModel.imageTitle)
-        _lblSettings.text = cellViewModel.title
+        _ivSettingsType.image   = UIImage(named: cellViewModel.imageTitle)
+        _lblSettings.text       = cellViewModel.title
+        _lblSettingValue.text   = cellViewModel.value
     }
 
     private func setupImageView() {

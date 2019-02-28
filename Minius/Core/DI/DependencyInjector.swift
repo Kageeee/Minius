@@ -32,6 +32,8 @@ extension SwinjectStoryboard {
         defaultContainer.autoregister(LocalImagesGateway.self, initializer: LocalImagesGatewayImplementation.init).inObjectScope(.container)
         defaultContainer.autoregister(FetchImageUseCase.self, initializer: FetchImageUseCaseImplementation.init).inObjectScope(.container)
         
+        //User Defaults
+        defaultContainer.autoregister(UserDefaultsClient.self, initializer: UserDefaultsClientImplementation.init).inObjectScope(.container)
         
         defaultContainer.autoregister(TopHeadlinesViewViewModel.self, initializer: TopHeadlinesViewViewModel.init)
         defaultContainer.storyboardInitCompleted(TopHeadlinesViewController.self) { (resolver, controller) in

@@ -11,4 +11,5 @@ import Foundation
 struct HeadlineFilterCellViewModel {
     let imageTitle: String
     let title: String
+    let value: String
 }

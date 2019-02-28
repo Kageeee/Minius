@@ -26,9 +26,15 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgA-37-Cte">
-                        <rect key="frame" x="142" y="73.5" width="318" height="21"/>
+                        <rect key="frame" x="142" y="73.5" width="212.5" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZZf-Pr-S4W">
+                        <rect key="frame" x="364.5" y="73.5" width="93.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -36,8 +42,11 @@
             <constraints>
                 <constraint firstItem="fJq-kk-bjP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="0aQ-rf-moh"/>
                 <constraint firstItem="UgA-37-Cte" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="Cj5-xN-qgm"/>
-                <constraint firstAttribute="trailing" secondItem="UgA-37-Cte" secondAttribute="trailing" constant="8" id="Igq-vD-Haa"/>
+                <constraint firstItem="ZZf-Pr-S4W" firstAttribute="centerY" secondItem="fJq-kk-bjP" secondAttribute="centerY" id="Hq7-Yl-mNx"/>
+                <constraint firstItem="ZZf-Pr-S4W" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" multiplier="0.2" id="QzG-f6-4U1"/>
                 <constraint firstItem="UgA-37-Cte" firstAttribute="leading" secondItem="fJq-kk-bjP" secondAttribute="trailing" constant="8" id="aWa-xS-MaN"/>
+                <constraint firstAttribute="trailing" secondItem="ZZf-Pr-S4W" secondAttribute="trailing" constant="10" id="gOS-7L-Ctw"/>
+                <constraint firstItem="ZZf-Pr-S4W" firstAttribute="leading" secondItem="UgA-37-Cte" secondAttribute="trailing" constant="10" id="lHA-AA-ukx"/>
                 <constraint firstItem="fJq-kk-bjP" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.75" id="wUR-WA-696"/>
                 <constraint firstItem="fJq-kk-bjP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="zuw-jI-9IE"/>
             </constraints>
@@ -45,6 +54,7 @@
             <size key="customSize" width="468" height="168"/>
             <connections>
                 <outlet property="_ivSettingsType" destination="fJq-kk-bjP" id="n0e-pp-JQB"/>
+                <outlet property="_lblSettingValue" destination="ZZf-Pr-S4W" id="hwb-Wp-8zc"/>
                 <outlet property="_lblSettings" destination="UgA-37-Cte" id="cy6-UG-z9F"/>
             </connections>
             <point key="canvasLocation" x="467.19999999999999" y="193.4032983508246"/>

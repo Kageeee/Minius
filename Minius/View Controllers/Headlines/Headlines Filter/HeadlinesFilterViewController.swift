@@ -34,15 +34,12 @@ class HeadlinesFilterViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.8)
-        
         viewModel.output.settingsList
             .drive(settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
                 cell.hero.modifiers = [.fade, .translate(x: cell.bounds.width)]
                 cell.configure(for: cellViewModel)
             }
             .disposed(by: disposeBag)
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +51,7 @@ class HeadlinesFilterViewController: BaseViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: - Navigation§
+    // MARK: - Navigation
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
