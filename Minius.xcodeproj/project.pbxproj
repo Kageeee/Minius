@@ -20,10 +20,16 @@
 		3608EC0E22257D3100866DED /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC0D22257D3100866DED /* String.swift */; };
 		3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */; };
 		360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5D76222417BA00C76300 /* DependencyInjector.swift */; };
+		3614AE6022293B6500A2C82D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE5F22293B6500A2C82D /* UIColor.swift */; };
+		3614AE622229413D00A2C82D /* NewsSettingsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */; };
 		36568C552227014100E81E1D /* HeadlinesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36568C542227014100E81E1D /* HeadlinesFilterViewController.swift */; };
 		36568C58222706B300E81E1D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36568C57222706B300E81E1D /* BaseViewController.swift */; };
 		365E87DD222827A3009CD759 /* HeadlineFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365E87DC222827A3009CD759 /* HeadlineFilterCellViewModel.swift */; };
 		365E87E1222834C3009CD759 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365E87E0222834C3009CD759 /* UserDefaultsClient.swift */; };
+		366E841B22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366E841A22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift */; };
+		366E841D22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366E841C22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib */; };
+		366E841F22295D8C000CC218 /* NewsSettingsEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366E841E22295D8C000CC218 /* NewsSettingsEditViewModel.swift */; };
+		366E84212229739A000CC218 /* CAGradientLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366E84202229739A000CC218 /* CAGradientLayer.swift */; };
 		366EF9792224346200CE345E /* GetTopHeadlinesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */; };
 		366EF98322243D5500CE345E /* NewsHeadlineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366EF98122243D5500CE345E /* NewsHeadlineTableViewCell.swift */; };
 		366EF98422243D5500CE345E /* NewsHeadlineTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366EF98222243D5500CE345E /* NewsHeadlineTableViewCell.xib */; };
@@ -73,10 +79,16 @@
 		3608EC0D22257D3100866DED /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadlinesViewViewModel.swift; sourceTree = "<group>"; };
 		360B5D76222417BA00C76300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		3614AE5F22293B6500A2C82D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSettingsEditViewController.swift; sourceTree = "<group>"; };
 		36568C542227014100E81E1D /* HeadlinesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlinesFilterViewController.swift; sourceTree = "<group>"; };
 		36568C57222706B300E81E1D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		365E87DC222827A3009CD759 /* HeadlineFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineFilterCellViewModel.swift; sourceTree = "<group>"; };
 		365E87E0222834C3009CD759 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
+		366E841A22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeadlinesSettingsTableViewCell.swift; sourceTree = "<group>"; };
+		366E841C22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeadlinesSettingsTableViewCell.xib; path = "Minius/Views/Table View Cells/Settings Edit Table View Cell/HeadlinesSettingsTableViewCell.xib"; sourceTree = SOURCE_ROOT; };
+		366E841E22295D8C000CC218 /* NewsSettingsEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSettingsEditViewModel.swift; sourceTree = "<group>"; };
+		366E84202229739A000CC218 /* CAGradientLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAGradientLayer.swift; sourceTree = "<group>"; };
 		366EF9782224346200CE345E /* GetTopHeadlinesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetTopHeadlinesUseCase.swift; sourceTree = "<group>"; };
 		366EF98122243D5500CE345E /* NewsHeadlineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsHeadlineTableViewCell.swift; sourceTree = "<group>"; };
 		366EF98222243D5500CE345E /* NewsHeadlineTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsHeadlineTableViewCell.xib; sourceTree = "<group>"; };
@@ -238,6 +250,23 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
+		3614AE5D22293A9C00A2C82D /* Headlines Filter Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3614AE5E22293AC500A2C82D /* View Model */,
+				3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */,
+			);
+			path = "Headlines Filter Settings";
+			sourceTree = "<group>";
+		};
+		3614AE5E22293AC500A2C82D /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				366E841E22295D8C000CC218 /* NewsSettingsEditViewModel.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
 		36568C52222700F900E81E1D /* Headlines Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,9 +301,19 @@
 			path = "User Defaults";
 			sourceTree = "<group>";
 		};
+		366E841922295B32000CC218 /* Settings Edit Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				366E841C22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib */,
+				366E841A22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift */,
+			);
+			path = "Settings Edit Table View Cell";
+			sourceTree = "<group>";
+		};
 		366EF97E22243B7D00CE345E /* Headlines */ = {
 			isa = PBXGroup;
 			children = (
+				3614AE5D22293A9C00A2C82D /* Headlines Filter Settings */,
 				36568C532227012000E81E1D /* Top Headlines */,
 				36568C52222700F900E81E1D /* Headlines Filter */,
 			);
@@ -295,6 +334,7 @@
 		366EF98022243D4000CE345E /* Table View Cells */ = {
 			isa = PBXGroup;
 			children = (
+				366E841922295B32000CC218 /* Settings Edit Table View Cell */,
 				366EF98922243FF700CE345E /* Headline Table View Cell */,
 			);
 			path = "Table View Cells";
@@ -315,6 +355,8 @@
 				366EF98722243ED700CE345E /* UIView+UIVisualEffect.swift */,
 				366EF98F2224426F00CE345E /* UITableViewCell+NSLayoutAnchor.swift */,
 				3608EC042225587E00866DED /* NSObject.swift */,
+				3614AE5F22293B6500A2C82D /* UIColor.swift */,
+				366E84202229739A000CC218 /* CAGradientLayer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -696,6 +738,7 @@
 			files = (
 				366EF98422243D5500CE345E /* NewsHeadlineTableViewCell.xib in Resources */,
 				36FEDDBF221DAD7500FEABBE /* LaunchScreen.storyboard in Resources */,
+				366E841D22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib in Resources */,
 				36FEDDBC221DAD7500FEABBE /* Assets.xcassets in Resources */,
 				3605134D222820E900D647B2 /* HeadlinesSettingsCollectionViewCell.xib in Resources */,
 				36FEDDBA221DAD7400FEABBE /* Main.storyboard in Resources */,
@@ -774,6 +817,7 @@
 				366EF9AB2224464600CE345E /* APIImagesGateway.swift in Sources */,
 				36F55901221EADCA00CA9B69 /* RequestError.swift in Sources */,
 				3608EC052225587E00866DED /* NSObject.swift in Sources */,
+				3614AE622229413D00A2C82D /* NewsSettingsEditViewController.swift in Sources */,
 				366EF9A42224451200CE345E /* NewsAPIRequestProtocol.swift in Sources */,
 				3605328F2226F15600825D5B /* MiniusButton.swift in Sources */,
 				366EF9792224346200CE345E /* GetTopHeadlinesUseCase.swift in Sources */,
@@ -782,9 +826,11 @@
 				366EF9AE2224487700CE345E /* FetchImageRequest.swift in Sources */,
 				3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */,
 				366EF996222444DA00CE345E /* NewsGateway.swift in Sources */,
+				366E84212229739A000CC218 /* CAGradientLayer.swift in Sources */,
 				366EF999222444F700CE345E /* NewsAPICategory.swift in Sources */,
 				366EF99C2224450200CE345E /* NewsAPI.swift in Sources */,
 				36FEDDD8221DB38700FEABBE /* NewsArticle.swift in Sources */,
+				366E841F22295D8C000CC218 /* NewsSettingsEditViewModel.swift in Sources */,
 				3605134C222820E900D647B2 /* HeadlinesSettingsCollectionViewCell.swift in Sources */,
 				366EF99F2224450900CE345E /* NewsAPIResponse.swift in Sources */,
 				366EF9932224448000CE345E /* FetchImageUseCase.swift in Sources */,
@@ -797,6 +843,7 @@
 				36568C58222706B300E81E1D /* BaseViewController.swift in Sources */,
 				3608EC0B22257C5800866DED /* CacheClient.swift in Sources */,
 				366EF9A02224450900CE345E /* NewsAPIError.swift in Sources */,
+				3614AE6022293B6500A2C82D /* UIColor.swift in Sources */,
 				3608EC032225508200866DED /* NewsArticleViewController.swift in Sources */,
 				36FEDDD5221DB23800FEABBE /* Result.swift in Sources */,
 				36FEDDB5221DAD7400FEABBE /* AppDelegate.swift in Sources */,
@@ -805,6 +852,7 @@
 				360513502228222D00D647B2 /* HeadlinesFilterViewModel.swift in Sources */,
 				36568C552227014100E81E1D /* HeadlinesFilterViewController.swift in Sources */,
 				3677573A2228525000CB19E0 /* NewsSettings.swift in Sources */,
+				366E841B22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift in Sources */,
 				366EF98322243D5500CE345E /* NewsHeadlineTableViewCell.swift in Sources */,
 				360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */,
 				36FEDDE6221DBE0700FEABBE /* HTTPHeaders.swift in Sources */,

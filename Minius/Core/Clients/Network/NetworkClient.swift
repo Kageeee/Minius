@@ -35,7 +35,6 @@ class NetworkClient {
             .flatMap { data -> Observable<(Result<T>)> in
                 do {
                     let obj = try JSONDecoder().decode(T.self, from: data)
-                    print(obj)
                     return Observable.just(.success(obj))
                 } catch let error {
                     print("PARSE ERROR = \(error)")

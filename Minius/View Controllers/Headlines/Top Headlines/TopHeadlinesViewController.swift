@@ -38,16 +38,12 @@ class TopHeadlinesViewController: BaseViewController {
         headlinesTableView.delegate = self
         headlinesTableView.dataSource = nil
         headlinesTableView.tableFooterView = UIView()
+        headlinesTableView.backgroundColor = .clear
         headlinesTableView.register(UINib(nibName: NewsHeadlineTableViewCell.className, bundle: nil), forCellReuseIdentifier: NewsHeadlineTableViewCell.className)
         
-        let iv = UIImageView(frame: headlinesTableView.bounds)
-        iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(named: "DefaultImage")
-        headlinesTableView.backgroundView = iv
+//        setupBackground()
+        setupRefreshControl()
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(reloadNews), for: .valueChanged)
-        headlinesTableView.refreshControl = refreshControl
         
         headlinesTableView.rx
             .modelSelected(TopHeadlineCellViewModel.self)
@@ -55,6 +51,25 @@ class TopHeadlinesViewController: BaseViewController {
                 self.viewModel.input.tappedURL(with: model.url)
             })
             .disposed(by: disposeBag)
+    }
+    
+    private func setupBackground() {
+//        let view = UIView(frame: headlinesTableView.bounds)
+//        view.layer.addSublayer(view.createBackgroundGradient())
+//        headlinesTableView.backgroundView = view
+//
+//        let iv = UIImageView(frame: headlinesTableView.bounds)
+//        iv.contentMode = .scaleAspectFill
+//        iv.image = UIImage(named: "DefaultImage")
+//        iv.layer.mask = iv.createBackgroundGradient()
+//        headlinesTableView.backgroundView = iv
+        
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadNews), for: .valueChanged)
+        headlinesTableView.refreshControl = refreshControl
     }
     
     @objc private func reloadNews() {

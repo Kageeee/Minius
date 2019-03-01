@@ -19,17 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PXj-0Z-llI">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9LJ-Mg-RPv" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
-                                <rect key="frame" x="236.5" y="503.5" width="90" height="90"/>
+                                <rect key="frame" x="235" y="502" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="9LJ-Mg-RPv" secondAttribute="height" multiplier="1:1" id="1Nb-wE-Mht"/>
                                     <constraint firstAttribute="width" constant="90" id="1oH-8D-iLE"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="NZ4-my-Utm" kind="presentation" identifier="showSettings" modalPresentationStyle="overFullScreen" id="0Ci-CL-Jpk"/>
+                                    <segue destination="NZ4-my-Utm" kind="presentation" identifier="showSettings" id="0Ci-CL-Jpk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -38,9 +38,9 @@
                             <constraint firstItem="PXj-0Z-llI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="0qE-Vc-Ps2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PXj-0Z-llI" secondAttribute="bottom" id="0wR-3T-vYv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXj-0Z-llI" secondAttribute="trailing" id="AmG-7K-uvi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="9LJ-Mg-RPv" secondAttribute="bottom" constant="75" id="aWU-EQ-ZOC"/>
                             <constraint firstItem="PXj-0Z-llI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cZ4-oB-J1a"/>
-                            <constraint firstItem="9LJ-Mg-RPv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.5" id="hjM-dZ-Rpy"/>
-                            <constraint firstItem="9LJ-Mg-RPv" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="1.5" id="ka6-gH-R9t"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9LJ-Mg-RPv" secondAttribute="trailing" constant="50" id="iry-zS-7LH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -58,7 +58,7 @@
         <!--Headlines Filter View Controller-->
         <scene sceneID="lcg-ba-GMj">
             <objects>
-                <viewController id="NZ4-my-Utm" customClass="HeadlinesFilterViewController" customModule="Minius" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="overFullScreen" id="NZ4-my-Utm" customClass="HeadlinesFilterViewController" customModule="Minius" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1HP-vZ-1UY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,7 +84,7 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHi-se-KwL" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
-                                <rect key="frame" x="236.5" y="455.5" width="90" height="90"/>
+                                <rect key="frame" x="235" y="502" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gHi-se-KwL" secondAttribute="height" multiplier="1:1" id="Plx-7m-Nm7"/>
                                     <constraint firstAttribute="width" constant="90" id="wgG-5j-yX0"/>
@@ -98,9 +98,9 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="ttQ-Yt-c4I" secondAttribute="bottom" id="3KX-h2-8WW"/>
                             <constraint firstItem="QyH-Wm-1f2" firstAttribute="trailing" secondItem="ttQ-Yt-c4I" secondAttribute="trailing" id="5ok-DO-2jT"/>
-                            <constraint firstItem="gHi-se-KwL" firstAttribute="centerX" secondItem="1HP-vZ-1UY" secondAttribute="centerX" multiplier="1.5" id="H2u-qG-28T"/>
-                            <constraint firstItem="gHi-se-KwL" firstAttribute="centerY" secondItem="1HP-vZ-1UY" secondAttribute="centerY" multiplier="1.5" id="Szh-rv-1kb"/>
                             <constraint firstItem="ttQ-Yt-c4I" firstAttribute="leading" secondItem="QyH-Wm-1f2" secondAttribute="leading" id="V1D-Gd-rIW"/>
+                            <constraint firstItem="QyH-Wm-1f2" firstAttribute="bottom" secondItem="gHi-se-KwL" secondAttribute="bottom" constant="75" id="XiU-3v-u9t"/>
+                            <constraint firstItem="QyH-Wm-1f2" firstAttribute="trailing" secondItem="gHi-se-KwL" secondAttribute="trailing" constant="50" id="cjJ-NY-PAQ"/>
                             <constraint firstItem="gHi-se-KwL" firstAttribute="width" secondItem="gHi-se-KwL" secondAttribute="height" multiplier="1:1" id="eED-8m-vKd"/>
                             <constraint firstItem="ttQ-Yt-c4I" firstAttribute="top" secondItem="QyH-Wm-1f2" secondAttribute="top" id="ihK-Zk-Wzj"/>
                         </constraints>
@@ -109,11 +109,42 @@
                     <connections>
                         <outlet property="settingsButton" destination="gHi-se-KwL" id="qLL-aH-W0B"/>
                         <outlet property="settingsCollectionView" destination="ttQ-Yt-c4I" id="p4y-Zm-vg2"/>
+                        <segue destination="uwc-2i-tBY" kind="show" identifier="settingsEdit" id="ydQ-fr-V9l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xhe-O9-0r8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="958" y="761"/>
+        </scene>
+        <!--News Settings Edit View Controller-->
+        <scene sceneID="zQS-ZO-n1W">
+            <objects>
+                <viewController id="uwc-2i-tBY" customClass="NewsSettingsEditViewController" customModule="Minius" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pt7-aE-vhg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4yh-Wt-gf1">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4yh-Wt-gf1" firstAttribute="top" secondItem="Syg-Ou-9tL" secondAttribute="top" id="5MM-Vy-3k5"/>
+                            <constraint firstItem="Syg-Ou-9tL" firstAttribute="bottom" secondItem="4yh-Wt-gf1" secondAttribute="bottom" id="5ZE-k9-VoJ"/>
+                            <constraint firstItem="Syg-Ou-9tL" firstAttribute="trailing" secondItem="4yh-Wt-gf1" secondAttribute="trailing" id="JVY-Ss-KJg"/>
+                            <constraint firstItem="4yh-Wt-gf1" firstAttribute="leading" secondItem="Syg-Ou-9tL" secondAttribute="leading" id="aui-1B-Lf7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Syg-Ou-9tL"/>
+                    </view>
+                    <connections>
+                        <outlet property="settingsEditTableView" destination="4yh-Wt-gf1" id="MWY-X0-92C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JK4-P1-hbs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958" y="1573"/>
         </scene>
         <!--News Article View Controller-->
         <scene sceneID="8PY-QU-CgG">
@@ -201,8 +232,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="owT-oJ-R2m" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6Ts-ie-vlj">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="6Ts-ie-vlj">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

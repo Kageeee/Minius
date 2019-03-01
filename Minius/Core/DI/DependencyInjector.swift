@@ -51,5 +51,10 @@ extension SwinjectStoryboard {
             controller.viewModel = resolver.resolve(HeadlinesFilterViewViewModel.self)
         }
         
+        defaultContainer.autoregister(NewsSettingsEditViewModel.self, initializer: NewsSettingsEditViewModel.init)
+        defaultContainer.storyboardInitCompleted(NewsSettingsEditViewController.self) { (resolver, controller) in
+            controller.viewModel = resolver.resolve(NewsSettingsEditViewModel.self)
+        }
+        
     }
 }

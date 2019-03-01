@@ -28,6 +28,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     @IBOutlet private weak var _titleLabel: UILabel! {
         didSet {
             _titleLabel.hero.id = "lblTitle"
+            _titleLabel.hero.modifiers = [.fade]
         }
     }
     
