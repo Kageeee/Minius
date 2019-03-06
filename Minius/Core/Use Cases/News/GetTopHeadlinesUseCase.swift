@@ -12,33 +12,35 @@ import RxSwift
 typealias GetTopHeadlinesUseCaseCompletionHandler = (_ topHeadlines: [NewsArticle]?) -> ()
 
 protocol GetTopHeadlinesUseCase {
-    func getTopHeadlines(for country: NewsAPICountry, completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler)
+    func getTopHeadlines(completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler)
 }
 
 class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
     
-    let disposeBag = DisposeBag()
+    private let _disposeBag = DisposeBag()
     
-    let newsGateway: NewsGateway?
+    private let _newsGateway: NewsGateway?
+    private let _udClient   : UserDefaultsClient?
     
-    init(newsGateway: NewsGateway) {
-        self.newsGateway = newsGateway
+    init(newsGateway: NewsGateway, udClient: UserDefaultsClient) {
+        self._newsGateway   = newsGateway
+        self._udClient      = udClient
     }
     
-    func getTopHeadlines(for country: NewsAPICountry, completionHandler: @escaping ([NewsArticle]?) -> ()) {
-        newsGateway?.getTopHeadlines(for: country, completionHandler: { [weak self] (observableResult) in
+    func getTopHeadlines(completionHandler: @escaping ([NewsArticle]?) -> ()) {
+        _newsGateway?.getTopHeadlines(for: _udClient?.getDefaultCountry(), completionHandler: { [weak self] (observableResult) in
             guard let self = self else { return }
             observableResult.subscribe(onSuccess: { result in
                 switch result {
                 case .success(let response):
                     completionHandler(response.articles)
-                case .failure(let error):
+                case .failure(_):
                     completionHandler(nil)
                 }
             }, onError: { error in
                 completionHandler(nil)
             })
-            .disposed(by: self.disposeBag)
+            .disposed(by: self._disposeBag)
         })
     }
     

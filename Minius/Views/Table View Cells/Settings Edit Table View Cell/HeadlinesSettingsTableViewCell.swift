@@ -20,6 +20,7 @@ class HeadlinesSettingsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = .clear
     }
     
     func configure(for cellViewModel: HeadlineFilterCellViewModel) {

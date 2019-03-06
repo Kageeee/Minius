@@ -22,6 +22,9 @@ class DependencyInjector {
 extension SwinjectStoryboard {
     @objc class func setup() {
         
+        //User Defaults
+        defaultContainer.autoregister(UserDefaultsClient.self, initializer: UserDefaultsClientImplementation.init).inObjectScope(.container)
+        
         //News
         defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init).inObjectScope(.container)
         defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init).inObjectScope(.container)
@@ -32,8 +35,7 @@ extension SwinjectStoryboard {
         defaultContainer.autoregister(LocalImagesGateway.self, initializer: LocalImagesGatewayImplementation.init).inObjectScope(.container)
         defaultContainer.autoregister(FetchImageUseCase.self, initializer: FetchImageUseCaseImplementation.init).inObjectScope(.container)
         
-        //User Defaults
-        defaultContainer.autoregister(UserDefaultsClient.self, initializer: UserDefaultsClientImplementation.init).inObjectScope(.container)
+        
         
         defaultContainer.autoregister(TopHeadlinesViewViewModel.self, initializer: TopHeadlinesViewViewModel.init)
         defaultContainer.storyboardInitCompleted(TopHeadlinesViewController.self) { (resolver, controller) in

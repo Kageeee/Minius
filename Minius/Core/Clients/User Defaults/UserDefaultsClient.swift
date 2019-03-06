@@ -32,7 +32,7 @@ class UserDefaultsClientImplementation: UserDefaultsClient {
     }
     
     func setDefaultCountry(country: NewsAPICountry) {
-        setObject(value: country, defaultsKey: .country)
+        setObject(value: country.rawValue, defaultsKey: .country)
     }
     
     func setDefaultCategories(categories: [NewsAPICategory]) {
@@ -44,7 +44,8 @@ class UserDefaultsClientImplementation: UserDefaultsClient {
     }
     
     func getDefaultCountry() -> NewsAPICountry? {
-        return getObject(for: .country) as? NewsAPICountry
+        let value = getObject(for: .country) as? String ?? ""
+        return NewsAPICountry(rawValue: value)
     }
     
     func getDefaultCategories() -> [NewsAPICategory]? {

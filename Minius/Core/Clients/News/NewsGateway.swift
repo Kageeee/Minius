@@ -12,5 +12,6 @@ import RxSwift
 typealias GetTopHeadlinesGatewayCompletionHandler = (_ topHeadlinesResponse: Single<Result<NewsAPIResponse>>) -> Void
 
 protocol NewsGateway {
-    func getTopHeadlines(for country: NewsAPICountry, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler)
+    func getTopHeadlines(for country: NewsAPICountry?, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler)
 }
+

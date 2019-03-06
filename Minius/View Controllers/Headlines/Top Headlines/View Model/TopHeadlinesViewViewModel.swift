@@ -39,7 +39,7 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
     var output: TopHeadlinesViewModelOutput { return self }
     
     
-    private let disposeBag = DisposeBag()
+    private let _disposeBag = DisposeBag()
     
     var getTopHeadlinesUseCase: GetTopHeadlinesUseCase!
     
@@ -65,8 +65,8 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
         articleList = _topHeadlinesRelay.asDriver()
         showDetail = _showDetailRelay.asSignal()
         showTableView = _showTableViewRelay.asDriver(onErrorJustReturn: false)
+        setupObservers()
         setupRelays()
-        fetchData()
     }
     
     func getSelectedArticle() -> NewsArticle? {
@@ -76,36 +76,46 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
     private func setupRelays() {
         _articleListRelay.subscribe(onNext: { [unowned self] (articleList) in
             self._topHeadlinesRelay.accept(articleList.map { TopHeadlineCellViewModel(imageURL: $0.urlToImage, title: $0.title, url: $0.url) })
-        }).disposed(by: disposeBag)
+        }).disposed(by: _disposeBag)
         
         _showDetailRelay
             .subscribe(onNext: { [unowned self] in self._selectedArticle = $0 })
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
         
         _tappedURLRelay
             .map { url in self._articleListRelay.value.first(where: { $0.url == url }) }
             .bind(to: _showDetailRelay)
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
         
+    }
+    
+    private func setupObservers() {
+        Observable.combineLatest(UserDefaults.standard.rx.observe(String.self, UserDefaultsKeys.country.rawValue),
+                       UserDefaults.standard.rx.observe(String.self, UserDefaultsKeys.categories.rawValue),
+                       UserDefaults.standard.rx.observe(String.self, UserDefaultsKeys.sources.rawValue))
+            .subscribe(onNext: { [unowned self] _ in
+                self.fetchData()
+            })
+            .disposed(by: _disposeBag)
     }
     
     private func fetchData() {
         createArticleListFetchObservable()
-            .subscribe(onNext: { (articleList) in
+            .subscribe(onNext: { [weak self] (articleList) in
+                guard let self = self else { return }
                 self._articleListRelay.accept(articleList)
                 self._showTableViewRelay.accept(!articleList.isEmpty)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
     }
     
     private func createArticleListFetchObservable() -> Observable<[NewsArticle]> {
         return Observable<[NewsArticle]>.create { [unowned self] (observer) -> Disposable in
-            self.getTopHeadlinesUseCase.getTopHeadlines(for: .Portugal, completionHandler: { articleList in
+            self.getTopHeadlinesUseCase.getTopHeadlines(completionHandler: { articleList in
                 observer.onNext(articleList ?? [])
             })
-            
             return Disposables.create()
-            }
+        }
     }
     
     func tappedURL(with urlString: String) {

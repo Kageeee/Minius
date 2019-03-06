@@ -16,4 +16,8 @@ enum NewsAPICategory: String {
     case Science = "science"
     case Sports = "sports"
     case Technology = "technology"
+    
+    static func toList() -> [NewsAPICategory] {
+        return [.Business, .Entertainment, .General, .Health, .Science, .Sports, .Technology]
+    }
 }
