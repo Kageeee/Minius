@@ -19,8 +19,9 @@ protocol NewsArticleViewModelInput: ViewModelInput {
 protocol NewsArticleViewModelOutput: ViewModelOutput {
     var showImage: Driver<UIImage?> { get }
     var populateTitle: Driver<String> { get }
-    var populateDetail: Driver<String> { get }
+    var urlPresent: Driver<URL> { get }
     var viewTitle: Driver<String> { get }
+    var loadingState: Driver<Bool> { get }
 }
 
 protocol NewsArticleViewModelType: ViewModelType {
@@ -44,20 +45,23 @@ class NewsArticleViewViewModel: BaseViewModel, NewsArticleViewModelType, NewsArt
     private let _imageDownloadRelay = BehaviorRelay<UIImage?>(value: nil)
     private let _viewTitleRelay = BehaviorRelay<String>(value: "")
     private let _articleTitleRelay = BehaviorRelay<String>(value: "")
-    private let _detailRelay = BehaviorRelay<String>(value: "")
+    private let _detailRelay = BehaviorRelay<URL>(value: URL(string: "www.google.com")!)
+    private let _loadingRelay = BehaviorRelay<Bool>(value: true)
     
     var showImage: Driver<UIImage?>
     var populateTitle: Driver<String>
-    var populateDetail: Driver<String>
+    var urlPresent: Driver<URL>
     var viewTitle: Driver<String>
+    var loadingState: Driver<Bool>
     
     init(fetchImageUseCase: FetchImageUseCase) {
         self._fetchImageUseCase = fetchImageUseCase
         
         showImage = _imageDownloadRelay.asDriver()
         populateTitle = _articleTitleRelay.asDriver()
-        populateDetail = _detailRelay.asDriver()
+        urlPresent = _detailRelay.asDriver()
         viewTitle = _viewTitleRelay.asDriver()
+        loadingState = _loadingRelay.asDriver()
     }
     
     private func createFetchArticleImageHandler() -> (NewsArticle) -> Void {
@@ -72,22 +76,27 @@ class NewsArticleViewViewModel: BaseViewModel, NewsArticleViewModelType, NewsArt
     }
     
     func loadArticle(for article: NewsArticle) {
+        setLoading(with: true)
         fetchImage(for: article)
         showTitle(title: article.title)
-        showDetail(detail: article.content ?? "")
         setViewTitle(title: article.source.name)
+        initializeSafariVC(with: article.url)
     }
     
     private func showTitle(title: String) {
         _articleTitleRelay.accept(title)
     }
     
-    private func showDetail(detail: String) {
-        _detailRelay.accept(detail)
-    }
-    
     private func setViewTitle(title: String) {
         _viewTitleRelay.accept(title)
     }
     
+    private func initializeSafariVC(with url: String) {
+        guard let finalURL = URL(string: url) else { return }
+        _detailRelay.accept(finalURL)
+    }
+    
+    private func setLoading(with value: Bool) {
+        _loadingRelay.accept(value)
+    }
 }

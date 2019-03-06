@@ -14,7 +14,7 @@ extension UIView {
     open func createBackgroundGradient(alphaLevel: CGFloat = 1) -> CAGradientLayer {
         return createGradientLayer(with: bounds,
                                    type: .axial,
-                                   colors: [UIColor.MiniusColor.FirstBackgroundGradientColor.withAlphaComponent(alphaLevel).cgColor, UIColor.MiniusColor.SecondBackgroundGradientColor.withAlphaComponent(alphaLevel).cgColor],
+                                   colors: UIColor.MiniusColor.getGradientSet(with: alphaLevel)[1],
                                    startPoint: .zero,
                                    endPoint: CGPoint(x: 0.72, y: 0.72))
     }

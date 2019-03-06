@@ -13,12 +13,20 @@ import Hero
 
 class TopHeadlinesViewController: BaseViewController {
     
-    @IBOutlet weak var headlinesTableView: UITableView!
-    @IBOutlet weak var settingsButton: MiniusButton! {
+    @IBOutlet weak var headlinesTableView: UITableView! {
+        didSet {
+            headlinesTableView.hero.id = "headlinesTableView"
+        }
+    }
+    @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.hero.id = "settingsButton"
             settingsButton.hero.modifiers = [.rotate(90)]
         }
+    }
+    
+    @IBAction func showSettingsPressed(_ sender: UIButton) {
+        performSegue(withIdentifier: "showSettings", sender: self)        
     }
     
     var viewModel: TopHeadlinesViewViewModel!
@@ -26,9 +34,8 @@ class TopHeadlinesViewController: BaseViewController {
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
+//        HeroDebugPlugin.isEnabled = true
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = true
-        title = "Minius"
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
         setupViewModel()
@@ -41,9 +48,7 @@ class TopHeadlinesViewController: BaseViewController {
         headlinesTableView.backgroundColor = .clear
         headlinesTableView.register(UINib(nibName: NewsHeadlineTableViewCell.className, bundle: nil), forCellReuseIdentifier: NewsHeadlineTableViewCell.className)
         
-//        setupBackground()
         setupRefreshControl()
-        
         
         headlinesTableView.rx
             .modelSelected(TopHeadlineCellViewModel.self)
@@ -51,19 +56,6 @@ class TopHeadlinesViewController: BaseViewController {
                 self.viewModel.input.tappedURL(with: model.url)
             })
             .disposed(by: disposeBag)
-    }
-    
-    private func setupBackground() {
-//        let view = UIView(frame: headlinesTableView.bounds)
-//        view.layer.addSublayer(view.createBackgroundGradient())
-//        headlinesTableView.backgroundView = view
-//
-//        let iv = UIImageView(frame: headlinesTableView.bounds)
-//        iv.contentMode = .scaleAspectFill
-//        iv.image = UIImage(named: "DefaultImage")
-//        iv.layer.mask = iv.createBackgroundGradient()
-//        headlinesTableView.backgroundView = iv
-        
     }
     
     private func setupRefreshControl() {
@@ -94,6 +86,7 @@ class TopHeadlinesViewController: BaseViewController {
                 guard let self = self else { return }
                 guard show else { return }
                 self.headlinesTableView.refreshControl?.endRefreshing()
+                self.headlinesTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
                 UIView.animate(withDuration: 0.3, animations: {
                     self.headlinesTableView.alpha = 1
                 })

@@ -11,11 +11,21 @@ import Hero
 
 class BaseViewController: UIViewController {
     
-    var isBackgroundTranslucent = false
-    var animateBackground = true
+    var isBackgroundTranslucent = true
+    var animateBackground = false
+    var addGradient = true
     
-    var currentGradient: Int = 0
+    var currentGradient: Int = 1
     var gradient = CAGradientLayer()
+    
+    var mainView = UIView() {
+        didSet {
+            mainView.hero.id = "backgroundBlurView"
+            mainView.hero.modifiers = [.fade]
+            mainView.backgroundColor = .clear
+            mainView.alpha = 0.5
+        }
+    }
     
     fileprivate var animationList = [CABasicAnimation]()
     
@@ -26,30 +36,44 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.prefersLargeTitles = true
         hero.isEnabled = true
-        // Do any additional setup after loading the view.
-        setupBackgroundView()
+        
     }
     
-    private func setupBackgroundView() {
-        let bgView = UIView(frame: view.bounds)
-        gradient = bgView.createBackgroundGradient(alphaLevel: isBackgroundTranslucent ? 0.5 : 1)
-        bgView.layer.insertSublayer(gradient, at: 0)
-        
-        view.addSubview(bgView)
-        view.sendSubviewToBack(bgView)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupBackgroundWithGradient()
+    }
+
+    func setupBackgroundWithGradient() {
+        guard !view.subviews.contains(mainView) else { return }
+        mainView.frame = view.bounds        
+        gradient = mainView.createBackgroundGradient(alphaLevel: isBackgroundTranslucent ? 0.5 : 1)
+        mainView.layer.insertSublayer(gradient, at: 0)
+        view.addSubview(mainView)
+        view.sendSubviewToBack(mainView)
         guard animateBackground, let animations = gradient.createCradientAnimation(for: UIColor.MiniusColor.getGradientSet(with: isBackgroundTranslucent ? 0.5 : 1), delay: 0, delegate: self) else { return }
         self.animationList = animations
         animateGradient()
     }
+//
+//    func setupBackgroundWithoutGradient() {
+//        mainView = UIVisualEffectView(frame: view.bounds).createBlurEffect(style: .dark, alpha: 1)
+//        view.addSubview(mainView)
+//        view.sendSubviewToBack(mainView)
+//    }
     
     func animateGradient() {
         gradient.add(animationList[currentGradient], forKey: "colorChange")
         currentGradient = ( currentGradient + 1 ) < animationList.count ? currentGradient + 1 : 0
+    }
+    
+    func animateBlur() {
+        guard mainView is UIVisualEffectView else { return }
+        UIView.animate(withDuration: 0.5) { [weak self] in
+            guard let self = self else { return }
+            (self.mainView as? UIVisualEffectView)?.effect = UIBlurEffect(style: .dark)
+        }
     }
 
     /*

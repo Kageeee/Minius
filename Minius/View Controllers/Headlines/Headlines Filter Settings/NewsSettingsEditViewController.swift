@@ -13,31 +13,46 @@ import RxSwift
 
 class NewsSettingsEditViewController: BaseViewController {
 
-    @IBOutlet weak var settingsEditTableView: UITableView! {
-        didSet {
-            settingsEditTableView.hero.modifiers = [.cascade(delta: 0.1)]
-            settingsEditTableView.backgroundColor = .clear
-            settingsEditTableView.register(UINib(nibName: HeadlinesSettingsTableViewCell.className, bundle: nil), forCellReuseIdentifier: HeadlinesSettingsTableViewCell.className)
-            settingsEditTableView.delegate = self
-        }
-    }
+    @IBOutlet weak var settingsEditTableView: UITableView!
     
     private let _disposeBag = DisposeBag()
     
     var viewModel: NewsSettingsEditViewModel!
     
     override func viewDidLoad() {
-        isBackgroundTranslucent = true
         super.viewDidLoad()
-
-        viewModel.output
-            .settingsList
-            .drive(settingsEditTableView.rx.items(cellIdentifier: HeadlinesSettingsTableViewCell.className, cellType: HeadlinesSettingsTableViewCell.self)) { (_, cellViewModel, cell) in
-            cell.configure(for: cellViewModel)
-        }.disposed(by: _disposeBag)
-        // Do any additional setup after loading the view.
+        
+        setupTableView()
+        setupViewModel()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    private func setupTableView() {
+        settingsEditTableView.hero.modifiers = [.cascade(delta: 0.1)]
+        settingsEditTableView.register(UINib(nibName: HeadlinesSettingsTableViewCell.className, bundle: nil), forCellReuseIdentifier: HeadlinesSettingsTableViewCell.className)
+        settingsEditTableView.delegate = self
+    
+    }
+    
+    private func setupViewModel() {
+        viewModel.output
+            .settingsList
+            .drive(settingsEditTableView.rx.items(cellIdentifier: HeadlinesSettingsTableViewCell.className, cellType: HeadlinesSettingsTableViewCell.self)) { (index, cellViewModel, cell) in
+                cell.hero.modifiers = [.fade, .translate(y: cell.bounds.height)]
+                cell.configure(for: cellViewModel)
+            }.disposed(by: _disposeBag)
+        
+        Observable.zip(settingsEditTableView.rx.modelSelected(HeadlineFilterCellViewModel.self), settingsEditTableView.rx.itemSelected)
+            .subscribe(onNext: { [unowned self] (cellViewModel, indexPath) in
+                self.viewModel.input.tappedCell(with: cellViewModel.value)
+//                guard let cell = self.settingsEditTableView.cellForRow(at: indexPath) as? HeadlinesSettingsTableViewCell else { return }
+                self.hero.dismissViewController()
+            })
+            .disposed(by: _disposeBag)
+    }
 
     /*
     // MARK: - Navigation
@@ -57,7 +72,4 @@ extension NewsSettingsEditViewController: UITableViewDelegate {
         return tableView.bounds.height / 7
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
 }

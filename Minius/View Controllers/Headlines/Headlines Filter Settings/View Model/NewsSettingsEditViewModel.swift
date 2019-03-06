@@ -13,6 +13,8 @@ import RxCocoa
 
 protocol NewsSettingsEditViewModelInput: ViewModelInput {
     func buildList(for filter: SettingsFilter)
+    func tappedCell(with value: String)
+    func scrollToSelected()
 }
 
 protocol NewsSettingsEditViewModelOutput: ViewModelOutput {
@@ -34,22 +36,44 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
     private let _udClient: UserDefaultsClient
     
     private var _settingsListRelay  = BehaviorRelay<[HeadlineFilterCellViewModel]>(value: [])
+    private var _dismissVCRelay  = PublishRelay<Void>()
+    
+    private var filter: SettingsFilter!
     
     var settingsList: Driver<[HeadlineFilterCellViewModel]>
     
     init(udClient: UserDefaultsClient) {
-        _udClient = udClient
-        
+        _udClient = udClient   
         settingsList = _settingsListRelay.asDriver()
     }
     
     func buildList(for filter: SettingsFilter) {
+        self.filter = filter
         switch filter {
         case .country:
-            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: "") }))
+            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: $0.rawValue) }))
         default:
-            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: "") }))
+            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: $0.rawValue) }))
         }
+    }
+    
+    func tappedCell(with value: String) {
+        guard let filter = filter else { return }
+        switch filter {
+        case .country:
+            guard let country = NewsAPICountry(rawValue: value) else { return }
+            _udClient.setDefaultCountry(country: country)
+        default:
+            return
+        }
+    }
+    
+    func scrollToSelected() {
+        
+    }
+    
+    func isValueSelected(with value: String) -> Bool {
+        return value == _udClient.getDefaultCountry()?.countryCode()
     }
     
 }

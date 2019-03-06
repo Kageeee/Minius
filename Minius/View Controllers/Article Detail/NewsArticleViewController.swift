@@ -10,26 +10,45 @@ import UIKit
 import Hero
 import RxSwift
 import RxCocoa
+import WebKit
 
 class NewsArticleViewController: BaseViewController {
 
-    @IBOutlet private weak var _articleScrollView: UIScrollView!
-    @IBOutlet private weak var _articleContentView: UIView!
-    @IBOutlet private weak var _ivArticleImageView: UIImageView! {
+    @IBOutlet weak var loadingContentView: UIView!
+    @IBOutlet weak var backButton: MiniusButton! {
         didSet {
-            _ivArticleImageView.contentMode = .scaleAspectFill
-            _ivArticleImageView.hero.id = "ivArticleTitle"
+            backButton.hero.modifiers = [.fade]
+            backButton.hero.id = "settingsButton"
         }
     }
     
-    @IBOutlet private weak var _lblArticleTitle: UILabel! {
+    @IBAction func buttonPressed(_ sender: MiniusButton) {
+        hero.dismissViewController()
+    }
+    
+    @IBOutlet weak var webView: WKWebView! {
         didSet {
-            _lblArticleTitle.hero.id = "lblTitle"
-            _lblArticleTitle.hero.modifiers = [.fade]
+            webView.alpha = 0
+            webView.navigationDelegate = self
         }
     }
     
-    @IBOutlet private weak var _lblDetailText: UILabel!
+    @IBOutlet weak var _articleImageView: UIImageView! {
+        didSet {
+            _articleImageView.hero.id = "ivArticleTitle"
+        }
+    }
+    @IBOutlet weak var _articleTitleLabel: UILabel! {
+        didSet {
+            _articleTitleLabel.hero.id = "lblTitle"
+        }
+    }
+    @IBOutlet weak var _loadingLabel: UILabel!
+    @IBOutlet weak var _loadingActivityIndicator: UIActivityIndicatorView! {
+        didSet {
+            _loadingActivityIndicator.style = .whiteLarge
+        }
+    }
     
     private let disposeBag = DisposeBag()
     
@@ -38,38 +57,76 @@ class NewsArticleViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
         setupViewModel()
     }
     
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.prefersLargeTitles = true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     private func setupViewModel() {
         viewModel.output.showImage
-            .drive(_ivArticleImageView.rx.image)
+            .drive(_articleImageView.rx.image)
             .disposed(by: disposeBag)
-        
+
         viewModel.output.populateTitle
-            .drive(_lblArticleTitle.rx.text)
+            .drive(_articleTitleLabel.rx.text)
             .disposed(by: disposeBag)
         
-        viewModel.output.populateDetail
-            .drive(_lblDetailText.rx.text)
+        viewModel.output.loadingState
+            .drive(_loadingActivityIndicator.rx.isAnimating)
             .disposed(by: disposeBag)
+//
+//        viewModel.output.populateDetail
+//            .drive(_lblDetailText.rx.text)
+//            .disposed(by: disposeBag)
+//
+//        viewModel.output.viewTitle
+//            .drive(navigationItem.rx.title)
+//            .disposed(by: disposeBag)
         
-        viewModel.output.viewTitle
-            .drive(navigationItem.rx.title)
-            .disposed(by: disposeBag)
+        
+        viewModel.output.urlPresent.drive(onNext: { url in
+            self.showSafariVC(with: url)
+        }).disposed(by: disposeBag)
+        
     }
     
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+//
+//    // In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        // Get the new view controller using segue.destination.
+//        // Pass the selected object to the new view controller.
+//    }
+    
+    private func showSafariVC(with URL: URL) {
+        webView.load(URLRequest(url: URL))
     }
  
+}
+
+extension NewsArticleViewController: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print()
+    }
+    
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        UIView.animate(withDuration: 0.5) {
+            webView.alpha = 1
+            self.loadingContentView.alpha = 0
+        }
+        
+        print()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print()
+    }
 }

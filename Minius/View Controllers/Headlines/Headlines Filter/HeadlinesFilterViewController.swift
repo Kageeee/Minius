@@ -18,19 +18,20 @@ class HeadlinesFilterViewController: BaseViewController {
             settingsButton.hero.id = "settingsButton"
         }
     }
-    @IBOutlet weak var settingsCollectionView: UICollectionView! {
-        didSet {
-            setupCollectionView()
-        }
-    }
+    @IBOutlet weak var settingsCollectionView: UICollectionView!
     
     var viewModel: HeadlinesFilterViewViewModel!
     
     private let _disposeBag = DisposeBag()
     
     override func viewDidLoad() {
-        isBackgroundTranslucent = true
         super.viewDidLoad()
+//        hero.modalAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
+        setupCollectionView()
+        setupViewModel()
+    }
+    
+    private func setupViewModel() {
         viewModel.output
             .settingsList
             .drive(settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
@@ -42,8 +43,10 @@ class HeadlinesFilterViewController: BaseViewController {
         viewModel.output
             .showDetail
             .emit(onNext: { [unowned self] _ in
-            self.performSegue(withIdentifier: "settingsEdit", sender: self)
-        }).disposed(by: _disposeBag)
+                self.performSegue(withIdentifier: "settingsEdit", sender: self)
+            }).disposed(by: _disposeBag)
+        
+        viewModel.input.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +54,12 @@ class HeadlinesFilterViewController: BaseViewController {
         settingsButton.animateButton()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     @IBAction func dismissView(_ sender: MiniusButton) {
-        dismiss(animated: true, completion: nil)
+        hero.dismissViewController()
     }
     
     private func setupCollectionView() {
@@ -74,7 +81,7 @@ class HeadlinesFilterViewController: BaseViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         guard let destinationVC = segue.destination as? NewsSettingsEditViewController else { return }
-        destinationVC.viewModel.input.buildList(for: viewModel.getSelectedFilter())
+         destinationVC.viewModel.input.buildList(for: viewModel.getSelectedFilter())
     }
 
 }
