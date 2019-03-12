@@ -18,12 +18,15 @@ class BaseViewController: UIViewController {
     var currentGradient: Int = 1
     var gradient = CAGradientLayer()
     
+    var panGestureRecognizer: UIPanGestureRecognizer!
+    
     var mainView = UIView() {
         didSet {
             mainView.hero.id = "backgroundBlurView"
             mainView.hero.modifiers = [.fade]
             mainView.backgroundColor = .clear
-            mainView.alpha = 0.5
+            mainView.alpha = 1
+            mainView.layer.zPosition = -1
         }
     }
     
@@ -38,14 +41,61 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .clear
         hero.isEnabled = true
         
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.backgroundColor = .clear
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        setupGestureRecognizer()
+        setupBackgroundWithGradient()
+//        setupBackgroundWithoutGradient()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupBackgroundWithGradient()
+        
     }
-
-    func setupBackgroundWithGradient() {
+    
+    @objc private func handlePan(gestureRecognizer: UIPanGestureRecognizer) {
+        let translation = gestureRecognizer.translation(in: nil)
+        let progress = translation.x / view.bounds.width
+        
+        switch gestureRecognizer.state {
+        case .began:
+            hero.dismissViewController()
+        case .changed:
+            Hero.shared.update(progress)
+        case .ended:
+            if progress + gestureRecognizer.velocity(in: nil).x / view.bounds.width > 0.3 {
+                DispatchQueue.main.async {
+                    Hero.shared.finish()
+                }
+            } else {
+                DispatchQueue.main.async {
+                    Hero.shared.cancel()
+                }
+                
+            }
+        default:
+            print()
+        }
+    }
+    
+    private func setupGestureRecognizer() {
+        if panGestureRecognizer != nil { view.removeGestureRecognizer(panGestureRecognizer) }
+        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(gestureRecognizer:)))
+        view.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    private func setupBackgroundWithoutGradient() {
+        guard !view.subviews.contains(mainView) else { return }
+        mainView.backgroundColor = UIColor.MiniusColor.FirstBackgroundGradientColor
+        mainView.frame = view.bounds
+        view.addSubview(mainView)
+        view.sendSubviewToBack(mainView)
+    }
+    
+    private func setupBackgroundWithGradient() {
         guard !view.subviews.contains(mainView) else { return }
         mainView.frame = view.bounds        
         gradient = mainView.createBackgroundGradient(alphaLevel: isBackgroundTranslucent ? 0.5 : 1)
@@ -56,19 +106,13 @@ class BaseViewController: UIViewController {
         self.animationList = animations
         animateGradient()
     }
-//
-//    func setupBackgroundWithoutGradient() {
-//        mainView = UIVisualEffectView(frame: view.bounds).createBlurEffect(style: .dark, alpha: 1)
-//        view.addSubview(mainView)
-//        view.sendSubviewToBack(mainView)
-//    }
     
-    func animateGradient() {
+    private func animateGradient() {
         gradient.add(animationList[currentGradient], forKey: "colorChange")
         currentGradient = ( currentGradient + 1 ) < animationList.count ? currentGradient + 1 : 0
     }
     
-    func animateBlur() {
+    private func animateBlur() {
         guard mainView is UIVisualEffectView else { return }
         UIView.animate(withDuration: 0.5) { [weak self] in
             guard let self = self else { return }

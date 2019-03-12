@@ -69,7 +69,7 @@ class NewsArticleViewViewModel: BaseViewModel, NewsArticleViewModelType, NewsArt
     }
     
     private func fetchImage(for article: NewsArticle) {
-        _fetchImageUseCase?.fetchImage(for: article.urlToImage ?? "", completionHandler: { [weak self] (image) in
+        _fetchImageUseCase?.fetchImage(for: article.urlToImage ?? "", completionHandler: { [weak self] (image, fromCache) in
             guard let self = self else { return }
             self._imageDownloadRelay.accept(image)
         })

@@ -58,6 +58,9 @@ class NewsArticleViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,29 +83,12 @@ class NewsArticleViewController: BaseViewController {
         viewModel.output.loadingState
             .drive(_loadingActivityIndicator.rx.isAnimating)
             .disposed(by: disposeBag)
-//
-//        viewModel.output.populateDetail
-//            .drive(_lblDetailText.rx.text)
-//            .disposed(by: disposeBag)
-//
-//        viewModel.output.viewTitle
-//            .drive(navigationItem.rx.title)
-//            .disposed(by: disposeBag)
-        
         
         viewModel.output.urlPresent.drive(onNext: { url in
             self.showSafariVC(with: url)
         }).disposed(by: disposeBag)
         
     }
-    
-    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
     
     private func showSafariVC(with URL: URL) {
         webView.load(URLRequest(url: URL))

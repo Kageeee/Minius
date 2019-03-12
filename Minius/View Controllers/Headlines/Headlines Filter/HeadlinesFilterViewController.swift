@@ -16,6 +16,7 @@ class HeadlinesFilterViewController: BaseViewController {
     @IBOutlet weak var settingsButton: MiniusButton! {
         didSet {
             settingsButton.hero.id = "settingsButton"
+            settingsButton.hero.modifiers = [HeroModifier.arc()]
         }
     }
     @IBOutlet weak var settingsCollectionView: UICollectionView!
@@ -26,7 +27,6 @@ class HeadlinesFilterViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        hero.modalAnimationType = .selectBy(presenting: .zoom, dismissing: .zoomOut)
         setupCollectionView()
         setupViewModel()
     }
@@ -35,7 +35,7 @@ class HeadlinesFilterViewController: BaseViewController {
         viewModel.output
             .settingsList
             .drive(settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
-                cell.hero.modifiers = [.fade, .translate(y: cell.bounds.height)]
+                cell.hero.modifiers = [.fade, .translate(y: self.view.bounds.height)]
                 cell.configure(for: cellViewModel)
             }
             .disposed(by: _disposeBag)
@@ -46,11 +46,12 @@ class HeadlinesFilterViewController: BaseViewController {
                 self.performSegue(withIdentifier: "settingsEdit", sender: self)
             }).disposed(by: _disposeBag)
         
-        viewModel.input.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.input.reloadData()
         settingsButton.animateButton()
     }
     

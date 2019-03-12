@@ -12,6 +12,7 @@ import RxSwift
 
 class NewsHeadlineTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var _sourceName: UILabel!
     
     // Outlets
     @IBOutlet private weak var _ivBackground: UIImageView! {
@@ -25,8 +26,10 @@ class NewsHeadlineTableViewCell: UITableViewCell {
             _overlayView.alpha = 0
         }
     }
-    @IBOutlet private weak var _titleLabel: UILabel! {
+    @IBOutlet private weak var _titleLabel: UITextView! {
         didSet {
+            _titleLabel.isUserInteractionEnabled = false
+            _titleLabel.backgroundColor = .clear
             _titleLabel.hero.id = "lblTitle"
             _titleLabel.hero.modifiers = [.fade]
         }
@@ -44,14 +47,17 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        backgroundColor = .clear
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let path = _titleLabel.convert(_ivBackground.bounds, from: _ivBackground)
+        _titleLabel.textContainer.exclusionPaths.append(UIBezierPath(rect: path))
+        
+    }
     override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
-//        _overlayViewBottomConstraint.constant = selected ? _overlayView.bounds.height : 0
-//        UIView.animate(withDuration: 1) { [weak self] in
-//            self?.layoutIfNeeded()
-//        }
     }
     
     override func prepareForReuse() {
@@ -60,17 +66,24 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     }
     
     func configure(cellViewModel: TopHeadlineCellViewModel) {
+        
+        _sourceName.text = cellViewModel.sourceName
         _titleLabel.text = cellViewModel.title
-        fetchImageUseCase?.fetchImage(for: cellViewModel.imageURL ?? "", completionHandler: { [weak self] (image) in
+        
+        
+        fetchImageUseCase?.fetchImage(for: cellViewModel.imageURL ?? "", completionHandler: { [weak self] (image, fromCache) in
             guard let self = self else { return }
             let image = image ?? UIImage(named: "DefaultImage")
-            self.layoutIfNeeded()
-            self.addBlurEffect()
-            UIView.transition(with: self._ivBackground, duration: 1, options: [.transitionCrossDissolve], animations: {
+            defer { self.layoutIfNeeded() }
+            guard !fromCache else {
                 self._ivBackground.image = image
-                self._overlayView.alpha = 1
+                self._titleLabel.textColor = .white
+                return
+            }
+            UIView.transition(with: self._ivBackground, duration: 0.3, options: [.transitionCrossDissolve], animations: {
+                self._ivBackground.image = image
             }, completion: { isCompleted in
-                UIView.transition(with: self._titleLabel, duration: 1, options: [.transitionCrossDissolve], animations: {
+                UIView.transition(with: self._titleLabel, duration: 0.3, options: [.transitionCrossDissolve], animations: {
                     self._titleLabel.textColor = .white
                 }, completion: nil)
             })

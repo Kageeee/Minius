@@ -36,6 +36,7 @@ class TopHeadlinesViewController: BaseViewController {
     override func viewDidLoad() {
 //        HeroDebugPlugin.isEnabled = true
         super.viewDidLoad()
+        title = "Minius"
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
         setupViewModel()
@@ -103,7 +104,7 @@ class TopHeadlinesViewController: BaseViewController {
 extension TopHeadlinesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return headlinesTableView.bounds.height / 2
+        return headlinesTableView.bounds.height / 3
     }
 
 }

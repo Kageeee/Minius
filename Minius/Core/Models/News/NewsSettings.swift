@@ -13,9 +13,9 @@ struct NewsSettings {
     let categories: [NewsAPICategory]?
     let sources: [NewsSource]?
     
-    init(country: NewsAPICountry) {
+    init(country: NewsAPICountry, categories: [NewsAPICategory]?, sources: [NewsSource]?) {
         self.country    = country
-        self.categories = nil
-        self.sources    = nil
+        self.categories = categories
+        self.sources    = sources
     }
 }

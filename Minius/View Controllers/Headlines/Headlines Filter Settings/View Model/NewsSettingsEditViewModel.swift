@@ -40,10 +40,21 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
     
     private var filter: SettingsFilter!
     
+    //Use Cases
+    private var _getCountriesUseCase: GetNewsCountriesUseCase!
+    private var _getCategoriesUseCase: GetNewsCategoriesUseCase!
+    private var _getSourcesUseCase: GetNewsSourcesUseCase!
+    
     var settingsList: Driver<[HeadlineFilterCellViewModel]>
     
-    init(udClient: UserDefaultsClient) {
-        _udClient = udClient   
+    init(udClient: UserDefaultsClient,
+         getCountriesUseCase: GetNewsCountriesUseCase,
+         getCategoriesUseCase: GetNewsCategoriesUseCase,
+         getSourcesUseCase: GetNewsSourcesUseCase) {
+        _udClient = udClient
+        _getCountriesUseCase = getCountriesUseCase
+        _getCategoriesUseCase = getCategoriesUseCase
+        _getSourcesUseCase = getSourcesUseCase
         settingsList = _settingsListRelay.asDriver()
     }
     
@@ -51,9 +62,11 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
         self.filter = filter
         switch filter {
         case .country:
-            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: $0.rawValue) }))
+            _getCountriesUseCase.getNewsCountries(completionHandler: createCountriesCompletionHandler())
+        case .categories:
+            _getCategoriesUseCase.getNewsCategories(completionHandler: createCategoriesCompletionHandler())
         default:
-            _settingsListRelay.accept(NewsAPICountry.toList().map({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: $0.rawValue) }))
+            _getSourcesUseCase.getNewsSources(completionHandler: createSourcesCompletionHandler())
         }
     }
     
@@ -63,6 +76,9 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
         case .country:
             guard let country = NewsAPICountry(rawValue: value) else { return }
             _udClient.setDefaultCountry(country: country)
+        case .categories:
+            let categories = NewsAPICategory.parse(with: value)
+            _udClient.setDefaultCategories(categories: categories)
         default:
             return
         }
@@ -74,6 +90,38 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
     
     func isValueSelected(with value: String) -> Bool {
         return value == _udClient.getDefaultCountry()?.countryCode()
+    }
+    
+    private func updateSettingsList(with list: [HeadlineFilterCellViewModel]?) {
+        guard let list = list else { return }
+        _settingsListRelay.accept(list)
+    }
+    
+    private func createCountriesCompletionHandler() -> GetNewsCountriesUseCaseCompletionHandler {
+        let handler: GetNewsCountriesUseCaseCompletionHandler = { [weak self] countries in
+            guard let self = self else { return }
+            self.updateSettingsList(with: countries?.compactMap({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue, value: $0.rawValue) }))
+        }
+        
+        return handler
+    }
+    
+    private func createCategoriesCompletionHandler() -> GetNewsCategoriesUseCaseCompletionHandler {
+        let handler: GetNewsCategoriesUseCaseCompletionHandler = { [weak self] categories in
+            guard let self = self else { return }
+            self.updateSettingsList(with: categories?.compactMap({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.rawValue.titleCased, value: $0.rawValue) }))
+        }
+        
+        return handler
+    }
+    
+    private func createSourcesCompletionHandler() -> GetNewsSourcesUseCaseCompletionHandler {
+        let handler: GetNewsSourcesUseCaseCompletionHandler = { [weak self] sources in
+            guard let self = self else { return }
+            self.updateSettingsList(with: sources?.compactMap({ HeadlineFilterCellViewModel(imageTitle: "DefaultImage", title: $0.name, value: $0.id) }))
+        }
+        
+        return handler
     }
     
 }

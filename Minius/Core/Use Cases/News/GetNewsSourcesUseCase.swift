@@ -1,5 +1,5 @@
 //
-//  GetTopHeadlinesUseCase.swift
+//  GetNewsSourcesUseCase.swift
 //  Minius
 //
 //  Created by Miguel Alcântara on 25/02/2019.
@@ -9,13 +9,13 @@
 import Foundation
 import RxSwift
 
-typealias GetTopHeadlinesUseCaseCompletionHandler = (_ topHeadlines: [NewsArticle]?) -> ()
+typealias GetNewsSourcesUseCaseCompletionHandler = (_ newsSources: [NewsAPISource]?) -> ()
 
-protocol GetTopHeadlinesUseCase {
-    func getTopHeadlines(completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler)
+protocol GetNewsSourcesUseCase {
+    func getNewsSources(completionHandler: @escaping GetNewsSourcesUseCaseCompletionHandler)
 }
 
-class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
+class GetNewsSourcesUseCaseImplementation: GetNewsSourcesUseCase {
     
     private let _disposeBag = DisposeBag()
     
@@ -27,24 +27,22 @@ class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
         self._udClient      = udClient
     }
     
-    func getTopHeadlines(completionHandler: @escaping ([NewsArticle]?) -> ()) {
-        _newsGateway?.getTopHeadlines(for: _udClient?.getDefaultCountry(),
-                                      categories: _udClient?.getDefaultCategories(),
-                                      sources: _udClient?.getDefaultSources(),
-                                      completionHandler: { [weak self] (observableResult) in
+    func getNewsSources(completionHandler: @escaping ([NewsAPISource]?) -> ()) {
+        _newsGateway?.getNewsSources(for: nil, country: _udClient?.getDefaultCountry(), categories: _udClient?.getDefaultCategories(), completionHandler: { [weak self] (observableResult) in
             guard let self = self else { return }
             observableResult.subscribe(onSuccess: { result in
                 switch result {
                 case .success(let response):
-                    completionHandler(response.articles)
+                    completionHandler(response.sources)
                 case .failure(_):
                     completionHandler(nil)
                 }
             }, onError: { error in
                 completionHandler(nil)
             })
-            .disposed(by: self._disposeBag)
+                .disposed(by: self._disposeBag)
         })
+        
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  GetTopHeadlinesRequest.swift
+//  GetNewsSourcesRequest.swift
 //  Minius
 //
 //  Created by Miguel Alcântara on 20/02/2019.
@@ -9,23 +9,22 @@
 import Foundation
 import Alamofire
 
-class GetTopHeadlinesRequest : NewsAPIRequestProtocol {
+class GetNewsSourcesRequest : NewsAPIRequestProtocol {
     
     var url: URL
     var body: HTTPBodyType?
     var method: HTTPMethod
     
-    init(country: NewsAPICountry? = .Portugal, category: [NewsAPICategory]? = nil, source: [NewsSource]? = nil, query: String? = nil) throws {
+    init(language: String? = nil, country: NewsAPICountry? = .Portugal, category: [NewsAPICategory]? = nil) throws {
         body = nil
         method = .get
         
-        var buildURL = URLComponents(string: NewsAPI.sharedInstance.getURLString(for: .topHeadlines))
+        var buildURL = URLComponents(string: NewsAPI.sharedInstance.getURLString(for: .sources))
         var queryItems = [URLQueryItem]()
             
         if let country = country { queryItems.append(URLQueryItem(name: "country", value: country.countryCode())) }
         if let category = category?.first, category != .None { queryItems.append(URLQueryItem(name: "category", value: category.rawValue)) }
-        if let source = source?.first { queryItems.append(URLQueryItem(name: "sources", value: source.name)) }
-        if let query = query { queryItems.append(URLQueryItem(name: "q", value: query)) }
+        if let language = language { queryItems.append(URLQueryItem(name: "language", value: language)) }
         
         if !queryItems.isEmpty { buildURL?.queryItems = queryItems }
         

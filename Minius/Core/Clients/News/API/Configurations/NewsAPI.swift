@@ -10,6 +10,7 @@ import Foundation
 
 enum NewsAPIEndpoint {
     case topHeadlines
+    case sources
 }
 
 protocol NewsAPIConfiguration {
@@ -23,6 +24,7 @@ class NewsAPI: NewsAPIConfiguration {
     private let _apiKey: [UInt8] = [34, 69, 21, 38, 81, 13, 86, 81, 2, 23, 3, 118, 103, 44, 0, 83, 7, 82, 65, 47, 4, 78, 17, 115, 100, 43, 119, 66, 20, 34, 0, 84]
     private let _host = "https://newsapi.org/v2"
     private let _topHeadlinesEndpoint = "/top-headlines"
+    private let _newsSourcesEndpoint = "/sources"
     
     static let sharedInstance = NewsAPI()
     
@@ -37,10 +39,12 @@ class NewsAPI: NewsAPIConfiguration {
     }
     
     func getURLString(for endpoint: NewsAPIEndpoint) -> String {
-        var host = ""
+        var host = "\(_host)"
         switch endpoint {
         case .topHeadlines:
-            host = "\(_host)\(_topHeadlinesEndpoint)"
+            host += "\(_topHeadlinesEndpoint)"
+        case .sources:
+            host += "\(_newsSourcesEndpoint)"
         }
         return host
     }

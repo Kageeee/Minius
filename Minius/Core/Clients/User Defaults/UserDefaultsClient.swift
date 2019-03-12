@@ -36,7 +36,7 @@ class UserDefaultsClientImplementation: UserDefaultsClient {
     }
     
     func setDefaultCategories(categories: [NewsAPICategory]) {
-        setObject(value: categories, defaultsKey: .categories)
+        setObject(value: categories.toString(), defaultsKey: .categories)
     }
     
     func setDefaultSources(sources: [NewsSource]) {
@@ -49,7 +49,8 @@ class UserDefaultsClientImplementation: UserDefaultsClient {
     }
     
     func getDefaultCategories() -> [NewsAPICategory]? {
-        return getObject(for: .categories) as? [NewsAPICategory]
+        let value = getObject(for: .categories) as? String ?? ""
+        return NewsAPICategory.parse(with: value)
     }
     
     func getDefaultSources() -> [NewsSource]? {

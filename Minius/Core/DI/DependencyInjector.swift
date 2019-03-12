@@ -28,6 +28,9 @@ extension SwinjectStoryboard {
         //News
         defaultContainer.autoregister(NewsGateway.self, initializer: APINewsGatewayImplementation.init).inObjectScope(.container)
         defaultContainer.autoregister(GetTopHeadlinesUseCase.self, initializer: GetTopHeadlinesUseCaseImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(GetNewsSourcesUseCase.self, initializer: GetNewsSourcesUseCaseImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(GetNewsCategoriesUseCase.self, initializer: GetNewsCategoriesUseCaseImplementation.init).inObjectScope(.container)
+        defaultContainer.autoregister(GetNewsCountriesUseCase.self, initializer: GetNewsCountriesUseCaseImplementation.init).inObjectScope(.container)
         
         //Images
         defaultContainer.autoregister(CacheClient.self, initializer: CacheClientImplementation.init).inObjectScope(.container)

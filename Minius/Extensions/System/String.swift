@@ -14,4 +14,8 @@ extension String {
         return NSString(string: self)
     }
     
+    var titleCased: String {
+        return self.capitalized
+    }
+    
 }

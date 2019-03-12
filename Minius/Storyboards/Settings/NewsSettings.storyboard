@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Headlines Filter View Controller-->
+        <scene sceneID="0Sf-nh-9Pm">
+            <objects>
+                <viewController storyboardIdentifier="HeadlinesFilterViewController" modalPresentationStyle="overFullScreen" id="QN6-DO-E03" customClass="HeadlinesFilterViewController" customModule="Minius" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GJK-M7-duJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BBx-FZ-zLX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="L5G-Of-Al9">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hOT-pZ-ea8">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-eT-xg8" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
+                                <rect key="frame" x="275" y="542" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="tuc-Mm-phm"/>
+                                    <constraint firstAttribute="width" secondItem="JFr-eT-xg8" secondAttribute="height" multiplier="1:1" id="yul-bH-yoN"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="DefaultImage"/>
+                                <connections>
+                                    <action selector="dismissView:" destination="QN6-DO-E03" eventType="touchUpInside" id="V9p-Nh-qfw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="BBx-FZ-zLX" firstAttribute="top" secondItem="GJK-M7-duJ" secondAttribute="top" id="3IL-AK-q1i"/>
+                            <constraint firstItem="BBx-FZ-zLX" firstAttribute="leading" secondItem="P0U-yc-5ps" secondAttribute="leading" id="HMH-6Z-SgZ"/>
+                            <constraint firstItem="P0U-yc-5ps" firstAttribute="trailing" secondItem="JFr-eT-xg8" secondAttribute="trailing" constant="50" id="N0E-Rp-spF"/>
+                            <constraint firstItem="P0U-yc-5ps" firstAttribute="bottom" secondItem="JFr-eT-xg8" secondAttribute="bottom" constant="75" id="fTJ-lP-CAu"/>
+                            <constraint firstItem="BBx-FZ-zLX" firstAttribute="bottom" secondItem="P0U-yc-5ps" secondAttribute="bottom" id="lYO-rA-y3D"/>
+                            <constraint firstItem="BBx-FZ-zLX" firstAttribute="trailing" secondItem="P0U-yc-5ps" secondAttribute="trailing" id="mgB-IU-8mj"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="P0U-yc-5ps"/>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="JFr-eT-xg8"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="settingsButton" destination="JFr-eT-xg8" id="IxU-Ws-Gdl"/>
+                        <outlet property="settingsCollectionView" destination="BBx-FZ-zLX" id="x2a-ZD-ILX"/>
+                        <segue destination="X08-Ch-jWN" kind="show" identifier="settingsEdit" id="rii-oa-XZ7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Of-GM-ySk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958" y="761"/>
+        </scene>
+        <!--News Settings Edit View Controller-->
+        <scene sceneID="u83-UR-jg1">
+            <objects>
+                <viewController id="X08-Ch-jWN" customClass="NewsSettingsEditViewController" customModule="Minius" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="e3C-iQ-Plc">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WXC-4f-zOT">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="12e-C3-91L" firstAttribute="trailing" secondItem="WXC-4f-zOT" secondAttribute="trailing" id="6o1-vj-sao"/>
+                            <constraint firstItem="12e-C3-91L" firstAttribute="bottom" secondItem="WXC-4f-zOT" secondAttribute="bottom" id="H7Q-h5-3Lo"/>
+                            <constraint firstItem="WXC-4f-zOT" firstAttribute="leading" secondItem="12e-C3-91L" secondAttribute="leading" id="LwT-2I-Xd0"/>
+                            <constraint firstItem="WXC-4f-zOT" firstAttribute="top" secondItem="12e-C3-91L" secondAttribute="top" id="Xul-Uy-6FO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="12e-C3-91L"/>
+                    </view>
+                    <connections>
+                        <outlet property="settingsEditTableView" destination="WXC-4f-zOT" id="6HK-Ok-UGg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aJ-8A-L9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2001" y="761"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="DefaultImage" width="1024" height="1024"/>
+    </resources>
+</document>

@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-typealias FetchImageUseCaseCompletionHandler = (_ downloadedImage: UIImage?) -> ()
+typealias FetchImageUseCaseCompletionHandler = (_ downloadedImage: UIImage?, _ fromCache: Bool) -> ()
 
 protocol FetchImageUseCase {
     func fetchImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler)
@@ -28,15 +28,15 @@ class FetchImageUseCaseImplementation: FetchImageUseCase {
     
     func fetchImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler) {
         
-        fetchCachedImage(for: urlString) { [weak self] (image) in
+        fetchCachedImage(for: urlString) { [weak self] (image,_)  in
             guard let self = self else { return }
             if let image = image {
-                completionHandler(image)
+                completionHandler(image,true)
                 return
             }
-            self.fetchNetworkImage(for: urlString, completionHandler: { (image) in
+            self.fetchNetworkImage(for: urlString, completionHandler: { (image,_) in
                 self.localImagesGateway?.addImageToCache(image: image, key: urlString)
-                completionHandler(image)
+                completionHandler(image, false)
             })
         }
         
@@ -48,28 +48,29 @@ class FetchImageUseCaseImplementation: FetchImageUseCase {
             observableResult.subscribe(onSuccess: { (result) in
                 switch result {
                 case .success(let image):
-                    completionHandler(image)
+                    completionHandler(image, true)
                 case .failure(_):
-                    completionHandler(nil)
+                    completionHandler(nil, false)
                 }
             }, onError: { _ in
-                completionHandler(nil)
+                completionHandler(nil,false)
             }).disposed(by: self.disposeBag)
         })
     }
     
     private func fetchNetworkImage(for urlString: String, completionHandler: @escaping FetchImageUseCaseCompletionHandler) {
+        let fromCache = false
         apiImagesGateway?.fetchImage(for: urlString, completionHandler: { [weak self] (observableResult) in
             guard let self = self else { return }
             observableResult.subscribe(onSuccess: { (result) in
                 switch result {
                 case .success(let image):
-                    completionHandler(image)
+                    completionHandler(image, fromCache)
                 case .failure(_):
-                    completionHandler(nil)
+                    completionHandler(nil, fromCache)
                 }
             }, onError: { _ in
-                completionHandler(nil)
+                completionHandler(nil, fromCache)
             }).disposed(by: self.disposeBag)
         })
     }

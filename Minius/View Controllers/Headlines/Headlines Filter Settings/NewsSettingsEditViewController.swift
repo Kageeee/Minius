@@ -21,15 +21,11 @@ class NewsSettingsEditViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupTableView()
         setupViewModel()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
+
     private func setupTableView() {
         settingsEditTableView.hero.modifiers = [.cascade(delta: 0.1)]
         settingsEditTableView.register(UINib(nibName: HeadlinesSettingsTableViewCell.className, bundle: nil), forCellReuseIdentifier: HeadlinesSettingsTableViewCell.className)
@@ -41,14 +37,13 @@ class NewsSettingsEditViewController: BaseViewController {
         viewModel.output
             .settingsList
             .drive(settingsEditTableView.rx.items(cellIdentifier: HeadlinesSettingsTableViewCell.className, cellType: HeadlinesSettingsTableViewCell.self)) { (index, cellViewModel, cell) in
-                cell.hero.modifiers = [.fade, .translate(y: cell.bounds.height)]
+                cell.hero.modifiers = [.fade, .translate(y: self.view.bounds.height)]
                 cell.configure(for: cellViewModel)
             }.disposed(by: _disposeBag)
         
         Observable.zip(settingsEditTableView.rx.modelSelected(HeadlineFilterCellViewModel.self), settingsEditTableView.rx.itemSelected)
             .subscribe(onNext: { [unowned self] (cellViewModel, indexPath) in
                 self.viewModel.input.tappedCell(with: cellViewModel.value)
-//                guard let cell = self.settingsEditTableView.cellForRow(at: indexPath) as? HeadlinesSettingsTableViewCell else { return }
                 self.hero.dismissViewController()
             })
             .disposed(by: _disposeBag)

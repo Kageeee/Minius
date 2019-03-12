@@ -75,7 +75,7 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
     
     private func setupRelays() {
         _articleListRelay.subscribe(onNext: { [unowned self] (articleList) in
-            self._topHeadlinesRelay.accept(articleList.map { TopHeadlineCellViewModel(imageURL: $0.urlToImage, title: $0.title, url: $0.url) })
+            self._topHeadlinesRelay.accept(articleList.map { TopHeadlineCellViewModel(imageURL: $0.urlToImage, sourceName: $0.source.name, title: $0.title, url: $0.url) })
         }).disposed(by: _disposeBag)
         
         _showDetailRelay
