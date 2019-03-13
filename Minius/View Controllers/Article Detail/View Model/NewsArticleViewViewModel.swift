@@ -13,6 +13,7 @@ import RxCocoa
 
 
 protocol NewsArticleViewModelInput: ViewModelInput {
+    func finishedLoading()
     func loadArticle(for article: NewsArticle)
 }
 
@@ -73,6 +74,10 @@ class NewsArticleViewViewModel: BaseViewModel, NewsArticleViewModelType, NewsArt
             guard let self = self else { return }
             self._imageDownloadRelay.accept(image)
         })
+    }
+    
+    func finishedLoading() {
+        setLoading(with: false)
     }
     
     func loadArticle(for article: NewsArticle) {

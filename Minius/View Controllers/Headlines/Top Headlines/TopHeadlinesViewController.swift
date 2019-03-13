@@ -41,6 +41,11 @@ class TopHeadlinesViewController: BaseViewController {
         setupTableView()
         setupViewModel()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        manageScrollTab()
+    }
 
     private func setupTableView() {
         headlinesTableView.delegate = self
@@ -98,13 +103,22 @@ class TopHeadlinesViewController: BaseViewController {
         guard let destination = segue.destination as? NewsArticleViewController, let selectedArticle = viewModel.getSelectedArticle() else { return }
         destination.viewModel.loadArticle(for: selectedArticle)
     }
+    
+    fileprivate func manageScrollTab() {
+        let scrollingPastNavBar = headlinesTableView.contentOffset.y > navigationController?.navigationBar.bounds.size.height ?? 0
+        self.navigationController?.setNavigationBarHidden(scrollingPastNavBar, animated: true)
+    }
 
 }
 
 extension TopHeadlinesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return headlinesTableView.bounds.height / 3
+        return headlinesTableView.bounds.height / 2
     }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        manageScrollTab()
+    }
+    
 }

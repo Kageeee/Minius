@@ -20,25 +20,16 @@ class BaseNavigationController: UINavigationController {
         
         hero.isEnabled = true
         hero.navigationAnimationType = .autoReverse(presenting: .fade)
-//        hero.navigationAnimationType = .selectBy(presenting: .slide(direction: .left), dismissing: .pageOut(direction: .right))
+        setupNavigationBar()
+    }
+    
+    private func setupNavigationBar() {
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.shadowImage = UIImage()
         navigationBar.backgroundColor = .clear
-        navigationBar.prefersLargeTitles = true
-        
-        interactivePopGestureRecognizer?.delegate = nil
+        navigationBar.prefersLargeTitles = false
     }
     
-}
-
-extension BaseNavigationController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
     
 }

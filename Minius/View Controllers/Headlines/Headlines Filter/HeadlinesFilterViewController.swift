@@ -29,13 +29,14 @@ class HeadlinesFilterViewController: BaseViewController {
         super.viewDidLoad()
         setupCollectionView()
         setupViewModel()
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     private func setupViewModel() {
         viewModel.output
             .settingsList
             .drive(settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
-                cell.hero.modifiers = [.fade, .translate(y: self.view.bounds.height)]
+                cell.hero.modifiers = [.translate(y: self.view.bounds.height)]
                 cell.configure(for: cellViewModel)
             }
             .disposed(by: _disposeBag)

@@ -19,6 +19,7 @@
 		3608EC0B22257C5800866DED /* CacheClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC0A22257C5800866DED /* CacheClient.swift */; };
 		3608EC0E22257D3100866DED /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC0D22257D3100866DED /* String.swift */; };
 		3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */; };
+		360A31E9223916AB0056ADC3 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360A31E8223916AB0056ADC3 /* UIApplication.swift */; };
 		360B5D77222417BA00C76300 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360B5D76222417BA00C76300 /* DependencyInjector.swift */; };
 		360C55862237D21200602CA6 /* GetNewsSourcesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360C55852237D21200602CA6 /* GetNewsSourcesRequest.swift */; };
 		360C55882237E4CF00602CA6 /* GetNewsSourcesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 360C55872237E4CF00602CA6 /* GetNewsSourcesUseCase.swift */; };
@@ -87,6 +88,7 @@
 		3608EC0A22257C5800866DED /* CacheClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheClient.swift; sourceTree = "<group>"; };
 		3608EC0D22257D3100866DED /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		3608EC102225B19000866DED /* TopHeadlinesViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadlinesViewViewModel.swift; sourceTree = "<group>"; };
+		360A31E8223916AB0056ADC3 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		360B5D76222417BA00C76300 /* DependencyInjector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		360C55852237D21200602CA6 /* GetNewsSourcesRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNewsSourcesRequest.swift; sourceTree = "<group>"; };
 		360C55872237E4CF00602CA6 /* GetNewsSourcesUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetNewsSourcesUseCase.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 			isa = PBXGroup;
 			children = (
 				3608EC0D22257D3100866DED /* String.swift */,
+				360A31E8223916AB0056ADC3 /* UIApplication.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -343,9 +346,9 @@
 		366EF97E22243B7D00CE345E /* Headlines */ = {
 			isa = PBXGroup;
 			children = (
+				36568C52222700F900E81E1D /* Headlines Filter */,
 				3614AE5D22293A9C00A2C82D /* Headlines Filter Settings */,
 				36568C532227012000E81E1D /* Top Headlines */,
-				36568C52222700F900E81E1D /* Headlines Filter */,
 			);
 			path = Headlines;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				3605134C222820E900D647B2 /* HeadlinesSettingsCollectionViewCell.swift in Sources */,
 				366EF99F2224450900CE345E /* NewsAPIResponse.swift in Sources */,
 				366EF9932224448000CE345E /* FetchImageUseCase.swift in Sources */,
+				360A31E9223916AB0056ADC3 /* UIApplication.swift in Sources */,
 				360C55902237EB6C00602CA6 /* GetNewsCountriesUseCase.swift in Sources */,
 				360C55882237E4CF00602CA6 /* GetNewsSourcesUseCase.swift in Sources */,
 				366EF98E2224403900CE345E /* TopHeadlineCellViewModel.swift in Sources */,

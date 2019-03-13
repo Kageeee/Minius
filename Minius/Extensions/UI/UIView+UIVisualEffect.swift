@@ -21,7 +21,7 @@ extension UIView {
     
     open func createGradientLayer(with bounds: CGRect? = nil,
                                   type: CAGradientLayerType = .axial,
-                                  colors: [Any] = [UIColor.clear.cgColor, UIColor.red.cgColor],
+                                  colors: [Any] = [UIColor.clear.cgColor, UIColor.white.cgColor],
                                   startPoint: CGPoint = .zero,
                                   endPoint: CGPoint = CGPoint(x: 0, y: 0.5),
                                   locationStart: NSNumber = 0,

@@ -14,6 +14,7 @@ import WebKit
 
 class NewsArticleViewController: BaseViewController {
 
+    @IBOutlet weak var webViewLoadProgressBar: UIProgressView!
     @IBOutlet weak var loadingContentView: UIView!
     @IBOutlet weak var backButton: MiniusButton! {
         didSet {
@@ -36,16 +37,13 @@ class NewsArticleViewController: BaseViewController {
     @IBOutlet weak var _articleImageView: UIImageView! {
         didSet {
             _articleImageView.hero.id = "ivArticleTitle"
+            _articleImageView.contentMode = .scaleAspectFill
         }
     }
-    @IBOutlet weak var _articleTitleLabel: UILabel! {
-        didSet {
-            _articleTitleLabel.hero.id = "lblTitle"
-        }
-    }
-    @IBOutlet weak var _loadingLabel: UILabel!
+    
     @IBOutlet weak var _loadingActivityIndicator: UIActivityIndicatorView! {
         didSet {
+            _loadingActivityIndicator.hidesWhenStopped = true
             _loadingActivityIndicator.style = .whiteLarge
         }
     }
@@ -55,12 +53,21 @@ class NewsArticleViewController: BaseViewController {
     var viewModel: NewsArticleViewViewModel!
     var article: NewsArticle!
     
+    deinit {
+        webView.removeObserver(self, forKeyPath: "estimatedProgress")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewModel()
-        
-        
-        
+        webViewLoadProgressBar.layer.mask = webViewLoadProgressBar.createGradientLayer(with: webViewLoadProgressBar.bounds, endPoint: CGPoint(x: 1, y: 0))
+        webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard keyPath == "estimatedProgress" else { return }
+        let currentProgress = Float(webView?.estimatedProgress ?? 0)
+        webViewLoadProgressBar.setProgress(currentProgress, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,10 +83,6 @@ class NewsArticleViewController: BaseViewController {
             .drive(_articleImageView.rx.image)
             .disposed(by: disposeBag)
 
-        viewModel.output.populateTitle
-            .drive(_articleTitleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
         viewModel.output.loadingState
             .drive(_loadingActivityIndicator.rx.isAnimating)
             .disposed(by: disposeBag)
@@ -93,26 +96,17 @@ class NewsArticleViewController: BaseViewController {
     private func showSafariVC(with URL: URL) {
         webView.load(URLRequest(url: URL))
     }
- 
+    
 }
 
 extension NewsArticleViewController: WKNavigationDelegate {
     
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print()
-    }
-    
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        viewModel.finishedLoading()
         UIView.animate(withDuration: 0.5) {
             webView.alpha = 1
             self.loadingContentView.alpha = 0
         }
-        
-        print()
     }
     
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print()
-    }
 }

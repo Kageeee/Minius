@@ -41,11 +41,6 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .clear
         hero.isEnabled = true
         
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.backgroundColor = .clear
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
         setupGestureRecognizer()
         setupBackgroundWithGradient()
 //        setupBackgroundWithoutGradient()
