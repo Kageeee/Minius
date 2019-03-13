@@ -14,9 +14,10 @@ extension UIView {
     open func createBackgroundGradient(alphaLevel: CGFloat = 1) -> CAGradientLayer {
         return createGradientLayer(with: bounds,
                                    type: .axial,
-                                   colors: UIColor.MiniusColor.getGradientSet(with: alphaLevel)[1],
+                                   colors: UIColor.MiniusColor.getGradientColors(with: alphaLevel),
                                    startPoint: .zero,
-                                   endPoint: CGPoint(x: 0.72, y: 0.72))
+                                   endPoint: CGPoint(x: 1, y: 1),
+                                   locations: [0.03, 0.23, 0.45, 0.65, 0.87])
     }
     
     open func createGradientLayer(with bounds: CGRect? = nil,
@@ -24,11 +25,11 @@ extension UIView {
                                   colors: [Any] = [UIColor.clear.cgColor, UIColor.white.cgColor],
                                   startPoint: CGPoint = .zero,
                                   endPoint: CGPoint = CGPoint(x: 0, y: 0.5),
-                                  locationStart: NSNumber = 0,
-                                  locationEnd: NSNumber = 1) -> CAGradientLayer {
+                                  locations: [NSNumber]? = nil) -> CAGradientLayer {
         let gradient = CAGradientLayer()
         gradient.type = type
         gradient.colors = colors
+        gradient.locations = locations
         if bounds != nil { gradient.frame = bounds! }
         gradient.startPoint = startPoint
         gradient.endPoint = endPoint

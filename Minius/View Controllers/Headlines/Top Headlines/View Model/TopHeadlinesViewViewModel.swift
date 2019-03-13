@@ -83,7 +83,7 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
             .disposed(by: _disposeBag)
         
         _tappedURLRelay
-            .map { url in self._articleListRelay.value.first(where: { $0.url == url }) }
+            .map { [unowned self] url in self._articleListRelay.value.first(where: { $0.url == url }) }
             .bind(to: _showDetailRelay)
             .disposed(by: _disposeBag)
         

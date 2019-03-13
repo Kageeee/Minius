@@ -12,7 +12,13 @@ import RxSwift
 
 class NewsHeadlineTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var _sourceName: UILabel!
+    @IBOutlet weak var _sourceName: UILabel! {
+        didSet {
+            _sourceName.textColor = .white
+            _sourceName.hero.id = "sourceName"
+            _sourceName.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
+        }
+    }
     
     // Outlets
     @IBOutlet private weak var _ivBackground: UIImageView! {
@@ -30,8 +36,11 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         didSet {
             _titleLabel.isUserInteractionEnabled = false
             _titleLabel.backgroundColor = .clear
+            _titleLabel.text = ""
+            _titleLabel.textColor = .white
             _titleLabel.hero.id = "lblTitle"
-            _titleLabel.hero.modifiers = [.fade]
+            _titleLabel.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
+            
         }
     }
     
@@ -50,12 +59,6 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         backgroundColor = .clear
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        let path = _titleLabel.convert(_ivBackground.bounds, from: _ivBackground)
-//        _titleLabel.textContainer.exclusionPaths.append(UIBezierPath(rect: path))
-        
-    }
     override func setSelected(_ selected: Bool, animated: Bool) {
 //        super.setSelected(selected, animated: animated)
     }
@@ -64,6 +67,8 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         super.prepareForReuse()
         _ivBackground.image = nil
         _titleLabel.removeBlurEffect()
+        _titleLabel.alpha = 0
+        _sourceName.alpha = 0
     }
     
     func configure(cellViewModel: TopHeadlineCellViewModel) {
@@ -78,22 +83,27 @@ class NewsHeadlineTableViewCell: UITableViewCell {
                 self.layoutIfNeeded()
                 self.addBlurEffect(for: self._ivBackground)
             }
-            guard !fromCache else {
-                self._ivBackground.image = image
-                self._sourceName.textColor = .white
-                self._titleLabel.textColor = .white
-                return
-            }
+            self.updateView(with: image, animated: !fromCache)
+        })
+        
+    }
+    
+    private func updateView(with image: UIImage?, animated: Bool) {
+        switch animated {
+        case true:
             UIView.transition(with: self._ivBackground, duration: 0.3, options: [.transitionCrossDissolve], animations: {
                 self._ivBackground.image = image
             }, completion: { isCompleted in
                 UIView.transition(with: self._titleLabel, duration: 0.3, options: [.transitionCrossDissolve], animations: {
-                    self._sourceName.textColor = .white
-                    self._titleLabel.textColor = .white
+                    self._titleLabel.alpha = 1
+                    self._sourceName.alpha = 1
                 }, completion: nil)
             })
-        })
-        
+        case false:
+            self._ivBackground.image = image
+            self._titleLabel.alpha = 1
+            self._sourceName.alpha = 1
+        }
     }
     
     private func addBlurEffect(for view: UIView) {
@@ -103,7 +113,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.addDefaultConstraints(referencing: self)
         let height: CGFloat = _titleLabel.text?.heightNeeded(withConstrainedWidth: view.bounds.width, font: _titleLabel.font) ?? 0.5
-        let gradientY = abs(1-( height / view.bounds.height ) - 0.1)
+        let gradientY = abs(1-( height / view.bounds.height ) - 0.25)
         blurEffectView.layer.mask = createGradientLayer(with: bounds, endPoint: CGPoint(x: 0, y: gradientY))
         view.layoutIfNeeded()
     }

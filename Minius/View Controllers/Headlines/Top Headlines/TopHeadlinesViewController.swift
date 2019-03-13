@@ -13,6 +13,12 @@ import Hero
 
 class TopHeadlinesViewController: BaseViewController {
     
+    @IBOutlet weak var dummyView: UIView! {
+        didSet {
+            dummyView.hero.id = "dummyView"
+            dummyView.backgroundColor = .clear
+        }
+    }
     @IBOutlet weak var headlinesTableView: UITableView! {
         didSet {
             headlinesTableView.hero.id = "headlinesTableView"
@@ -21,7 +27,7 @@ class TopHeadlinesViewController: BaseViewController {
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.hero.id = "settingsButton"
-            settingsButton.hero.modifiers = [.rotate(90)]
+            settingsButton.hero.modifiers = [.rotate(90), .arc()]
         }
     }
     
@@ -31,10 +37,9 @@ class TopHeadlinesViewController: BaseViewController {
     
     var viewModel: TopHeadlinesViewViewModel!
     
-    let disposeBag = DisposeBag()
+    let _disposeBag = DisposeBag()
     
     override func viewDidLoad() {
-//        HeroDebugPlugin.isEnabled = true
         super.viewDidLoad()
         title = "Minius"
         // Do any additional setup after loading the view, typically from a nib.
@@ -61,7 +66,7 @@ class TopHeadlinesViewController: BaseViewController {
             .subscribe(onNext: { [unowned self] model in
                 self.viewModel.input.tappedURL(with: model.url)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
     }
     
     private func setupRefreshControl() {
@@ -79,13 +84,13 @@ class TopHeadlinesViewController: BaseViewController {
         viewModel.output.articleList
             .drive(headlinesTableView.rx.items(cellIdentifier: NewsHeadlineTableViewCell.className, cellType: NewsHeadlineTableViewCell.self)) { (_, cellViewModel: TopHeadlineCellViewModel, cell) in
                 cell.configure(cellViewModel: cellViewModel)
-            }.disposed(by: disposeBag)
+            }.disposed(by: _disposeBag)
         
         viewModel.output.showDetail
-            .emit(onNext: { (article) in
+            .emit(onNext: { [unowned self] (article) in
                 self.performSegue(withIdentifier: "showDetail", sender: self)
             })
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
         
         viewModel.output.showTableView
             .drive(onNext: { [weak self] show in
@@ -96,7 +101,7 @@ class TopHeadlinesViewController: BaseViewController {
                 UIView.animate(withDuration: 0.3, animations: {
                     self.headlinesTableView.alpha = 1
                 })
-            }).disposed(by: disposeBag)
+            }).disposed(by: _disposeBag)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

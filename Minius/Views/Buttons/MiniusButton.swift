@@ -33,6 +33,11 @@ class MiniusButton: UIButton {
         setupButton()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupButton()
+    }
+    
     private func setupButton() {
         transform           = .identity
         titleLabel?.text    = ""
@@ -43,6 +48,7 @@ class MiniusButton: UIButton {
     }
     
     private func addBackgroundView() {
+        backgroundView.removeFromSuperview()
         backgroundView = UIView(frame: bounds)
         backgroundView.isUserInteractionEnabled = false
         let blurEffect = backgroundView.createBlurEffect(style: .dark, alpha: 1)
@@ -55,7 +61,9 @@ class MiniusButton: UIButton {
     }
     
     private func addImageView() {
+        buttonImageView.removeFromSuperview()
         buttonImageView = UIImageView(frame: bounds)
+        buttonImageView.contentMode = .scaleAspectFit
         buttonImageView.isUserInteractionEnabled = false
         buttonImageView.image = UIImage(named: "DefaultImage")
         addSubview(buttonImageView)

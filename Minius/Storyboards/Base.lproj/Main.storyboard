@@ -40,31 +40,37 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jA5-U2-Clg" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
-                                <rect key="frame" x="275" y="542" width="50" height="50"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Bcu-tP-Cdc"/>
-                                    <constraint firstAttribute="width" secondItem="jA5-U2-Clg" secondAttribute="height" multiplier="1:1" id="HPv-Yv-KdM"/>
-                                </constraints>
-                                <state key="normal" title="Button" image="DefaultImage"/>
-                                <connections>
-                                    <action selector="showSettingsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EGK-YR-qsi"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gE-b7-ZFT">
+                                <rect key="frame" x="0.0" y="667" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="PXj-0Z-llI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="0qE-Vc-Ps2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PXj-0Z-llI" secondAttribute="bottom" id="0wR-3T-vYv"/>
+                            <constraint firstItem="0gE-b7-ZFT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="25O-dI-cXd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXj-0Z-llI" secondAttribute="trailing" id="AmG-7K-uvi"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jA5-U2-Clg" secondAttribute="bottom" constant="75" id="ZxN-GW-kGh"/>
+                            <constraint firstItem="0gE-b7-ZFT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="F4w-tE-JMO"/>
                             <constraint firstItem="PXj-0Z-llI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cZ4-oB-J1a"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jA5-U2-Clg" secondAttribute="trailing" constant="50" id="kFB-jN-Ool"/>
+                            <constraint firstItem="0gE-b7-ZFT" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" id="nAC-24-mmA"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0gE-b7-ZFT" secondAttribute="top" id="skk-RI-YPS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="U9M-R9-7nN"/>
+                    <navigationItem key="navigationItem" id="U9M-R9-7nN">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="tXp-h0-c7i">
+                            <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jA5-U2-Clg" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
+                                <rect key="frame" x="16" y="0.0" width="44" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="showSettingsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EGK-YR-qsi"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="dummyView" destination="0gE-b7-ZFT" id="LKy-3M-wJ4"/>
                         <outlet property="headlinesTableView" destination="PXj-0Z-llI" id="RWU-qi-DSm"/>
                         <outlet property="settingsButton" destination="jA5-U2-Clg" id="5jg-9w-dEp"/>
                         <segue destination="4ra-FS-hph" kind="show" identifier="showDetail" id="wq4-6d-3D3"/>
@@ -91,14 +97,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Xux-b2-Y3s">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xux-b2-Y3s">
                                 <rect key="frame" x="0.0" y="64" width="375" height="2.5"/>
                             </progressView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XnK-Pk-fbr">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sGp-iG-Tic">
-                                        <rect key="frame" x="0.0" y="151" width="375" height="301.5"/>
+                                        <rect key="frame" x="0.0" y="167" width="375" height="333.5"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -106,8 +112,14 @@
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="width" secondItem="XnK-Pk-fbr" secondAttribute="width" id="BID-iA-wEo"/>
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="centerX" secondItem="XnK-Pk-fbr" secondAttribute="centerX" id="Pte-B3-uXt"/>
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="centerY" secondItem="XnK-Pk-fbr" secondAttribute="centerY" id="RA9-FU-06K"/>
+                                    <constraint firstItem="sGp-iG-Tic" firstAttribute="top" secondItem="XnK-Pk-fbr" secondAttribute="top" constant="-50" id="bTm-sm-aCw"/>
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="height" secondItem="XnK-Pk-fbr" secondAttribute="height" multiplier="0.5" id="tJC-Hj-Vl2"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="bTm-sm-aCw"/>
+                                    </mask>
+                                </variation>
                             </view>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DKs-Ki-nWm" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
                                 <rect key="frame" x="16" y="84" width="40" height="40"/>
@@ -120,17 +132,17 @@
                                     <action selector="buttonPressed:" destination="4ra-FS-hph" eventType="touchUpInside" id="m6l-uH-edq"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="x0F-qw-cmR">
+                                <rect key="frame" x="177.5" y="355.5" width="20" height="20"/>
+                            </activityIndicatorView>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xi4-We-eds">
-                                <rect key="frame" x="0.0" y="65.5" width="375" height="601.5"/>
+                                <rect key="frame" x="0.0" y="66.5" width="375" height="600.5"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <wkWebViewConfiguration key="configuration">
+                                <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="x0F-qw-cmR">
-                                <rect key="frame" x="177.5" y="355.5" width="20" height="20"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -143,9 +155,9 @@
                             <constraint firstAttribute="trailing" secondItem="Xux-b2-Y3s" secondAttribute="trailing" id="Zh0-le-x6M"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="bottom" secondItem="xi4-We-eds" secondAttribute="bottom" id="cy9-Cc-uYq"/>
                             <constraint firstItem="xi4-We-eds" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" id="ebE-HO-L0t"/>
-                            <constraint firstItem="xi4-We-eds" firstAttribute="top" secondItem="Xux-b2-Y3s" secondAttribute="bottom" id="lE9-he-tlE"/>
+                            <constraint firstItem="xi4-We-eds" firstAttribute="top" secondItem="Xux-b2-Y3s" secondAttribute="bottom" constant="1" id="lE9-he-tlE"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" constant="16" id="mrU-nW-IA4"/>
-                            <constraint firstItem="XnK-Pk-fbr" firstAttribute="top" secondItem="95q-va-xTy" secondAttribute="top" id="qws-yL-D7p"/>
+                            <constraint firstItem="XnK-Pk-fbr" firstAttribute="top" secondItem="pFI-gM-SC8" secondAttribute="top" id="qws-yL-D7p"/>
                             <constraint firstItem="Xux-b2-Y3s" firstAttribute="leading" secondItem="pFI-gM-SC8" secondAttribute="leading" id="rGN-on-zn7"/>
                             <constraint firstItem="95q-va-xTy" firstAttribute="trailing" secondItem="xi4-We-eds" secondAttribute="trailing" id="s20-kt-Yoe"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="top" secondItem="95q-va-xTy" secondAttribute="top" constant="20" id="vPD-AU-xkI"/>
@@ -162,7 +174,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="_articleImageView" destination="sGp-iG-Tic" id="nQ0-ca-X4U"/>
+                        <outlet property="_ivArticleCenterYConstraint" destination="RA9-FU-06K" id="WxQ-P6-Iq0"/>
+                        <outlet property="_ivArticleTopConstraint" destination="bTm-sm-aCw" id="W0h-zW-gHl"/>
                         <outlet property="_loadingActivityIndicator" destination="x0F-qw-cmR" id="XNs-Q8-kdc"/>
+                        <outlet property="_webViewTopConstraint" destination="lE9-he-tlE" id="svU-Tc-ou2"/>
                         <outlet property="backButton" destination="DKs-Ki-nWm" id="hfZ-3t-U7y"/>
                         <outlet property="loadingContentView" destination="XnK-Pk-fbr" id="hRo-bT-zYH"/>
                         <outlet property="webView" destination="xi4-We-eds" id="nhr-yq-Gl7"/>

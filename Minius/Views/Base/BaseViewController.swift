@@ -23,10 +23,9 @@ class BaseViewController: UIViewController {
     var mainView = UIView() {
         didSet {
             mainView.hero.id = "backgroundBlurView"
-            mainView.hero.modifiers = [.fade]
+            mainView.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
             mainView.backgroundColor = .clear
             mainView.alpha = 1
-            mainView.layer.zPosition = -1
         }
     }
     

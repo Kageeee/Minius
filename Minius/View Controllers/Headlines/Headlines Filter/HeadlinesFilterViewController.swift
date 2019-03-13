@@ -16,7 +16,6 @@ class HeadlinesFilterViewController: BaseViewController {
     @IBOutlet weak var settingsButton: MiniusButton! {
         didSet {
             settingsButton.hero.id = "settingsButton"
-            settingsButton.hero.modifiers = [HeroModifier.arc()]
         }
     }
     @IBOutlet weak var settingsCollectionView: UICollectionView!
@@ -29,7 +28,7 @@ class HeadlinesFilterViewController: BaseViewController {
         super.viewDidLoad()
         setupCollectionView()
         setupViewModel()
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     private func setupViewModel() {

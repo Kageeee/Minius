@@ -14,11 +14,18 @@ import WebKit
 
 class NewsArticleViewController: BaseViewController {
 
+    @IBOutlet weak var _ivArticleTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var _ivArticleCenterYConstraint: NSLayoutConstraint!
+    @IBOutlet weak var _webViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewLoadProgressBar: UIProgressView!
-    @IBOutlet weak var loadingContentView: UIView!
+    @IBOutlet weak var loadingContentView: UIView! {
+        didSet {
+            loadingContentView.hero.modifiers = [.beginWith(.opacity(0))]
+        }
+    }
     @IBOutlet weak var backButton: MiniusButton! {
         didSet {
-            backButton.hero.modifiers = [.fade]
+            backButton.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
             backButton.hero.id = "settingsButton"
         }
     }
@@ -29,6 +36,8 @@ class NewsArticleViewController: BaseViewController {
     
     @IBOutlet weak var webView: WKWebView! {
         didSet {
+            webView.hero.id = "dummyView"
+            webView.hero.modifiers = [.forceNonFade, .useGlobalCoordinateSpace]
             webView.alpha = 0
             webView.navigationDelegate = self
         }
@@ -48,7 +57,9 @@ class NewsArticleViewController: BaseViewController {
         }
     }
     
-    private let disposeBag = DisposeBag()
+    private let _disposeBag = DisposeBag()
+    private var _isWebViewLoaded = false
+    private let _label = UILabel()
     
     var viewModel: NewsArticleViewViewModel!
     var article: NewsArticle!
@@ -59,6 +70,13 @@ class NewsArticleViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _label.hero.id = "sourceName"
+        _label.hero.modifiers = [.useGlobalCoordinateSpace]
+        view.hero.modifiers = [.useScaleBasedSizeChange]
+        navigationItem.titleView = _label
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        _webViewTopConstraint.constant = view.bounds.height
         setupViewModel()
         webViewLoadProgressBar.layer.mask = webViewLoadProgressBar.createGradientLayer(with: webViewLoadProgressBar.bounds, endPoint: CGPoint(x: 1, y: 0))
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
@@ -78,18 +96,28 @@ class NewsArticleViewController: BaseViewController {
         super.viewDidAppear(animated)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        guard !_isWebViewLoaded else { _articleImageView.removeBlurEffect(); return }
+        addBlurEffect(for: _articleImageView)
+    }
+    
     private func setupViewModel() {
         viewModel.output.showImage
             .drive(_articleImageView.rx.image)
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
 
         viewModel.output.loadingState
             .drive(_loadingActivityIndicator.rx.isAnimating)
-            .disposed(by: disposeBag)
+            .disposed(by: _disposeBag)
         
-        viewModel.output.urlPresent.drive(onNext: { url in
+        viewModel.output.viewTitle
+            .drive(_label.rx.text)
+            .disposed(by: _disposeBag)
+        
+        viewModel.output.urlPresent.drive(onNext: { [unowned self] url in
             self.showSafariVC(with: url)
-        }).disposed(by: disposeBag)
+        }).disposed(by: _disposeBag)
         
     }
     
@@ -97,15 +125,32 @@ class NewsArticleViewController: BaseViewController {
         webView.load(URLRequest(url: URL))
     }
     
+    private func addBlurEffect(for view: UIView) {
+        let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: 1)
+        view.removeBlurEffect()
+        view.addSubview(blurEffectView)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.addDefaultConstraints(referencing: view)
+        blurEffectView.layer.mask = view.createGradientLayer(with: view.bounds, endPoint: CGPoint(x: 0, y: 0.5))
+        view.layoutIfNeeded()
+    }
+    
+    
+    
 }
 
 extension NewsArticleViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        _isWebViewLoaded = true
         viewModel.finishedLoading()
-        UIView.animate(withDuration: 0.5) {
+        _ivArticleTopConstraint.isActive = true
+        _ivArticleCenterYConstraint.isActive = false
+        _webViewTopConstraint.constant = 0
+        UIView.animate(withDuration: 0.5) { [unowned self] in
             webView.alpha = 1
-            self.loadingContentView.alpha = 0
+            self.view.layoutIfNeeded()
+            
         }
     }
     

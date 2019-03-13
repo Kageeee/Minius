@@ -28,8 +28,16 @@ class BaseNavigationController: UINavigationController {
         navigationBar.shadowImage = UIImage()
         navigationBar.backgroundColor = .clear
         navigationBar.prefersLargeTitles = false
+        addNavigationBarAnimation()
     }
     
-    
+    private func addNavigationBarAnimation() {
+        let transition = CATransition()
+        transition.timingFunction = CAMediaTimingFunction.easeInOut
+        transition.type = .moveIn
+        transition.duration = 0.5;
+        navigationBar.layer.add(transition, forKey: nil)
+
+    }
     
 }
