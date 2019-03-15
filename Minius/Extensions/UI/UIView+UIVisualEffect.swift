@@ -37,9 +37,11 @@ extension UIView {
         return gradient
     }
     
-    final func createBlurEffect(style: UIBlurEffect.Style, alpha: CGFloat, customBounds: CGRect? = nil, inFront: Bool? = true) -> UIVisualEffectView {
+    final func createBlurEffect(style: UIBlurEffect.Style, alpha: CGFloat, customBounds: CGRect? = nil, inFront: Bool? = true, addVibrancy: Bool = false) -> UIVisualEffectView {
+        var visualEffect: UIVisualEffect!
         let blurEffect = UIBlurEffect(style: style)
-        let blurView = UIVisualEffectView(effect: blurEffect)
+        visualEffect = addVibrancy ? UIVibrancyEffect(blurEffect: blurEffect) : blurEffect
+        let blurView = UIVisualEffectView(effect: visualEffect)
         blurView.frame = customBounds != nil ? customBounds! : self.bounds
         blurView.tag = 111
         blurView.alpha = alpha

@@ -66,6 +66,9 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     private var _progressColor: UIColor = .blue
     private var _addProgressBlur: Bool = true
     
+    //Animation parameters
+    private var _completeAnimation = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupButton()
@@ -83,6 +86,7 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     
     //Exposed functions
     func updateProgress(with value: CGFloat, animate: Bool) {
+        
         let loadingPercentage = _containerView.bounds.height * value
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
             self._overlayView.frame = CGRect(origin: CGPoint(x: 0, y: self._containerView.bounds.height - loadingPercentage), size: CGSize(width: self._containerView.bounds.width, height: loadingPercentage))
@@ -90,6 +94,7 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     }
     
     func complete() {
+        _completeAnimation = true
         UIView.animate(withDuration: 1, animations: {
             self.alpha = 0
         }, completion: nil)
@@ -113,11 +118,11 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         _progressLoadingView.widthAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 1).isActive = true
         _progressLoadingView.centerXAnchor.constraint(equalTo: _containerView.centerXAnchor).isActive = true
         _progressLoadingView.centerYAnchor.constraint(equalTo: _containerView.centerYAnchor).isActive = true
-        _progressLoadingView.isHidden = true
+        _progressLoadingView.backgroundColor = _progressViewBackgroundColor
     }
     
     private func setupBlurView() {
-        _mainBlurView = createBlurEffect(style: .dark, alpha: 1)
+        _mainBlurView = createBlurEffect(style: .dark, alpha: 1, addVibrancy: false)
         addSubview(_mainBlurView)
         _mainBlurView.backgroundColor = _progressViewBackgroundColor
         _mainBlurView.translatesAutoresizingMaskIntoConstraints = false
@@ -131,8 +136,8 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         _mainBlurView.contentView.addSubview(_containerView)
         _containerView.backgroundColor = _progressViewBackgroundColor
         _containerView.translatesAutoresizingMaskIntoConstraints = false
-        _containerView.heightAnchor.constraint(equalTo: _mainBlurView.widthAnchor, multiplier: 0.2).isActive = true
-        _containerView.widthAnchor.constraint(equalTo: _mainBlurView.widthAnchor, multiplier: 0.2).isActive = true
+        _containerView.heightAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 1).isActive = true
+        _containerView.widthAnchor.constraint(equalTo: _mainBlurView.widthAnchor, multiplier: 0.4).isActive = true
         _containerView.centerXAnchor.constraint(equalTo: _mainBlurView.centerXAnchor).isActive = true
         _containerView.centerYAnchor.constraint(equalTo: _mainBlurView.centerYAnchor).isActive = true
     }
@@ -144,23 +149,21 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         _loaderImageView.translatesAutoresizingMaskIntoConstraints = false
         _loaderImageView.contentMode = .scaleAspectFill
         _loaderImageView.heightAnchor.constraint(equalTo: _loaderImageView.widthAnchor, multiplier: 1).isActive = true
-        _loaderImageView.widthAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 0.75).isActive = true
+        _loaderImageView.widthAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 0.5).isActive = true
         _loaderImageView.centerXAnchor.constraint(equalTo: _containerView.centerXAnchor).isActive = true
         _loaderImageView.centerYAnchor.constraint(equalTo: _containerView.centerYAnchor).isActive = true
-        
         
         _containerView.bringSubviewToFront(_loaderImageView)
         
     }
     private func setupProgressLoader() {
-        
+        _progressLoadingLayer.removeFromSuperlayer()
         let loadingPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: _containerView.bounds.height), size: CGSize(width: _containerView.bounds.width, height: 0)), cornerRadius: _loadingViewLayerCornerRadius)
         
         _progressLoadingLayer.masksToBounds = true
         _progressLoadingLayer.path = loadingPath.cgPath
         _progressLoadingLayer.fillColor = _loadingViewLayerFillColor.cgColor
         
-        _progressLoadingView.backgroundColor = _progressViewBackgroundColor
         _progressLoadingView.layer.cornerRadius = _loadingViewLayerCornerRadius
         _progressOverlayView.layer.addSublayer(_progressLoadingLayer)
     }
@@ -169,7 +172,7 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         _progressOverlayView.removeFromSuperview()
         _overlayView.removeFromSuperview()
         
-        _overlayView = createBlurEffect(style: .dark, alpha: 1)
+        _overlayView = createBlurEffect(style: .dark, alpha: 1, addVibrancy: false)
         _overlayView.frame = CGRect(origin: CGPoint(x: 0, y: _containerView.bounds.height), size: CGSize(width: _containerView.bounds.width, height: 0))
         _overlayView.backgroundColor = _progressColor
         _overlayView.layer.cornerRadius = _loadingViewLayerCornerRadius
@@ -194,12 +197,14 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     }
     
     private func setupAnimations() {
+        _loaderImageView.layer.removeAllAnimations()
         let anim = CABasicAnimation(keyPath: "transform.rotation.z")
         anim.toValue = (CGFloat.pi * 2) * 3
         anim.duration = 1
         anim.isCumulative = true
-        anim.repeatCount = .greatestFiniteMagnitude
+        anim.repeatCount = 1
         anim.timingFunction = .easeInOut
+        anim.delegate = self
         
         _loaderImageView.layer.add(anim, forKey: "rotating")
     }
@@ -212,6 +217,15 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         setupOuterRect()
         setupInnerCircle()
         setupProgressLoader()
+        setupAnimations()
+    }
+    
+}
+
+extension MiniusLoader: CAAnimationDelegate {
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        guard !_completeAnimation else { return }
         setupAnimations()
     }
     
