@@ -14,15 +14,16 @@ import WebKit
 
 class NewsArticleViewController: BaseViewController {
 
+    @IBOutlet weak var loadingImageView: MiniusLoader! {
+        didSet {
+            loadingImageView.hero.id = "settingsButton"
+        }
+    }
     @IBOutlet weak var _ivArticleTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var _ivArticleCenterYConstraint: NSLayoutConstraint!
     @IBOutlet weak var _webViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var webViewLoadProgressBar: UIProgressView!
-    @IBOutlet weak var loadingContentView: UIView! {
-        didSet {
-            loadingContentView.hero.modifiers = [.beginWith(.opacity(0))]
-        }
-    }
+    @IBOutlet weak var loadingContentView: UIView!
     @IBOutlet weak var backButton: MiniusButton! {
         didSet {
             backButton.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
@@ -60,6 +61,7 @@ class NewsArticleViewController: BaseViewController {
     private let _disposeBag = DisposeBag()
     private var _isWebViewLoaded = false
     private let _label = UILabel()
+    private let _shapeLayer = CAShapeLayer()
     
     var viewModel: NewsArticleViewViewModel!
     var article: NewsArticle!
@@ -73,11 +75,10 @@ class NewsArticleViewController: BaseViewController {
         
         _label.hero.id = "sourceName"
         _label.hero.modifiers = [.useGlobalCoordinateSpace]
-        view.hero.modifiers = [.useScaleBasedSizeChange]
         navigationItem.titleView = _label
-        navigationController?.setNavigationBarHidden(false, animated: true)
         _webViewTopConstraint.constant = view.bounds.height
         setupViewModel()
+        
         webViewLoadProgressBar.layer.mask = webViewLoadProgressBar.createGradientLayer(with: webViewLoadProgressBar.bounds, endPoint: CGPoint(x: 1, y: 0))
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .new, context: nil)
     }
@@ -85,21 +86,29 @@ class NewsArticleViewController: BaseViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         guard keyPath == "estimatedProgress" else { return }
         let currentProgress = Float(webView?.estimatedProgress ?? 0)
+        _shapeLayer.strokeEnd = CGFloat(currentProgress)
+        _articleImageView.removeBlurEffect()
+        addBlurEffect(for: _articleImageView, alpha: CGFloat(1-currentProgress))
         webViewLoadProgressBar.setProgress(currentProgress, animated: true)
+        loadingImageView.updateProgress(with: CGFloat(currentProgress), animate: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        addBlurEffect(for: _articleImageView, alpha: 1)
+//        setupImageView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        addLayer()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        guard !_isWebViewLoaded else { _articleImageView.removeBlurEffect(); return }
-        addBlurEffect(for: _articleImageView)
+//        guard !_isWebViewLoaded else { _articleImageView.removeBlurEffect(); return }
+//        addBlurEffect(for: _articleImageView)
+       
     }
     
     private func setupViewModel() {
@@ -125,14 +134,35 @@ class NewsArticleViewController: BaseViewController {
         webView.load(URLRequest(url: URL))
     }
     
-    private func addBlurEffect(for view: UIView) {
-        let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: 1)
+    private func addBlurEffect(for view: UIView, alpha: CGFloat = 1) {
+        let blurEffectView = UIView().createBlurEffect(style: .dark, alpha: alpha)
         view.removeBlurEffect()
         view.addSubview(blurEffectView)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
         blurEffectView.addDefaultConstraints(referencing: view)
-        blurEffectView.layer.mask = view.createGradientLayer(with: view.bounds, endPoint: CGPoint(x: 0, y: 0.5))
+        blurEffectView.layer.mask = view.createGradientLayer(with: view.bounds, endPoint: CGPoint(x: 0, y: 1))
         view.layoutIfNeeded()
+    }
+    
+    func addLayer() {
+        _shapeLayer.removeFromSuperlayer()
+        _shapeLayer.fillColor = UIColor.clear.cgColor
+        _shapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: _articleImageView.bounds.width / 2, y: _articleImageView.bounds.height / 2), radius: _articleImageView.bounds.height / 2, startAngle: 0, endAngle: .pi*2, clockwise: true).cgPath
+        _shapeLayer.strokeColor = UIColor.red.cgColor
+        _shapeLayer.lineWidth = 5
+        _shapeLayer.strokeEnd = 0
+        _articleImageView.layer.addSublayer(_shapeLayer)
+    }
+    
+    private func setupImageView() {
+        let anim = CABasicAnimation(keyPath: "transform.rotation.z")
+        anim.toValue = CGFloat.pi * 2 * 5
+        anim.duration = 2
+        anim.isCumulative = true
+        anim.repeatCount = .greatestFiniteMagnitude
+        anim.timingFunction = .easeInOut
+        
+        loadingImageView.layer.add(anim, forKey: "rotating")
     }
     
     
@@ -147,11 +177,21 @@ extension NewsArticleViewController: WKNavigationDelegate {
         _ivArticleTopConstraint.isActive = true
         _ivArticleCenterYConstraint.isActive = false
         _webViewTopConstraint.constant = 0
+        _shapeLayer.strokeStart = 1
         UIView.animate(withDuration: 0.5) { [unowned self] in
-            webView.alpha = 1
+//            webView.alpha = 1
             self.view.layoutIfNeeded()
-            
         }
+        
+    }
+    
+}
+
+
+extension NewsArticleViewController {
+    
+    override func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        super.animationDidStop(anim, finished: flag)
     }
     
 }

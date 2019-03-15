@@ -21,8 +21,8 @@ class GetTopHeadlinesRequest : NewsAPIRequestProtocol {
         
         var buildURL = URLComponents(string: NewsAPI.sharedInstance.getURLString(for: .topHeadlines))
         var queryItems = [URLQueryItem]()
-            
-        if let country = country { queryItems.append(URLQueryItem(name: "country", value: country.countryCode())) }
+        queryItems.append(URLQueryItem(name: "country", value: country?.countryCode() ?? NewsAPICountry.Portugal.countryCode()))
+//        if let country = country { queryItems.append(URLQueryItem(name: "country", value: country.countryCode())) }
         if let category = category?.first, category != .None { queryItems.append(URLQueryItem(name: "category", value: category.rawValue)) }
         if let source = source?.first { queryItems.append(URLQueryItem(name: "sources", value: source.name)) }
         if let query = query { queryItems.append(URLQueryItem(name: "q", value: query)) }

@@ -32,6 +32,9 @@
 		360C55972237F93900602CA6 /* NewsSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360C55962237F93900602CA6 /* NewsSettings.storyboard */; };
 		3614AE6022293B6500A2C82D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE5F22293B6500A2C82D /* UIColor.swift */; };
 		3614AE622229413D00A2C82D /* NewsSettingsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */; };
+		364340FE223A625500238207 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364340FD223A625500238207 /* UIImage.swift */; };
+		36434101223AA3CB00238207 /* MiniusLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36434100223AA3CA00238207 /* MiniusLoader.swift */; };
+		36434103223AA4BB00238207 /* MiniusLoader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36434102223AA4BB00238207 /* MiniusLoader.xib */; };
 		36568C552227014100E81E1D /* HeadlinesFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36568C542227014100E81E1D /* HeadlinesFilterViewController.swift */; };
 		36568C58222706B300E81E1D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36568C57222706B300E81E1D /* BaseViewController.swift */; };
 		365E87DD222827A3009CD759 /* HeadlineFilterCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365E87DC222827A3009CD759 /* HeadlineFilterCellViewModel.swift */; };
@@ -101,6 +104,9 @@
 		360C55962237F93900602CA6 /* NewsSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsSettings.storyboard; sourceTree = "<group>"; };
 		3614AE5F22293B6500A2C82D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSettingsEditViewController.swift; sourceTree = "<group>"; };
+		364340FD223A625500238207 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Minius/Extensions/UIImage.swift; sourceTree = SOURCE_ROOT; };
+		36434100223AA3CA00238207 /* MiniusLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniusLoader.swift; sourceTree = "<group>"; };
+		36434102223AA4BB00238207 /* MiniusLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniusLoader.xib; sourceTree = "<group>"; };
 		36568C542227014100E81E1D /* HeadlinesFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlinesFilterViewController.swift; sourceTree = "<group>"; };
 		36568C57222706B300E81E1D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		365E87DC222827A3009CD759 /* HeadlineFilterCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineFilterCellViewModel.swift; sourceTree = "<group>"; };
@@ -299,6 +305,15 @@
 			path = "View Model";
 			sourceTree = "<group>";
 		};
+		364340FF223AA3B500238207 /* Image View */ = {
+			isa = PBXGroup;
+			children = (
+				36434100223AA3CA00238207 /* MiniusLoader.swift */,
+				36434102223AA4BB00238207 /* MiniusLoader.xib */,
+			);
+			path = "Image View";
+			sourceTree = "<group>";
+		};
 		36568C52222700F900E81E1D /* Headlines Filter */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +371,7 @@
 		366EF97F22243D3800CE345E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				364340FF223AA3B500238207 /* Image View */,
 				36568C56222706A500E81E1D /* Base */,
 				36051349222820B500D647B2 /* Collection View Cells */,
 				3605328D2226F13800825D5B /* Buttons */,
@@ -390,6 +406,7 @@
 				3608EC042225587E00866DED /* NSObject.swift */,
 				3614AE5F22293B6500A2C82D /* UIColor.swift */,
 				366E84202229739A000CC218 /* CAGradientLayer.swift */,
+				364340FD223A625500238207 /* UIImage.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -776,6 +793,7 @@
 			files = (
 				366EF98422243D5500CE345E /* NewsHeadlineTableViewCell.xib in Resources */,
 				36FEDDBF221DAD7500FEABBE /* LaunchScreen.storyboard in Resources */,
+				36434103223AA4BB00238207 /* MiniusLoader.xib in Resources */,
 				366E841D22295B47000CC218 /* HeadlinesSettingsTableViewCell.xib in Resources */,
 				360C55972237F93900602CA6 /* NewsSettings.storyboard in Resources */,
 				36FEDDBC221DAD7500FEABBE /* Assets.xcassets in Resources */,
@@ -869,6 +887,7 @@
 				366EF996222444DA00CE345E /* NewsGateway.swift in Sources */,
 				366E84212229739A000CC218 /* CAGradientLayer.swift in Sources */,
 				366EF999222444F700CE345E /* NewsAPICategory.swift in Sources */,
+				364340FE223A625500238207 /* UIImage.swift in Sources */,
 				360C55862237D21200602CA6 /* GetNewsSourcesRequest.swift in Sources */,
 				366EF99C2224450200CE345E /* NewsAPI.swift in Sources */,
 				360C558E2237E62400602CA6 /* NewsAPISourceResponse.swift in Sources */,
@@ -899,6 +918,7 @@
 				360C558A2237E58100602CA6 /* NewsSource.swift in Sources */,
 				360513502228222D00D647B2 /* HeadlinesFilterViewModel.swift in Sources */,
 				36568C552227014100E81E1D /* HeadlinesFilterViewController.swift in Sources */,
+				36434101223AA3CB00238207 /* MiniusLoader.swift in Sources */,
 				3677573A2228525000CB19E0 /* NewsSettings.swift in Sources */,
 				366E841B22295B32000CC218 /* HeadlinesSettingsTableViewCell.swift in Sources */,
 				366EF98322243D5500CE345E /* NewsHeadlineTableViewCell.swift in Sources */,
@@ -1054,7 +1074,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VNFY2URN36;
+				DEVELOPMENT_TEAM = NDY5Y42TXJ;
 				INFOPLIST_FILE = "$(SRCROOT)/Minius/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1073,7 +1093,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VNFY2URN36;
+				DEVELOPMENT_TEAM = NDY5Y42TXJ;
 				INFOPLIST_FILE = "$(SRCROOT)/Minius/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -82,5 +82,28 @@ extension UIView {
         addTopAnchor(to: view.topAnchor)
     }
     
+    func addTransparentLayer(targetOrigin: CGPoint,
+                             targetWidth: CGFloat,
+                             targetHeight: CGFloat,
+                             cornerRadius: CGFloat = 0,
+                             layerOpacity: Float = 1,
+                             contents: Any? = nil) -> CALayer {
+        let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height), cornerRadius: 0)
+        let transparentPath = UIBezierPath(roundedRect: CGRect(x: targetOrigin.x, y: targetOrigin.y, width: targetWidth, height: targetHeight), cornerRadius: cornerRadius)
+        path.append(transparentPath)
+        
+        
+        
+        let fillLayer = CAShapeLayer()
+        fillLayer.path = path.cgPath
+        fillLayer.fillRule = CAShapeLayerFillRule.evenOdd
+        fillLayer.backgroundColor = backgroundColor?.cgColor ?? UIColor.clear.cgColor
+        fillLayer.opacity = layerOpacity
+        
+        layer.contents = contents
+        layer.mask = fillLayer
+        
+        return fillLayer
+    }
     
 }

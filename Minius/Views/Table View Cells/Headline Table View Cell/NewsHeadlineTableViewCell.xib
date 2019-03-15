@@ -36,14 +36,14 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="qTv-eM-ZyS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7s3-7D-evO"/>
                     <constraint firstAttribute="trailing" secondItem="NnO-eB-jNr" secondAttribute="trailing" constant="16" id="BFB-ar-EAV"/>
                     <constraint firstItem="iEp-BQ-m20" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="1.5" id="CyO-kE-6Va"/>
+                    <constraint firstAttribute="bottom" secondItem="qTv-eM-ZyS" secondAttribute="bottom" id="IoE-cC-5hl"/>
                     <constraint firstAttribute="bottom" secondItem="iEp-BQ-m20" secondAttribute="bottom" constant="16" id="Jwo-yO-3W9"/>
-                    <constraint firstItem="qTv-eM-ZyS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NWp-DC-qW5"/>
                     <constraint firstAttribute="trailing" secondItem="iEp-BQ-m20" secondAttribute="trailing" constant="16" id="QeY-y3-Pg3"/>
                     <constraint firstItem="iEp-BQ-m20" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Vz4-zJ-jhf"/>
                     <constraint firstItem="NnO-eB-jNr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="X4D-EY-PpF"/>
-                    <constraint firstAttribute="bottom" secondItem="qTv-eM-ZyS" secondAttribute="bottom" id="etr-1r-a2c"/>
                     <constraint firstItem="NnO-eB-jNr" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="fgU-rC-DiD"/>
                     <constraint firstAttribute="trailing" secondItem="qTv-eM-ZyS" secondAttribute="trailing" id="hFb-3f-J6v"/>
                     <constraint firstItem="qTv-eM-ZyS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="inu-GY-GBn"/>

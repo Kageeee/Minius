@@ -104,7 +104,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sGp-iG-Tic">
-                                        <rect key="frame" x="0.0" y="167" width="375" height="333.5"/>
+                                        <rect key="frame" x="0.0" y="146" width="375" height="375"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="sGp-iG-Tic" secondAttribute="height" multiplier="1:1" id="Ct6-lc-FAO"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -113,7 +116,6 @@
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="centerX" secondItem="XnK-Pk-fbr" secondAttribute="centerX" id="Pte-B3-uXt"/>
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="centerY" secondItem="XnK-Pk-fbr" secondAttribute="centerY" id="RA9-FU-06K"/>
                                     <constraint firstItem="sGp-iG-Tic" firstAttribute="top" secondItem="XnK-Pk-fbr" secondAttribute="top" constant="-50" id="bTm-sm-aCw"/>
-                                    <constraint firstItem="sGp-iG-Tic" firstAttribute="height" secondItem="XnK-Pk-fbr" secondAttribute="height" multiplier="0.5" id="tJC-Hj-Vl2"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -143,9 +145,17 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuE-BO-9EK" customClass="MiniusLoader" customModule="Minius" customModuleProvider="target">
+                                <rect key="frame" x="94" y="240" width="187.5" height="187.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="wuE-BO-9EK" secondAttribute="height" multiplier="1:1" id="Gfm-n1-bSB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="wuE-BO-9EK" firstAttribute="width" secondItem="pFI-gM-SC8" secondAttribute="width" multiplier="0.5" id="Cg5-SS-jbB"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="leading" secondItem="xi4-We-eds" secondAttribute="leading" id="DBG-FI-7Zb"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="trailing" secondItem="xi4-We-eds" secondAttribute="trailing" id="E8J-iW-YpD"/>
                             <constraint firstItem="x0F-qw-cmR" firstAttribute="centerY" secondItem="95q-va-xTy" secondAttribute="centerY" id="LBm-k3-Qbc"/>
@@ -155,11 +165,13 @@
                             <constraint firstAttribute="trailing" secondItem="Xux-b2-Y3s" secondAttribute="trailing" id="Zh0-le-x6M"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="bottom" secondItem="xi4-We-eds" secondAttribute="bottom" id="cy9-Cc-uYq"/>
                             <constraint firstItem="xi4-We-eds" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" id="ebE-HO-L0t"/>
+                            <constraint firstItem="wuE-BO-9EK" firstAttribute="centerY" secondItem="pFI-gM-SC8" secondAttribute="centerY" id="eom-5e-9oB"/>
                             <constraint firstItem="xi4-We-eds" firstAttribute="top" secondItem="Xux-b2-Y3s" secondAttribute="bottom" constant="1" id="lE9-he-tlE"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" constant="16" id="mrU-nW-IA4"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="top" secondItem="pFI-gM-SC8" secondAttribute="top" id="qws-yL-D7p"/>
                             <constraint firstItem="Xux-b2-Y3s" firstAttribute="leading" secondItem="pFI-gM-SC8" secondAttribute="leading" id="rGN-on-zn7"/>
                             <constraint firstItem="95q-va-xTy" firstAttribute="trailing" secondItem="xi4-We-eds" secondAttribute="trailing" id="s20-kt-Yoe"/>
+                            <constraint firstItem="wuE-BO-9EK" firstAttribute="centerX" secondItem="pFI-gM-SC8" secondAttribute="centerX" id="sii-Xi-Xq3"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="top" secondItem="95q-va-xTy" secondAttribute="top" constant="20" id="vPD-AU-xkI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="95q-va-xTy"/>
@@ -180,6 +192,7 @@
                         <outlet property="_webViewTopConstraint" destination="lE9-he-tlE" id="svU-Tc-ou2"/>
                         <outlet property="backButton" destination="DKs-Ki-nWm" id="hfZ-3t-U7y"/>
                         <outlet property="loadingContentView" destination="XnK-Pk-fbr" id="hRo-bT-zYH"/>
+                        <outlet property="loadingImageView" destination="wuE-BO-9EK" id="y4J-w6-hGj"/>
                         <outlet property="webView" destination="xi4-We-eds" id="nhr-yq-Gl7"/>
                         <outlet property="webViewLoadProgressBar" destination="Xux-b2-Y3s" id="oyr-Ud-rQ0"/>
                     </connections>

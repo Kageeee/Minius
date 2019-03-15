@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MiniusLoader" customModule="Minius" customModuleProvider="target">
+            <connections>
+                <outlet property="_progressTopConstraint" destination="4oD-Gp-JpI" id="K4e-pV-4dM"/>
+                <outlet property="containerView" destination="4av-J4-dwA" id="zjP-Cc-6Kk"/>
+                <outlet property="loaderImageView" destination="nUs-BP-MRo" id="pN0-CX-k68"/>
+                <outlet property="progressLoadingView" destination="uZb-Mv-q2U" id="VvI-LX-osJ"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4av-J4-dwA">
+                    <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+                    <subviews>
+                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZb-Mv-q2U">
+                            <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nUs-BP-MRo">
+                            <rect key="frame" x="84.5" y="77" width="112" height="112"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="nUs-BP-MRo" secondAttribute="height" multiplier="1:1" id="M4t-ZO-k2K"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="uZb-Mv-q2U" secondAttribute="bottom" id="1xx-Bu-wSh"/>
+                        <constraint firstAttribute="trailing" secondItem="uZb-Mv-q2U" secondAttribute="trailing" id="41T-vf-HPl"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="top" secondItem="4av-J4-dwA" secondAttribute="top" id="4oD-Gp-JpI"/>
+                        <constraint firstItem="nUs-BP-MRo" firstAttribute="centerY" secondItem="4av-J4-dwA" secondAttribute="centerY" id="LCg-Pf-8Xu"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="leading" secondItem="4av-J4-dwA" secondAttribute="leading" id="MHv-fC-ngy"/>
+                        <constraint firstItem="nUs-BP-MRo" firstAttribute="width" secondItem="4av-J4-dwA" secondAttribute="width" multiplier="0.4" id="S4s-zE-OTm"/>
+                        <constraint firstItem="nUs-BP-MRo" firstAttribute="centerX" secondItem="4av-J4-dwA" secondAttribute="centerX" id="sOL-QD-qC0"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Lrg-oW-NT6"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4av-J4-dwA" secondAttribute="trailing" id="f3X-f5-yra"/>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hwF-YW-y4I"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="4av-J4-dwA" secondAttribute="bottom" id="obG-1C-v8T"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <point key="canvasLocation" x="-125.59999999999999" y="4.497751124437781"/>
+        </view>
+    </objects>
+</document>
