@@ -43,6 +43,9 @@ extension UIView {
         blurView.frame = customBounds != nil ? customBounds! : self.bounds
         blurView.tag = 111
         blurView.alpha = alpha
+        blurView.clipsToBounds = true
+        blurView.layer.masksToBounds = true
+        blurView.layer.cornerRadius = layer.cornerRadius
         return blurView
     }
     
@@ -52,10 +55,13 @@ extension UIView {
     }
     
     final func removeBlurEffect() {
-        subviews
+        getBlurEffect()?.removeFromSuperview()
+    }
+    
+    final func getBlurEffect() -> UIView? {
+        return subviews
             .filter({ $0.tag == 111 })
-            .first?
-            .removeFromSuperview()
+            .first
     }
     
     func addLeadingAnchor(to anchor: NSLayoutXAxisAnchor, constant: CGFloat = 0, active: Bool = true) {
@@ -82,12 +88,12 @@ extension UIView {
         addTopAnchor(to: view.topAnchor)
     }
     
-    func addTransparentLayer(targetOrigin: CGPoint,
-                             targetWidth: CGFloat,
-                             targetHeight: CGFloat,
-                             cornerRadius: CGFloat = 0,
-                             layerOpacity: Float = 1,
-                             contents: Any? = nil) -> CALayer {
+    func createTransparentLayer(targetOrigin: CGPoint,
+                                targetWidth: CGFloat,
+                                targetHeight: CGFloat,
+                                cornerRadius: CGFloat = 0,
+                                layerOpacity: Float = 1,
+                                contents: Any? = nil) -> CAShapeLayer {
         let path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height), cornerRadius: 0)
         let transparentPath = UIBezierPath(roundedRect: CGRect(x: targetOrigin.x, y: targetOrigin.y, width: targetWidth, height: targetHeight), cornerRadius: cornerRadius)
         path.append(transparentPath)
@@ -101,9 +107,17 @@ extension UIView {
         fillLayer.opacity = layerOpacity
         
         layer.contents = contents
-        layer.mask = fillLayer
-        
         return fillLayer
+    }
+    
+    func addTransparentLayer(targetOrigin: CGPoint,
+                             targetWidth: CGFloat,
+                             targetHeight: CGFloat,
+                             cornerRadius: CGFloat = 0,
+                             layerOpacity: Float = 1,
+                             contents: Any? = nil) {
+        let fillLayer = createTransparentLayer(targetOrigin: targetOrigin, targetWidth: targetWidth, targetHeight: targetHeight, cornerRadius: cornerRadius, layerOpacity: layerOpacity, contents: contents)
+        layer.mask = fillLayer
     }
     
 }

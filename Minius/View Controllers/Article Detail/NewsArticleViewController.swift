@@ -165,8 +165,6 @@ class NewsArticleViewController: BaseViewController {
         loadingImageView.layer.add(anim, forKey: "rotating")
     }
     
-    
-    
 }
 
 extension NewsArticleViewController: WKNavigationDelegate {
@@ -174,12 +172,13 @@ extension NewsArticleViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         _isWebViewLoaded = true
         viewModel.finishedLoading()
+        loadingImageView.complete()
         _ivArticleTopConstraint.isActive = true
         _ivArticleCenterYConstraint.isActive = false
         _webViewTopConstraint.constant = 0
         _shapeLayer.strokeStart = 1
         UIView.animate(withDuration: 0.5) { [unowned self] in
-//            webView.alpha = 1
+            webView.alpha = 1
             self.view.layoutIfNeeded()
         }
         

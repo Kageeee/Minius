@@ -12,26 +12,25 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MiniusLoader" customModule="Minius" customModuleProvider="target">
             <connections>
-                <outlet property="_progressTopConstraint" destination="4oD-Gp-JpI" id="K4e-pV-4dM"/>
-                <outlet property="containerView" destination="4av-J4-dwA" id="zjP-Cc-6Kk"/>
-                <outlet property="loaderImageView" destination="nUs-BP-MRo" id="pN0-CX-k68"/>
-                <outlet property="progressLoadingView" destination="uZb-Mv-q2U" id="VvI-LX-osJ"/>
+                <outlet property="_containerView" destination="4av-J4-dwA" id="Cv9-nD-nj2"/>
+                <outlet property="_loaderImageView" destination="nUs-BP-MRo" id="MXG-Ob-4E2"/>
+                <outlet property="_progressLoadingView" destination="uZb-Mv-q2U" id="8Sw-Ml-Szr"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+            <rect key="frame" x="0.0" y="0.0" width="433" height="361"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4av-J4-dwA">
-                    <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+                    <rect key="frame" x="0.0" y="0.0" width="433" height="361"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZb-Mv-q2U">
-                            <rect key="frame" x="0.0" y="0.0" width="281" height="266"/>
+                            <rect key="frame" x="0.0" y="0.0" width="433" height="361"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nUs-BP-MRo">
-                            <rect key="frame" x="84.5" y="77" width="112" height="112"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nUs-BP-MRo">
+                            <rect key="frame" x="54" y="18" width="325" height="325"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="nUs-BP-MRo" secondAttribute="height" multiplier="1:1" id="M4t-ZO-k2K"/>
                             </constraints>
@@ -39,26 +38,26 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="bottom" secondItem="uZb-Mv-q2U" secondAttribute="bottom" id="1xx-Bu-wSh"/>
-                        <constraint firstAttribute="trailing" secondItem="uZb-Mv-q2U" secondAttribute="trailing" id="41T-vf-HPl"/>
-                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="top" secondItem="4av-J4-dwA" secondAttribute="top" id="4oD-Gp-JpI"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="width" secondItem="4av-J4-dwA" secondAttribute="width" id="FWO-bh-tHG"/>
                         <constraint firstItem="nUs-BP-MRo" firstAttribute="centerY" secondItem="4av-J4-dwA" secondAttribute="centerY" id="LCg-Pf-8Xu"/>
-                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="leading" secondItem="4av-J4-dwA" secondAttribute="leading" id="MHv-fC-ngy"/>
-                        <constraint firstItem="nUs-BP-MRo" firstAttribute="width" secondItem="4av-J4-dwA" secondAttribute="width" multiplier="0.4" id="S4s-zE-OTm"/>
+                        <constraint firstItem="nUs-BP-MRo" firstAttribute="width" secondItem="4av-J4-dwA" secondAttribute="width" multiplier="0.75" id="S4s-zE-OTm"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="centerX" secondItem="4av-J4-dwA" secondAttribute="centerX" id="UkL-gP-APV"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="centerY" secondItem="4av-J4-dwA" secondAttribute="centerY" id="btD-S8-JbX"/>
+                        <constraint firstItem="uZb-Mv-q2U" firstAttribute="height" secondItem="4av-J4-dwA" secondAttribute="height" id="g6w-fJ-MXH"/>
                         <constraint firstItem="nUs-BP-MRo" firstAttribute="centerX" secondItem="4av-J4-dwA" secondAttribute="centerX" id="sOL-QD-qC0"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="4av-J4-dwA" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Lrg-oW-NT6"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="4av-J4-dwA" secondAttribute="trailing" id="f3X-f5-yra"/>
-                <constraint firstItem="4av-J4-dwA" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="hwF-YW-y4I"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="4av-J4-dwA" secondAttribute="bottom" id="obG-1C-v8T"/>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5dT-Nf-Oeq"/>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="AGe-uU-AXf"/>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="h25-b6-VhE"/>
+                <constraint firstItem="4av-J4-dwA" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="sIL-1B-H1k"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
-            <point key="canvasLocation" x="-125.59999999999999" y="4.497751124437781"/>
+            <point key="canvasLocation" x="-247.19999999999999" y="47.226386806596707"/>
         </view>
     </objects>
 </document>

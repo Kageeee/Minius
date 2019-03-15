@@ -11,18 +11,18 @@ import UIKit
 
 import Foundation
 
-protocol RDNibs {
+protocol MiniusNibs {
     var nibName: String { get }
 }
 
-extension RDNibs {
+extension MiniusNibs {
     var nibName: String { return String(describing: type(of: self)) }
 }
 
 
 protocol ViewFromXib { }
 
-extension ViewFromXib where Self: UIView, Self: RDNibs {
+extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     
     var containerView: UIView? {
         return subviews.first
@@ -47,135 +47,167 @@ extension ViewFromXib where Self: UIView, Self: RDNibs {
 }
 
 
-class MiniusLoader: UIView, RDNibs, ViewFromXib {
+@IBDesignable class MiniusLoader: UIView, MiniusNibs, ViewFromXib {
     
-    @IBOutlet weak var progressLoadingView: UIView!
-    @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var loaderImageView: UIImageView! {
-        didSet {
-            setupImage()
-        }
-    }
-    
-    @IBOutlet weak var _progressTopConstraint: NSLayoutConstraint!
-    
-    
-    private var _innerLayer: CAShapeLayer = CAShapeLayer()
-    private var _outerLayer: CAShapeLayer = CAShapeLayer()
+    //UI Components
+    private var _progressLoadingView: UIView = UIView(frame: .zero)
+    private var _containerView: UIView = UIView(frame: .zero)
+    private var _loaderImageView: UIImageView = UIImageView(frame: .zero)
+    private var _overlayView: UIView = UIView(frame: .zero)
+    private var _progressOverlayView: UIView = UIView(frame: .zero)
     private var _progressInnerLayer: CAShapeLayer = CAShapeLayer()
-    private var _progressOuterLayer: CAShapeLayer = CAShapeLayer()
     private var _progressLoadingLayer: CAShapeLayer = CAShapeLayer()
-    private var _blurView: UIVisualEffectView = UIVisualEffectView()
-    private var _overlayView: UIView = UIView()
-    private var _progressOverlayView: UIView = UIView()
+    private var _mainBlurView: UIView = UIView(frame: .zero)
+    
+    
+    //UI Parameters
+    private var _progressViewBackgroundColor: UIColor = .clear
+    private var _loadingViewLayerCornerRadius: CGFloat = 25
+    private var _loadingViewLayerFillColor: UIColor = UIColor.black.withAlphaComponent(0.5)
+    private var _progressColor: UIColor = .blue
+    private var _addProgressBlur: Bool = true
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        xibSetup()
+//        xibSetup()
         setupButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        xibSetup()
+//        xibSetup()
         setupButton()
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupButton()
+//        setupButton()
+//        _loadingViewLayerCornerRadius = _progressOverlayView.bounds.width / 6
+        updateLayers()
     }
     
+    //Exposed functions
     func updateProgress(with value: CGFloat, animate: Bool) {
-        _progressLoadingLayer.removeFromSuperlayer()
-        
-//        let loadingPercentage = bounds.height * value
-        let loadingPercentage = bounds.height * 0.4
-        
-        let emptyPath = UIBezierPath(roundedRect: CGRect(origin: .zero, size: CGSize(width: bounds.width, height: loadingPercentage)), byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: _overlayView.bounds.width / 10, height: _overlayView.bounds.width / 10))
-
-        let emptyColor = UIColor.clear
-        emptyColor.setFill()
-        emptyPath.fill()
-
-        let loadingPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: bounds.height - loadingPercentage), size: CGSize(width: bounds.width, height: loadingPercentage)), cornerRadius: _overlayView.bounds.width / 10)
-
-        let loadingColor = UIColor.red
-        loadingColor.setFill()
-        loadingPath.fill()
-
-        let progressPath = UIBezierPath()
-        progressPath.append(loadingPath)
-
-        _progressLoadingLayer = CAShapeLayer()
-        _progressLoadingLayer.path = progressPath.cgPath
-        _progressOverlayView.layer.addSublayer(_progressLoadingLayer)
-        
+        let loadingPercentage = bounds.height * value
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+            self._overlayView.frame = CGRect(origin: CGPoint(x: 0, y: self.bounds.height - loadingPercentage), size: CGSize(width: self.bounds.width, height: loadingPercentage))
+        }, completion: nil)
     }
     
-    private func setupProgressLoader() {
-        progressLoadingView.backgroundColor = .white
-        progressLoadingView.transform = CGAffineTransform.init(translationX: 0, y: bounds.height)
-        progressLoadingView.layer.cornerRadius = _overlayView.bounds.width / 10
+    func complete() {
+        UIView.animate(withDuration: 1, animations: {
+            self.alpha = 0
+        }, completion: nil)
     }
     
+    
+    //Private functions
     private func setupButton() {
-        setupOuterRect()
-        setupInnerCircle()
-        setupProgressLoader()
-        setupAnimations()
+        backgroundColor = .clear
+        setupContainerView()
+        setupLoadingView()
+        setupLoaderImageView()
+        updateLayers()
+    }
+    
+    private func setupLoadingView() {
+        _containerView.addSubview(_progressLoadingView)
+        _progressLoadingView.backgroundColor = _progressViewBackgroundColor
+        _progressLoadingView.translatesAutoresizingMaskIntoConstraints = false
+        _progressLoadingView.heightAnchor.constraint(equalTo: _containerView.heightAnchor, multiplier: 1).isActive = true
+        _progressLoadingView.widthAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 1).isActive = true
+        _progressLoadingView.centerXAnchor.constraint(equalTo: _containerView.centerXAnchor).isActive = true
+        _progressLoadingView.centerYAnchor.constraint(equalTo: _containerView.centerYAnchor).isActive = true
+    }
+    
+    private func setupContainerView() {
+        addSubview(_containerView)
+        _containerView.backgroundColor = _progressViewBackgroundColor
+        _containerView.translatesAutoresizingMaskIntoConstraints = false
+        _containerView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1).isActive = true
+        _containerView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
+        _containerView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        _containerView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    }
+    
+    private func setupLoaderImageView() {
+        setupImage()
+        _containerView.addSubview(_loaderImageView)
+        _loaderImageView.backgroundColor = _progressViewBackgroundColor
+        _loaderImageView.translatesAutoresizingMaskIntoConstraints = false
+        _loaderImageView.contentMode = .scaleAspectFill
+        
+        _loaderImageView.heightAnchor.constraint(equalTo: _loaderImageView.widthAnchor, multiplier: 1).isActive = true
+        _loaderImageView.widthAnchor.constraint(equalTo: _containerView.widthAnchor, multiplier: 0.75).isActive = true
+        _loaderImageView.centerXAnchor.constraint(equalTo: _containerView.centerXAnchor).isActive = true
+        _loaderImageView.centerYAnchor.constraint(equalTo: _containerView.centerYAnchor).isActive = true
+        
+        
+        _containerView.bringSubviewToFront(_loaderImageView)
+        
+    }
+    private func setupProgressLoader() {
+        _progressLoadingView.transform = CGAffineTransform.init(translationX: 0, y: _containerView.bounds.height)
+
+        let loadingPath = UIBezierPath(roundedRect: CGRect(origin: CGPoint(x: 0, y: _containerView.bounds.height), size: CGSize(width: _containerView.bounds.width, height: 0)), cornerRadius: _loadingViewLayerCornerRadius)
+        
+        _progressLoadingLayer.masksToBounds = false
+        _progressLoadingLayer.path = loadingPath.cgPath
+        _progressLoadingLayer.fillColor = _loadingViewLayerFillColor.cgColor
+        
+        _progressLoadingView.backgroundColor = _progressViewBackgroundColor
+        _progressLoadingView.layer.cornerRadius = _loadingViewLayerCornerRadius
+        _progressOverlayView.layer.addSublayer(_progressLoadingLayer)
     }
     
     private func setupOuterRect() {
-        _outerLayer.removeFromSuperlayer()
-        _overlayView.removeFromSuperview()
         _progressOverlayView.removeFromSuperview()
+        _overlayView.removeFromSuperview()
         
-        _outerLayer.path = UIBezierPath(roundedRect: containerView.bounds , cornerRadius: 5).cgPath
-        _progressOuterLayer.path = UIBezierPath(roundedRect: containerView.bounds , cornerRadius: 5).cgPath
-        _overlayView = UIView()
-        _overlayView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        _overlayView.frame = bounds
-        _overlayView.layer.cornerRadius = _overlayView.bounds.width / 10
+        _overlayView = createBlurEffect(style: .dark, alpha: 1)
+        _overlayView.frame = CGRect(origin: CGPoint(x: 0, y: _containerView.bounds.height), size: _containerView.bounds.size)
+        _overlayView.backgroundColor = _progressColor
+        _overlayView.layer.cornerRadius = _loadingViewLayerCornerRadius
         _overlayView.clipsToBounds = true
         
         _progressOverlayView = UIView()
-        _progressOverlayView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
-        _progressOverlayView.frame = bounds
-        _progressOverlayView.layer.cornerRadius = _progressOverlayView.bounds.width / 10
+        _progressOverlayView.backgroundColor = UIColor.clear
+        _progressOverlayView.frame = _containerView.bounds
+        _progressOverlayView.layer.cornerRadius = _loadingViewLayerCornerRadius
         _progressOverlayView.clipsToBounds = false
+        if _addProgressBlur { _progressOverlayView.addBlurEffect(style: .regular, alpha: 1) }
         
+        _progressOverlayView.addSubview(_overlayView)
+        _containerView.insertSubview(_progressOverlayView, aboveSubview: _progressLoadingView)
         
-        containerView.insertSubview(_overlayView, aboveSubview: progressLoadingView)
-        containerView.insertSubview(_progressOverlayView, aboveSubview: progressLoadingView)
     }
     
     private func setupInnerCircle() {
-        _innerLayer.removeFromSuperlayer()
-        _innerLayer = _overlayView.addTransparentLayer(targetOrigin: _overlayView.bounds.origin.applying(CGAffineTransform.init(translationX: _overlayView.bounds.width / 4, y: _overlayView.bounds.height / 4)), targetWidth: _overlayView.bounds.width / 2, targetHeight: _overlayView.bounds.width / 2, cornerRadius: _overlayView.bounds.width / 4) as! CAShapeLayer
-        
-        _progressInnerLayer.removeFromSuperlayer()
-        _progressInnerLayer = _progressOverlayView.addTransparentLayer(targetOrigin: _progressOverlayView.bounds.origin.applying(CGAffineTransform.init(translationX: _progressOverlayView.bounds.width / 4, y: _progressOverlayView.bounds.height / 4)), targetWidth: _progressOverlayView.bounds.width / 2, targetHeight: _progressOverlayView.bounds.width / 2, cornerRadius: _progressOverlayView.bounds.width / 4) as! CAShapeLayer
-        
-        
-        layoutIfNeeded()
-//        _blurView.layer.addSublayer(_innerLayer)
-        bringSubviewToFront(loaderImageView)
+        _progressInnerLayer = createTransparentLayer(targetOrigin: _progressOverlayView.bounds.origin.applying(CGAffineTransform.init(translationX: _progressOverlayView.bounds.width / 4, y: _progressOverlayView.bounds.height / 4)), targetWidth: _progressOverlayView.bounds.width / 2, targetHeight: _progressOverlayView.bounds.width / 2, cornerRadius: _progressOverlayView.bounds.width / 4)
+        _progressOverlayView.layer.mask = _progressInnerLayer
     }
     
     private func setupAnimations() {
         let anim = CABasicAnimation(keyPath: "transform.rotation.z")
-        anim.toValue = CGFloat.pi * 2 * 5
-        anim.duration = 2
+        anim.toValue = (CGFloat.pi * 2) * 3
+        anim.duration = 1
         anim.isCumulative = true
         anim.repeatCount = .greatestFiniteMagnitude
         anim.timingFunction = .easeInOut
         
-        loaderImageView.layer.add(anim, forKey: "rotating")
+        _loaderImageView.layer.add(anim, forKey: "rotating")
     }
     
     private func setupImage() {
-        loaderImageView.image = UIImage(named: "DefaultIcon")
+        _loaderImageView.image = UIImage(named: "DefaultIcon")
+    }
+    
+    private func updateLayers() {
+        setupOuterRect()
+        setupInnerCircle()
+        setupProgressLoader()
+        setupAnimations()
     }
     
 }
