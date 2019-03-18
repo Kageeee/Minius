@@ -9,22 +9,18 @@
 import Foundation
 import UIKit
 
-extension UIImageView {
-    final func roundImage(border: Bool? = false) {
-        self.layer.cornerRadius = self.frame.height/2
-        self.layer.masksToBounds = true;
-        guard border! else { return }
-        addRoundBorder()
-    }
-    
-    private func addRoundBorder(borderColor: UIColor? = UIColor.white.withAlphaComponent(0.8), borderWidth: CGFloat? = 8) {
-        let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.frame.width/2)
-        let border = CAShapeLayer()
-        border.path = path.cgPath
-        border.fillColor = UIColor.clear.cgColor
-        border.strokeColor = borderColor?.cgColor
-        border.lineWidth = borderWidth!
+extension UIImage {
+    var averageColor: UIColor? {
+        guard let inputImage = CIImage(image: self) else { return nil }
+        let extentVector = CIVector(x: inputImage.extent.origin.x, y: inputImage.extent.origin.y, z: inputImage.extent.size.width, w: inputImage.extent.size.height)
         
-        self.layer.addSublayer(border)
+        guard let filter = CIFilter(name: "CIAreaAverage", parameters: [kCIInputImageKey: inputImage, kCIInputExtentKey: extentVector]) else { return nil }
+        guard let outputImage = filter.outputImage else { return nil }
+        
+        var bitmap = [UInt8](repeating: 0, count: 4)
+        let context = CIContext(options: [.workingColorSpace: kCFNull])
+        context.render(outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1), format: .RGBA8, colorSpace: nil)
+        
+        return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
     }
 }

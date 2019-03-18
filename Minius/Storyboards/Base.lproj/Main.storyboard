@@ -44,6 +44,15 @@
                                 <rect key="frame" x="0.0" y="667" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C37-uJ-amL" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
+                                <rect key="frame" x="281.5" y="563" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="C37-uJ-amL" secondAttribute="height" multiplier="1:1" id="K7h-RV-dX8"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="showSettingsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BO6-Bb-EdS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -52,29 +61,22 @@
                             <constraint firstItem="0gE-b7-ZFT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="25O-dI-cXd"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PXj-0Z-llI" secondAttribute="trailing" id="AmG-7K-uvi"/>
                             <constraint firstItem="0gE-b7-ZFT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="F4w-tE-JMO"/>
+                            <constraint firstItem="C37-uJ-amL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" multiplier="1.7" id="Itq-OS-WcR"/>
+                            <constraint firstItem="C37-uJ-amL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.8" id="a1j-UJ-hBE"/>
                             <constraint firstItem="PXj-0Z-llI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cZ4-oB-J1a"/>
+                            <constraint firstItem="C37-uJ-amL" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.2" id="gx8-zP-Kcw"/>
                             <constraint firstItem="0gE-b7-ZFT" firstAttribute="height" secondItem="6Tk-OE-BBY" secondAttribute="height" id="nAC-24-mmA"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0gE-b7-ZFT" secondAttribute="top" id="skk-RI-YPS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="U9M-R9-7nN">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="tXp-h0-c7i">
-                            <button key="customView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jA5-U2-Clg" customClass="MiniusButton" customModule="Minius" customModuleProvider="target">
-                                <rect key="frame" x="16" y="0.0" width="44" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="showSettingsPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EGK-YR-qsi"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="U9M-R9-7nN"/>
                     <connections>
                         <outlet property="dummyView" destination="0gE-b7-ZFT" id="LKy-3M-wJ4"/>
                         <outlet property="headlinesTableView" destination="PXj-0Z-llI" id="RWU-qi-DSm"/>
-                        <outlet property="settingsButton" destination="jA5-U2-Clg" id="5jg-9w-dEp"/>
+                        <outlet property="settingsButton" destination="C37-uJ-amL" id="WKx-7t-qXG"/>
                         <segue destination="4ra-FS-hph" kind="show" identifier="showDetail" id="wq4-6d-3D3"/>
-                        <segue destination="flG-NI-VjU" kind="show" identifier="showSettings" id="xbv-wZ-PXz"/>
+                        <segue destination="flG-NI-VjU" kind="presentation" identifier="showSettings" id="xbv-wZ-PXz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -145,13 +147,9 @@
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
                             </wkWebView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuE-BO-9EK" customClass="MiniusLoader" customModule="Minius" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="wuE-BO-9EK" firstAttribute="width" secondItem="pFI-gM-SC8" secondAttribute="width" id="Cg5-SS-jbB"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="leading" secondItem="xi4-We-eds" secondAttribute="leading" id="DBG-FI-7Zb"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="trailing" secondItem="xi4-We-eds" secondAttribute="trailing" id="E8J-iW-YpD"/>
                             <constraint firstItem="x0F-qw-cmR" firstAttribute="centerY" secondItem="95q-va-xTy" secondAttribute="centerY" id="LBm-k3-Qbc"/>
@@ -161,15 +159,12 @@
                             <constraint firstAttribute="trailing" secondItem="Xux-b2-Y3s" secondAttribute="trailing" id="Zh0-le-x6M"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="bottom" secondItem="xi4-We-eds" secondAttribute="bottom" id="cy9-Cc-uYq"/>
                             <constraint firstItem="xi4-We-eds" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" id="ebE-HO-L0t"/>
-                            <constraint firstItem="wuE-BO-9EK" firstAttribute="centerY" secondItem="pFI-gM-SC8" secondAttribute="centerY" id="eom-5e-9oB"/>
                             <constraint firstItem="xi4-We-eds" firstAttribute="top" secondItem="Xux-b2-Y3s" secondAttribute="bottom" constant="1" id="lE9-he-tlE"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="leading" secondItem="95q-va-xTy" secondAttribute="leading" constant="16" id="mrU-nW-IA4"/>
                             <constraint firstItem="XnK-Pk-fbr" firstAttribute="top" secondItem="pFI-gM-SC8" secondAttribute="top" id="qws-yL-D7p"/>
                             <constraint firstItem="Xux-b2-Y3s" firstAttribute="leading" secondItem="pFI-gM-SC8" secondAttribute="leading" id="rGN-on-zn7"/>
                             <constraint firstItem="95q-va-xTy" firstAttribute="trailing" secondItem="xi4-We-eds" secondAttribute="trailing" id="s20-kt-Yoe"/>
-                            <constraint firstItem="wuE-BO-9EK" firstAttribute="centerX" secondItem="pFI-gM-SC8" secondAttribute="centerX" id="sii-Xi-Xq3"/>
                             <constraint firstItem="DKs-Ki-nWm" firstAttribute="top" secondItem="95q-va-xTy" secondAttribute="top" constant="20" id="vPD-AU-xkI"/>
-                            <constraint firstItem="wuE-BO-9EK" firstAttribute="height" secondItem="pFI-gM-SC8" secondAttribute="height" id="y6g-hh-Rwc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="95q-va-xTy"/>
                         <variation key="default">
@@ -189,9 +184,7 @@
                         <outlet property="_webViewTopConstraint" destination="lE9-he-tlE" id="svU-Tc-ou2"/>
                         <outlet property="backButton" destination="DKs-Ki-nWm" id="hfZ-3t-U7y"/>
                         <outlet property="loadingContentView" destination="XnK-Pk-fbr" id="hRo-bT-zYH"/>
-                        <outlet property="loadingImageView" destination="wuE-BO-9EK" id="y4J-w6-hGj"/>
                         <outlet property="webView" destination="xi4-We-eds" id="nhr-yq-Gl7"/>
-                        <outlet property="webViewLoadProgressBar" destination="Xux-b2-Y3s" id="oyr-Ud-rQ0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="p80-Z9-qyQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

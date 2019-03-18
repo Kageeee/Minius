@@ -12,7 +12,7 @@ import RxSwift
 typealias GetTopHeadlinesUseCaseCompletionHandler = (_ topHeadlines: [NewsArticle]?) -> ()
 
 protocol GetTopHeadlinesUseCase {
-    func getTopHeadlines(completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler)
+    func getTopHeadlines(query: String?, completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler)
 }
 
 class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
@@ -27,8 +27,9 @@ class GetTopHeadlinesUseCaseImplementation: GetTopHeadlinesUseCase {
         self._udClient      = udClient
     }
     
-    func getTopHeadlines(completionHandler: @escaping ([NewsArticle]?) -> ()) {
-        _newsGateway?.getTopHeadlines(for: _udClient?.getDefaultCountry(),
+    func getTopHeadlines(query: String?, completionHandler: @escaping GetTopHeadlinesUseCaseCompletionHandler) {
+        _newsGateway?.getTopHeadlines(for: query,
+                                      country: _udClient?.getDefaultCountry(),
                                       categories: _udClient?.getDefaultCategories(),
                                       sources: _udClient?.getDefaultSources(),
                                       completionHandler: { [weak self] (observableResult) in

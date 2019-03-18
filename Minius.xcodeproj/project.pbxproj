@@ -32,6 +32,7 @@
 		360C55972237F93900602CA6 /* NewsSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 360C55962237F93900602CA6 /* NewsSettings.storyboard */; };
 		3614AE6022293B6500A2C82D /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE5F22293B6500A2C82D /* UIColor.swift */; };
 		3614AE622229413D00A2C82D /* NewsSettingsEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */; };
+		36244F86223F9D5000A19986 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36244F85223F9D5000A19986 /* UIImageView.swift */; };
 		364340FE223A625500238207 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 364340FD223A625500238207 /* UIImage.swift */; };
 		36434101223AA3CB00238207 /* MiniusLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36434100223AA3CA00238207 /* MiniusLoader.swift */; };
 		36434103223AA4BB00238207 /* MiniusLoader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36434102223AA4BB00238207 /* MiniusLoader.xib */; };
@@ -104,6 +105,7 @@
 		360C55962237F93900602CA6 /* NewsSettings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NewsSettings.storyboard; sourceTree = "<group>"; };
 		3614AE5F22293B6500A2C82D /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		3614AE612229413D00A2C82D /* NewsSettingsEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSettingsEditViewController.swift; sourceTree = "<group>"; };
+		36244F85223F9D5000A19986 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		364340FD223A625500238207 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImage.swift; path = Minius/Extensions/UIImage.swift; sourceTree = SOURCE_ROOT; };
 		36434100223AA3CA00238207 /* MiniusLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniusLoader.swift; sourceTree = "<group>"; };
 		36434102223AA4BB00238207 /* MiniusLoader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniusLoader.xib; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				3614AE5F22293B6500A2C82D /* UIColor.swift */,
 				366E84202229739A000CC218 /* CAGradientLayer.swift */,
 				364340FD223A625500238207 /* UIImage.swift */,
+				36244F85223F9D5000A19986 /* UIImageView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -884,6 +887,7 @@
 				36FEDDB7221DAD7400FEABBE /* TopHeadlinesViewController.swift in Sources */,
 				366EF9AE2224487700CE345E /* FetchImageRequest.swift in Sources */,
 				3608EC112225B19000866DED /* TopHeadlinesViewViewModel.swift in Sources */,
+				36244F86223F9D5000A19986 /* UIImageView.swift in Sources */,
 				366EF996222444DA00CE345E /* NewsGateway.swift in Sources */,
 				366E84212229739A000CC218 /* CAGradientLayer.swift in Sources */,
 				366EF999222444F700CE345E /* NewsAPICategory.swift in Sources */,

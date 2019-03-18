@@ -45,11 +45,32 @@ class TopHeadlinesViewController: BaseViewController {
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
         setupViewModel()
+        
+//        setupSearchController()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
+    
+//    private func setupSearchController() {
+//
+//        searchViewController.obscuresBackgroundDuringPresentation = true
+//        navigationItem.searchController = searchViewController
+//        searchViewController.searchBar.sizeToFit()
+//        navigationItem.hidesSearchBarWhenScrolling = true
+//        definesPresentationContext = true
+//
+//        searchViewController.searchBar.rx.text
+//            .orEmpty
+//            .distinctUntilChanged()
+//            .throttle(2, scheduler: MainScheduler.instance)
+//            .subscribe(onNext: { (queryText) in
+//                self.viewModel.reloadNews(with: queryText)
+//            })
+//            .disposed(by: _disposeBag)
+//    }
 
     private func setupTableView() {
         headlinesTableView.delegate = self

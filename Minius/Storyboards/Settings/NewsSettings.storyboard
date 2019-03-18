@@ -58,11 +58,6 @@
                             <constraint firstItem="BBx-FZ-zLX" firstAttribute="trailing" secondItem="P0U-yc-5ps" secondAttribute="trailing" id="mgB-IU-8mj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P0U-yc-5ps"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="JFr-eT-xg8"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="settingsButton" destination="JFr-eT-xg8" id="IxU-Ws-Gdl"/>

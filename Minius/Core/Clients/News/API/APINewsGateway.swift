@@ -11,8 +11,8 @@ import RxSwift
 
 class APINewsGatewayImplementation: NewsGateway {
     
-    func getTopHeadlines(for country: NewsAPICountry?, categories: [NewsAPICategory]?, sources: [NewsSource]?, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler) {
-        guard let request = try! GetTopHeadlinesRequest(country: country, category: categories, source: sources).toURLRequest() else { return }
+    func getTopHeadlines(for query: String?, country: NewsAPICountry?, categories: [NewsAPICategory]?, sources: [NewsSource]?, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler) {
+        guard let request = try! GetTopHeadlinesRequest(country: country, category: categories, source: sources, query: query).toURLRequest() else { return }
         completionHandler(NetworkClient.shared.execute(request: request).asSingle())
     }
     func getNewsSources(for language: String?, country: NewsAPICountry?, categories: [NewsAPICategory]?, completionHandler: @escaping GetNewsSourcesGatewayCompletionHandler) {

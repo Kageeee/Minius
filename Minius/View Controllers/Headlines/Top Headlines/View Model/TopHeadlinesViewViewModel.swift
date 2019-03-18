@@ -19,7 +19,13 @@ protocol ViewModelType { }
 
 protocol TopHeadlinesViewModelInput: ViewModelInput {
     func tappedURL(with urlString: String)
-    func reloadNews()
+    func reloadNews(with query: String?)
+}
+
+extension TopHeadlinesViewModelInput {
+    func reloadNews(with query: String? = nil) {
+        return reloadNews(with: query)
+    }
 }
 
 protocol TopHeadlinesViewModelOutput: ViewModelOutput {
@@ -99,8 +105,8 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
             .disposed(by: _disposeBag)
     }
     
-    private func fetchData() {
-        createArticleListFetchObservable()
+    private func fetchData(with query: String? = nil) {
+        createArticleListFetchObservable(with: query)
             .subscribe(onNext: { [weak self] (articleList) in
                 guard let self = self else { return }
                 self._articleListRelay.accept(articleList)
@@ -109,9 +115,9 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
             .disposed(by: _disposeBag)
     }
     
-    private func createArticleListFetchObservable() -> Observable<[NewsArticle]> {
+    private func createArticleListFetchObservable(with query: String? = nil) -> Observable<[NewsArticle]> {
         return Observable<[NewsArticle]>.create { [unowned self] (observer) -> Disposable in
-            self.getTopHeadlinesUseCase.getTopHeadlines(completionHandler: { articleList in
+            self.getTopHeadlinesUseCase.getTopHeadlines(query: query, completionHandler: { articleList in
                 observer.onNext(articleList ?? [])
             })
             return Disposables.create()
@@ -122,9 +128,8 @@ class TopHeadlinesViewViewModel: BaseViewModel, TopHeadlinesViewModelType, TopHe
         _tappedURLRelay.accept(urlString)
     }
     
-    func reloadNews() {
-        fetchData()
+    func reloadNews(with query: String?) {
+        fetchData(with: query)
     }
-    
     
 }

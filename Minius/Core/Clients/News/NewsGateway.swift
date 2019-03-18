@@ -13,7 +13,7 @@ typealias GetTopHeadlinesGatewayCompletionHandler = (_ topHeadlinesResponse: Sin
 typealias GetNewsSourcesGatewayCompletionHandler = (_ newsSourcesResponse: Single<Result<NewsAPISourceResponse>>) -> Void
 
 protocol NewsGateway {
-    func getTopHeadlines(for country: NewsAPICountry?, categories: [NewsAPICategory]?, sources: [NewsSource]?, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler)
+    func getTopHeadlines(for query: String?, country: NewsAPICountry?, categories: [NewsAPICategory]?, sources: [NewsSource]?, completionHandler: @escaping GetTopHeadlinesGatewayCompletionHandler)
     func getNewsSources(for language: String?, country: NewsAPICountry?, categories: [NewsAPICategory]?, completionHandler: @escaping GetNewsSourcesGatewayCompletionHandler)
 }
 
