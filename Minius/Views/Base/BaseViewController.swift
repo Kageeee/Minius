@@ -11,7 +11,7 @@ import Hero
 
 class BaseViewController: UIViewController {
     
-    var isBackgroundTranslucent = true
+    var isBackgroundTranslucent = false
     var animateBackground = false
     var addGradient = true
     
@@ -20,10 +20,10 @@ class BaseViewController: UIViewController {
     
     var panGestureRecognizer: UIPanGestureRecognizer!
     
-    var mainView = UIView() {
+    var mainView = UIVisualEffectView(effect: UIBlurEffect(style: .dark)) {
         didSet {
             mainView.hero.id = "backgroundBlurView"
-            mainView.hero.modifiers = [.fade, .useGlobalCoordinateSpace]
+            mainView.hero.modifiers = [.useGlobalCoordinateSpace]
             mainView.backgroundColor = .clear
             mainView.alpha = 1
         }

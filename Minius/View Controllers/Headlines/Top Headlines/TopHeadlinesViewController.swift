@@ -21,13 +21,15 @@ class TopHeadlinesViewController: BaseViewController {
     }
     @IBOutlet weak var headlinesTableView: UITableView! {
         didSet {
+            headlinesTableView.backgroundColor = .clear
             headlinesTableView.hero.id = "headlinesTableView"
+            
         }
     }
     @IBOutlet weak var settingsButton: UIButton! {
         didSet {
             settingsButton.hero.id = "settingsButton"
-            settingsButton.hero.modifiers = [.rotate(90), .arc()]
+            settingsButton.hero.modifiers = [.arc()]
         }
     }
     
@@ -37,43 +39,52 @@ class TopHeadlinesViewController: BaseViewController {
     
     var viewModel: TopHeadlinesViewViewModel!
     
-    let _disposeBag = DisposeBag()
+    var fadeView = UIView()
+    private var _gradientLayer: CAGradientLayer!
+    
+    private let _disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Minius"
+        
         // Do any additional setup after loading the view, typically from a nib.
         setupTableView()
         setupViewModel()
-        
-//        setupSearchController()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        showSettingsButton(isHidden: false)
     }
     
-//    private func setupSearchController() {
-//
-//        searchViewController.obscuresBackgroundDuringPresentation = true
-//        navigationItem.searchController = searchViewController
-//        searchViewController.searchBar.sizeToFit()
-//        navigationItem.hidesSearchBarWhenScrolling = true
-//        definesPresentationContext = true
-//
-//        searchViewController.searchBar.rx.text
-//            .orEmpty
-//            .distinctUntilChanged()
-//            .throttle(2, scheduler: MainScheduler.instance)
-//            .subscribe(onNext: { (queryText) in
-//                self.viewModel.reloadNews(with: queryText)
-//            })
-//            .disposed(by: _disposeBag)
-//    }
-
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        updateGradientFrame()
+    }
+    
+    private func setupTableViewGradientFrame() {
+        _gradientLayer = CAGradientLayer()
+        _gradientLayer.locations = [0, 0.02, 0.98, 1]
+        let colors: [CGColor] = [UIColor.clear.cgColor, UIColor.black.cgColor, UIColor.black.cgColor, UIColor.clear.cgColor]
+        _gradientLayer.colors = colors
+        _gradientLayer.type = .axial
+        _gradientLayer.frame = headlinesTableView.bounds
+        headlinesTableView.layer.mask = _gradientLayer
+    }
+    
+    private func updateGradientFrame() {
+        self._gradientLayer.frame = CGRect(origin: .zero, size: self.headlinesTableView.contentSize)
+    }
+    
     private func setupTableView() {
-        headlinesTableView.delegate = self
+        setupTableViewGradientFrame()
+        
+        headlinesTableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
+        
+        headlinesTableView.rx
+            .setDelegate(self)
+            .disposed(by: _disposeBag)
         headlinesTableView.dataSource = nil
         headlinesTableView.tableFooterView = UIView()
         headlinesTableView.backgroundColor = .clear
@@ -87,11 +98,35 @@ class TopHeadlinesViewController: BaseViewController {
                 self.viewModel.input.tappedURL(with: model.url)
             })
             .disposed(by: _disposeBag)
+        
+        headlinesTableView.rx
+            .didScroll
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: {
+                let top = 64 - self.headlinesTableView.contentOffset.y
+                self.headlinesTableView.contentInset = UIEdgeInsets(top: top < 0 ? top : 0, left: 0, bottom: 0, right: 0)
+                self.updateGradientFrame()
+                self.showSettingsButton(isHidden: true)
+            })
+            .disposed(by: _disposeBag)
+        
+        headlinesTableView.rx
+            .didEndDecelerating
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: {
+                self.showSettingsButton(isHidden: false)
+            })
+            .disposed(by: _disposeBag)
     }
     
     private func setupRefreshControl() {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(reloadNews), for: .valueChanged)
+        refreshControl.rx
+            .controlEvent(.valueChanged)
+            .subscribe(onNext: {
+                self.reloadNews()
+            })
+            .disposed(by: _disposeBag)
         headlinesTableView.refreshControl = refreshControl
     }
     
@@ -129,12 +164,28 @@ class TopHeadlinesViewController: BaseViewController {
         destination.viewModel.loadArticle(for: selectedArticle)
     }
     
+    private func showSettingsButton(isHidden: Bool) {
+        switch isHidden {
+        case true:
+            UIView.animate(withDuration: 0.3, animations: {
+                self.settingsButton.alpha = 0
+            }) { (isCompleted) in
+                self.settingsButton.isHidden = true
+            }
+        case false:
+            self.settingsButton.isHidden = false
+            UIView.animate(withDuration: 0.3, animations: {
+                self.settingsButton.alpha = 1
+            })
+        }
+    }
+    
 }
 
 extension TopHeadlinesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return headlinesTableView.bounds.height / 2
+        return headlinesTableView.bounds.height / 2.5
     }
     
 }

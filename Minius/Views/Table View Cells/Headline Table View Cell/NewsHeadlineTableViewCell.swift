@@ -24,7 +24,7 @@ class NewsHeadlineTableViewCell: UITableViewCell {
     @IBOutlet private weak var _ivBackground: UIImageView! {
         didSet {
             _ivBackground.hero.id = "ivArticleTitle"
-            _ivBackground.contentMode = .scaleAspectFill
+            _ivBackground.contentMode = .center
         }
     }
     @IBOutlet private weak var _overlayView: UIView! {

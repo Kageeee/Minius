@@ -14,6 +14,12 @@ import RxSwift
 class NewsSettingsEditViewController: BaseViewController {
 
     @IBOutlet weak var settingsEditTableView: UITableView!
+    @IBOutlet weak var _backButton: MiniusButton! {
+        didSet {
+            _backButton.hero.id = "settingsButton"
+            _backButton.hero.modifiers = [.arc, .rotate(45), .useGlobalCoordinateSpace]
+        }
+    }
     
     private let _disposeBag = DisposeBag()
     
@@ -22,14 +28,23 @@ class NewsSettingsEditViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupButton()
         setupViewModel()
     }
     
+    private func setupButton() {
+        _backButton.rx
+            .tap
+            .subscribe(onNext: {
+                self.hero.dismissViewController()
+            })
+            .disposed(by: _disposeBag)
+    }
 
     private func setupTableView() {
         settingsEditTableView.hero.modifiers = [.cascade(delta: 0.1)]
         settingsEditTableView.register(UINib(nibName: HeadlinesSettingsTableViewCell.className, bundle: nil), forCellReuseIdentifier: HeadlinesSettingsTableViewCell.className)
-        settingsEditTableView.delegate = self
+        settingsEditTableView.rx.setDelegate(self).disposed(by: _disposeBag)
     
     }
     

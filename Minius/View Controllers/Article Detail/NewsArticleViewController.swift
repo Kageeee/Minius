@@ -137,7 +137,6 @@ extension NewsArticleViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         _isWebViewLoaded = true
         viewModel.finishedLoading()
-        MiniusLoader.stop()
         _ivArticleTopConstraint.isActive = true
         _ivArticleCenterYConstraint.isActive = false
         _webViewTopConstraint.constant = 0

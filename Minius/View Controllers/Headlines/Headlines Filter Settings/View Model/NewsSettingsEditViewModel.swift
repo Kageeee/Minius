@@ -19,6 +19,7 @@ protocol NewsSettingsEditViewModelInput: ViewModelInput {
 
 protocol NewsSettingsEditViewModelOutput: ViewModelOutput {
     var settingsList: Driver<[HeadlineFilterCellViewModel]> { get }
+    
 }
 
 protocol NewsSettingsEditViewModelType: ViewModelType {
@@ -36,6 +37,7 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
     private let _udClient: UserDefaultsClient
     
     private var _settingsListRelay  = BehaviorRelay<[HeadlineFilterCellViewModel]>(value: [])
+    
     private var _dismissVCRelay  = PublishRelay<Void>()
     
     private var filter: SettingsFilter!
@@ -46,6 +48,7 @@ class NewsSettingsEditViewModel: NewsSettingsEditViewModelType, NewsSettingsEdit
     private var _getSourcesUseCase: GetNewsSourcesUseCase!
     
     var settingsList: Driver<[HeadlineFilterCellViewModel]>
+    
     
     init(udClient: UserDefaultsClient,
          getCountriesUseCase: GetNewsCountriesUseCase,

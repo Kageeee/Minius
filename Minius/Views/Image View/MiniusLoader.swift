@@ -97,10 +97,11 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     //Exposed functions
     static func start(in view: UIView) {
         let loader = sharedInstance
+        loader.alpha = 0
         loader._mainView = view
         view.addSubview(sharedInstance)
-        sharedInstance.setupMainViewConstraints()
-        sharedInstance.startAnimating()
+        loader.setupMainViewConstraints()
+        loader.startAnimating()
     }
     
     static func stop() {
@@ -137,6 +138,7 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
         UIView.animate(withDuration: 0.5, animations: {
             self.alpha = 0
         }, completion: { isCompleted in
+            self._completeAnimation = false
             self.removeFromSuperview()
         })
     }
@@ -255,14 +257,14 @@ extension ViewFromXib where Self: UIView, Self: MiniusNibs {
     }
     
     private func startAnimating() {
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.8, delay: 0, options: [.curveEaseInOut], animations: {
             self.alpha = 1
         }, completion: nil)
         _loaderImageView.layer.add(_rotationAnimation, forKey: "rotating")
     }
     
     private func stopAnimating() {
-        _loaderImageView.layer.removeAllAnimations()
+//        _loaderImageView.layer.removeAllAnimations()
     }
     
     private func setupImage() {

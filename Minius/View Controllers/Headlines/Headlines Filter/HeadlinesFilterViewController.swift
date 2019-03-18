@@ -13,12 +13,13 @@ import Hero
 
 class HeadlinesFilterViewController: BaseViewController {
 
-    @IBOutlet weak var settingsButton: MiniusButton! {
+    @IBOutlet weak var _settingsButton: MiniusButton! {
         didSet {
-            settingsButton.hero.id = "settingsButton"
+            _settingsButton.hero.id = "settingsButton"
+            _settingsButton.hero.modifiers = [.arc(intensity: -1), .rotate(.pi), .useGlobalCoordinateSpace]
         }
     }
-    @IBOutlet weak var settingsCollectionView: UICollectionView!
+    @IBOutlet weak var _settingsCollectionView: UICollectionView!
     
     var viewModel: HeadlinesFilterViewViewModel!
     
@@ -34,8 +35,8 @@ class HeadlinesFilterViewController: BaseViewController {
     private func setupViewModel() {
         viewModel.output
             .settingsList
-            .drive(settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
-                cell.hero.modifiers = [.translate(y: self.view.bounds.height)]
+            .drive(_settingsCollectionView.rx.items(cellIdentifier: HeadlinesSettingsCollectionViewCell.className, cellType: HeadlinesSettingsCollectionViewCell.self)) { (index, cellViewModel, cell) in
+                cell.hero.modifiers = [.fade, .translate(y: self.view.bounds.height - self._settingsButton.center.y)]
                 cell.configure(for: cellViewModel)
             }
             .disposed(by: _disposeBag)
@@ -44,15 +45,23 @@ class HeadlinesFilterViewController: BaseViewController {
             .showDetail
             .emit(onNext: { [unowned self] _ in
                 self.performSegue(withIdentifier: "settingsEdit", sender: self)
-            }).disposed(by: _disposeBag)
+            })
+            .disposed(by: _disposeBag)
         
+        viewModel.output
+            .settingsListCount
+            .drive(onNext: { itemsCount in
+                let topInset: CGFloat = CGFloat(itemsCount) * self._settingsCollectionView.bounds.height/7
+                let rightInset: CGFloat = self._settingsCollectionView.bounds.width - self._settingsButton.center.x
+                self._settingsCollectionView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: rightInset)
+            })
+            .disposed(by: _disposeBag)
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.input.reloadData()
-        settingsButton.animateButton()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -64,12 +73,15 @@ class HeadlinesFilterViewController: BaseViewController {
     }
     
     private func setupCollectionView() {
-        settingsCollectionView.hero.modifiers = [.cascade(delta: 0.1)]
-        settingsCollectionView.backgroundColor = .clear
-        settingsCollectionView.register(UINib(nibName: HeadlinesSettingsCollectionViewCell.className, bundle: nil), forCellWithReuseIdentifier: HeadlinesSettingsCollectionViewCell.className)
-        settingsCollectionView.delegate = self
+        _settingsCollectionView.hero.modifiers = [.cascade(delta: 0.1)]
+        _settingsCollectionView.backgroundColor = .clear
+        _settingsCollectionView.register(UINib(nibName: HeadlinesSettingsCollectionViewCell.className, bundle: nil), forCellWithReuseIdentifier: HeadlinesSettingsCollectionViewCell.className)
         
-        settingsCollectionView.rx
+        _settingsCollectionView.rx
+            .setDelegate(self)
+            .disposed(by: _disposeBag)
+        
+        _settingsCollectionView.rx
             .modelSelected(HeadlineFilterCellViewModel.self).subscribe(onNext: { [unowned self] (model) in
                 self.viewModel.input.tappedFilter(with: model.title)
             })
@@ -82,7 +94,7 @@ class HeadlinesFilterViewController: BaseViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         guard let destinationVC = segue.destination as? NewsSettingsEditViewController else { return }
-         destinationVC.viewModel.input.buildList(for: viewModel.getSelectedFilter())
+        destinationVC.viewModel.input.buildList(for: viewModel.getSelectedFilter())
     }
 
 }
